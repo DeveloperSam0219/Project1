@@ -1,0 +1,35 @@
+// Global SQL settings
+// overriden by local settings when the hostname is defined there
+// (currently only the login-server reads/obeys these settings)
+sql.db_hostname: 69.197.17.98
+sql.db_port: 3306
+sql.db_username: trincli0086
+sql.db_password: B7r417N5y2D3IhXKXOpnaD80
+sql.db_database: trincli0086
+sql.codepage:
+
+
+// MySQL Character SQL server
+char_server_ip: 69.197.17.98
+char_server_port: 3306
+char_server_id: trincli0086
+char_server_pw: B7r417N5y2D3IhXKXOpnaD80
+char_server_db: trincli0086
+
+
+// MySQL Map SQL Server
+map_server_ip: 69.197.17.98
+map_server_port: 3306
+map_server_id: trincli0086
+map_server_pw: B7r417N5y2D3IhXKXOpnaD80
+map_server_db: trincli0086
+
+
+// MySQL Log SQL Database
+log_db_ip: 69.197.17.98
+log_db_port: 3306
+log_db_id: trincli0086
+log_db_pw: B7r417N5y2D3IhXKXOpnaD80
+log_db_db: trincli0086
+log_codepage:
+log_login_db: loginlog
