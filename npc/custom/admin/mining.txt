@@ -372,10 +372,10 @@ OnInit:
 // *****************
 
 function	script	Mining_DropInfo	{
-	set @Size, getarraysize(getd("$@Minerals_" + getarg(0) + "_ID"));
+	set @size, getarraysize(getd("$@Minerals_" + getarg(0) + "_ID"));
 	set .@Return$, "";
 	set .@Comma$, "";
-	for( set @i, 0; @i < @Size; set @i, @i + 1 )
+	for( set @i, 0; @i < @size; set @i, @i + 1 )
 	{
 		set .@Return$, .@Return$ + .@Comma$ + "^0000FF" + getitemname(getd("$@Minerals_" + getarg(0) + "_ID[" + @i + "]")) + "^000000";
 		set .@Comma$, ", ";
@@ -385,10 +385,10 @@ function	script	Mining_DropInfo	{
 }
 
 function	script	Mining_Common	{
-	set @Size, getarraysize($@CommonMinerals);
+	set @size, getarraysize($@CommonMinerals);
 	set .@Return$, "";
 	set .@Comma$, "";
-	for( set @i, 0; @i < @Size; set @i, @i + 1 )
+	for( set @i, 0; @i < @size; set @i, @i + 1 )
 	{
 		set .@Return$, .@Return$ + .@Comma$ + "^0000FF" + getitemname($@CommonMinerals[@i]) + "^000000";
 		set .@Comma$, ", ";
@@ -398,10 +398,10 @@ function	script	Mining_Common	{
 }
 
 function	script	Mining_Normal	{
-	set @Size, getarraysize($@NormalMinerals);
+	set @size, getarraysize($@NormalMinerals);
 	set .@Return$, "";
 	set .@Comma$, "";
-	for( set @i, 0; @i < @Size; set @i, @i + 1 )
+	for( set @i, 0; @i < @size; set @i, @i + 1 )
 	{
 		set .@Return$, .@Return$ + .@Comma$ + "^0000FF" + getitemname($@NormalMinerals[@i]) + "^000000";
 		set .@Comma$, ", ";
@@ -411,10 +411,10 @@ function	script	Mining_Normal	{
 }
 
 function	script	Mining_Special	{
-	set @Size, getarraysize($@SpecialMinerals);
+	set @size, getarraysize($@SpecialMinerals);
 	set .@Return$, "";
 	set .@Comma$, "";
-	for( set @i, 0; @i < @Size; set @i, @i + 1 )
+	for( set @i, 0; @i < @size; set @i, @i + 1 )
 	{
 		set .@Return$, .@Return$ + .@Comma$ + "^0000FF" + getitemname($@SpecialMinerals[@i]) + "^000000";
 		set .@Comma$, ", ";

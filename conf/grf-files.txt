@@ -4,9 +4,12 @@
 //-----------------------------------------
 //grf: C:\Program Files\Gravity\RO\rdata.grf
 //grf: C:\Program Files\Gravity\RO\data.grf
+data_dir: D:\CosmicRO Client\rdata.grf
+data_dir: D:\CosmicRO Client\data.grf
 
 //-----------------------------------------
 // Data Directory
 // Use the base folder, not the data\ path.
 //-----------------------------------------
 //data_dir: C:\Program Files\Gravity\RO\
+data_dir: D:\CosmicRO Client\
