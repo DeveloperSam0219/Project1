@@ -157,29 +157,6 @@ rentina20	mapflag	nomemo
 rentina21	mapflag	nomemo
 rentina22	mapflag	nomemo
 
-rentina1	mapflag	indoors
-rentina2	mapflag	indoors
-rentina3	mapflag	indoors
-rentina4	mapflag	indoors
-rentina5	mapflag	indoors
-rentina6	mapflag	indoors
-rentina7	mapflag	indoors
-rentina8	mapflag	indoors
-rentina9	mapflag	indoors
-rentina10	mapflag	indoors
-rentina11	mapflag	indoors
-rentina12	mapflag	indoors
-rentina13	mapflag	indoors
-rentina14	mapflag	indoors
-rentina15	mapflag	indoors
-rentina16	mapflag	indoors
-rentina17	mapflag	indoors
-rentina18	mapflag	indoors
-rentina19	mapflag	indoors
-rentina20	mapflag	indoors
-rentina21	mapflag	indoors
-rentina22	mapflag	indoors
-
 renta1	mapflag	pvp_noguild
 renta2	mapflag	pvp_noguild
 renta3	mapflag	pvp_noguild

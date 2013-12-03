@@ -333,7 +333,7 @@ L_Extender:
 	goto L_MMenu;
 
 L_DExtender:
-	if (zeny < getarg(1)) 
+	if (Zeny < getarg(1)) 
 		goto L_NoZeny;
 
 	if (gettime(6) < (getd("$house" + getarg(0) + "_buy_month") - 1))
@@ -720,24 +720,24 @@ function	script	rent_cambioropa	{
 	close;
 
 L_Normal:
-	sc_end SC_Xmas;
+	sc_end SC_XMAS;
 	setoption Option_Wedding,0;
-	sc_end SC_Summer;
+	sc_end SC_SUMMER;
 	close;
 
 L_Formal:
-	sc_end SC_Xmas;
-	sc_end SC_Summer;
+	sc_end SC_XMAS;
+	sc_end SC_SUMMER;
 	setoption Option_Wedding,1;
 	close;
 
 L_Abrigo:
 	setoption Option_Wedding,0;
-	sc_start SC_Xmas,600000,0;
+	sc_start SC_XMAS,600000,0;
 	close;
 L_summer:
-	sc_end SC_Xmas;
+	sc_end SC_XMAS;
 	setoption Option_Wedding,0;
-	sc_start SC_Summer,600000,0;
+	sc_start SC_SUMMER,600000,0;
 	close;
 }
