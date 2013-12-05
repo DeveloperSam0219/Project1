@@ -29,7 +29,7 @@
 
 // Payon
 //============================================================ 
-payon,246,154,0	script	Lady#payon	90,{
+payon_mem,246,154,0	script	Lady#payon	90,{
 	mes "[Lady]";
 	mes "A long time ago,";
 	mes "when Payon was still";
@@ -57,7 +57,7 @@ payon,246,154,0	script	Lady#payon	90,{
 	close;
 }
 
-payon,134,211,4	script	Young Man#payon	59,{
+payon_mem,134,211,4	script	Young Man#payon	59,{
 	mes "[Young Man]";
 	mes "From your attire,";
 	mes "I can see that you";
@@ -78,7 +78,7 @@ payon,134,211,4	script	Young Man#payon	59,{
 	close;
 }
 
-payon,173,82,0	script	Young Man#2payon	88,{
+payon_mem,173,82,0	script	Young Man#2payon	88,{
 	mes "[Young Man]";
 	mes "I remember the story my dearly departed grandfather has told me.";
 	next;
@@ -111,7 +111,7 @@ payon,173,82,0	script	Young Man#2payon	88,{
 	close;
 }
 
-payon,158,246,3	script	Guardsman#payon	708,3,3,{
+payon_mem,158,246,3	script	Guardsman#payon	708,3,3,{
 	end;
 
 OnTouch:
@@ -126,7 +126,7 @@ OnTouch:
 	close;
 }
 
-payon,249,156,1	script	Woman#payon	66,{
+payon_mem,249,156,1	script	Woman#payon	66,{
 	mes "[Woman]";
 	mes "Welcome to Payon.";
 	mes "You must have had";
@@ -178,7 +178,7 @@ payon,249,156,1	script	Woman#payon	66,{
 	close;
 }
 
-payon,246,158,5	script	Woman#2payon	66,0,0,{
+payon_mem,246,158,5	script	Woman#2payon	66,0,0,{
 	mes "[Jim's Mother]";
 	mes "Oh boy~";
 	mes "There she goes again.";
@@ -225,7 +225,7 @@ payon,246,158,5	script	Woman#2payon	66,0,0,{
 	close;
 }
 
-payon,210,110,1	script	Drunkard#payon	120,{
+payon_mem,210,110,1	script	Drunkard#payon	120,{
 	if (Class != Job_Archer) {
 		mes "[Drunkard]";
 		mes "Hey...";
@@ -297,7 +297,7 @@ payon,210,110,1	script	Drunkard#payon	120,{
 	close;
 }
 
-payon,132,235,3	script	Monster Scholar#02	98,{
+payon_mem,132,235,3	script	Monster Scholar#02	98,{
 	mes "[Monster Scholar Vuicokk]";
 	mes "Nice to meet you.";
 	mes "I am called Vuicokk.";
