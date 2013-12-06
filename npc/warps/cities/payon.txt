@@ -22,7 +22,7 @@
 
 // -- Entrance / Exit --
 payon,122,27,0	warp	payonwarp003	5,3,pay_fild01,333,356
-pay_fild01,333,360,0	warp	payonwarp004	5,3,payon,122,31
+//pay_fild01,333,360,0	warp	payonwarp004	5,3,payon,122,31
 payon,267,89,0	warp	payonwarp005	1,1,pay_fild08,20,74
 payon,228,330,0	warp	payonwarp007	4,2,pay_arche,81,22
 pay_arche,81,18,0	warp	payonwarp008	5,2,payon,228,326

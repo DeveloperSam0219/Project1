@@ -1330,3 +1330,5 @@ renting20
 renting21
 renting22
 payon_mem
+pa2_in01
+pa2_in02
