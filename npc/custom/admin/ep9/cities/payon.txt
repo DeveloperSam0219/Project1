@@ -381,7 +381,7 @@ payon_mem,163,142,5	script	Jim's Mother#oldpay	78,{
 	mes "Anyway, you look like a new face.  Are you new in town?";
 	next;
 	mes "[Jim's Mother]";
-	if(sex == 0) goto L_Female;
+	if(Sex == 0) goto L_Female;
 
 	L_Male:
 		mes "... Oh, you have broad shoulders ... tehehe! Will you go out with me? I'd like to make you a nice dinner...(bats eyelashes)";
@@ -407,7 +407,7 @@ M_Menu:
 		next;
 		mes "[Jim's Mother]";
 		mes "I saw her recently and she told me that I would meet a handsome young man this month............";
-		if(sex == 1) mes ".......... tehehe. (winks at you)";
+		if(Sex == 1) mes ".......... tehehe. (winks at you)";
 		emotion 3;
 		close;
 	M_End:
@@ -432,7 +432,7 @@ payon_mem,166,140,3	script	Woman#oldpay	71,{
 	mes "To be honest, things are getting tough because of those creatures... (sighs)...";
 	next;
 	mes "[Woman]";
-	if(sex == 0) goto L_Female;
+	if(Sex == 0) goto L_Female;
 
 	L_Male:
 		mes "Hmm... you look as strong as a Rocker! How many monsters have you killed?";
@@ -1343,7 +1343,7 @@ L_Check:
 	mes "[Archer Guildsman]";
 	mes "I will now transform you...";
 	next;
-	JobChange Job_Archer;
+	jobchange Job_Archer;
 	set job_archer_q, 0;
 	mes "[Archer Guildsman]";
 	mes "In exchange for the trunks you brought in I will give you this Bow and some arrows.  Please take them.";
@@ -1650,7 +1650,7 @@ pa2_in01,103,78,4	script	Mystic Lady#oldpay	75,{
 		close;
 	
 	M_Muffs:
-		if((countitem(724)<1) || (countitem(5001)<1) || (countitem(949)<200) || (zeny<5000)) goto sL_NotEnuf;
+		if((countitem(724)<1) || (countitem(5001)<1) || (countitem(949)<200) || (Zeny<5000)) goto sL_NotEnuf;
 		mes "[Mystic Lady]";
 		mes "Oh, I see that you have brought all of the required items.  Just a moment please...";
 		next;
@@ -1837,7 +1837,7 @@ pa2_in01,123,41,2	script	Young Man#3oldpay	89,{
 payon_mem,84,153,4	duplicate(SmileHelper)	Smile Assistance#payold	92
 
 // Bunny Band --------------------------------------------------------------------------------------------
-payon_mem,97,116,4	duplicate(Kafra Employee#bunny	4_M_01)	Kafra Employee#bunnyoldpayon	83
+//payon_mem,97,116,4	duplicate(Kafra Employee#bunny	4_M_01)	Kafra Employee#bunnyoldpayon	83
 
 
 // Juice Maker -------------------------------------------------------------------------------------------
@@ -1943,7 +1943,7 @@ pa2_in01,174,113,2	script	Marx Hansen#juiceold	86,{
 			}
 			delitem .@fruit,.@make;
 			delitem 713,.@make;
-			set zeny,zeny-.@total_zeny;
+			set Zeny,Zeny-.@total_zeny;
 			getitem .@juice,.@make;
 
 			mes "[Merchant Marx Hansen]";
