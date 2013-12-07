@@ -163,7 +163,7 @@ payon_mem,89,155,4	script	Bright Arbor#f1-OP	722,{
 	end;
 
 OnRecvCastlePy01:
-	flagemblem GetCastleData("payg_cas01",1);
+	flagemblem getcastledata("payg_cas01",1);
 	end;
 }
 
@@ -171,7 +171,7 @@ payon_mem,82,155,4	script	Scarlet Palace#f2-OP	722,{
 	end;
 
 OnRecvCastlePy02:
-	flagemblem GetCastleData("payg_cas02",1);
+	flagemblem getcastledata("payg_cas02",1);
 	end;
 }
 
@@ -179,7 +179,7 @@ payon_mem,97,155,4	script	Holy Shadow#f3-OP	722,{
 	end;
 
 OnRecvCastlePy03:
-	flagemblem GetCastleData("payg_cas03",1);
+	flagemblem getcastledata("payg_cas03",1);
 	end;
 }
 
@@ -187,7 +187,7 @@ payon_mem,103,155,4	script	Sacred Altar#f4-OP	722,{
 	end;
 
 OnRecvCastlePy04:
-	flagemblem GetCastleData("payg_cas04",1);
+	flagemblem getcastledata("payg_cas04",1);
 	end;
 }
 
@@ -195,7 +195,7 @@ payon_mem,75,155,4	script	Bamboo Grove Hill#f5-OP	722,{
 	end;
 
 OnRecvCastlePy05:
-	flagemblem GetCastleData("payg_cas05",1);
+	flagemblem getcastledata("payg_cas05",1);
 	end;
 }
 
