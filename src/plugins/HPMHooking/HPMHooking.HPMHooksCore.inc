@@ -3949,10 +3949,12 @@ struct {
 	struct HPMHookPoint *HP_pet_read_db_post;
 	struct HPMHookPoint *HP_quest_init_pre;
 	struct HPMHookPoint *HP_quest_init_post;
+	struct HPMHookPoint *HP_quest_final_pre;
+	struct HPMHookPoint *HP_quest_final_post;
 	struct HPMHookPoint *HP_quest_reload_pre;
 	struct HPMHookPoint *HP_quest_reload_post;
-	struct HPMHookPoint *HP_quest_search_db_pre;
-	struct HPMHookPoint *HP_quest_search_db_post;
+	struct HPMHookPoint *HP_quest_db_pre;
+	struct HPMHookPoint *HP_quest_db_post;
 	struct HPMHookPoint *HP_quest_pc_login_pre;
 	struct HPMHookPoint *HP_quest_pc_login_post;
 	struct HPMHookPoint *HP_quest_add_pre;
@@ -3969,6 +3971,8 @@ struct {
 	struct HPMHookPoint *HP_quest_update_status_post;
 	struct HPMHookPoint *HP_quest_check_pre;
 	struct HPMHookPoint *HP_quest_check_post;
+	struct HPMHookPoint *HP_quest_clear_pre;
+	struct HPMHookPoint *HP_quest_clear_post;
 	struct HPMHookPoint *HP_quest_read_db_pre;
 	struct HPMHookPoint *HP_quest_read_db_post;
 	struct HPMHookPoint *HP_script_init_pre;
@@ -3979,6 +3983,8 @@ struct {
 	struct HPMHookPoint *HP_script_reload_post;
 	struct HPMHookPoint *HP_script_parse_pre;
 	struct HPMHookPoint *HP_script_parse_post;
+	struct HPMHookPoint *HP_script_add_builtin_pre;
+	struct HPMHookPoint *HP_script_add_builtin_post;
 	struct HPMHookPoint *HP_script_parse_builtin_pre;
 	struct HPMHookPoint *HP_script_parse_builtin_post;
 	struct HPMHookPoint *HP_script_parse_subexpr_pre;
@@ -8916,10 +8922,12 @@ struct {
 	int HP_pet_read_db_post;
 	int HP_quest_init_pre;
 	int HP_quest_init_post;
+	int HP_quest_final_pre;
+	int HP_quest_final_post;
 	int HP_quest_reload_pre;
 	int HP_quest_reload_post;
-	int HP_quest_search_db_pre;
-	int HP_quest_search_db_post;
+	int HP_quest_db_pre;
+	int HP_quest_db_post;
 	int HP_quest_pc_login_pre;
 	int HP_quest_pc_login_post;
 	int HP_quest_add_pre;
@@ -8936,6 +8944,8 @@ struct {
 	int HP_quest_update_status_post;
 	int HP_quest_check_pre;
 	int HP_quest_check_post;
+	int HP_quest_clear_pre;
+	int HP_quest_clear_post;
 	int HP_quest_read_db_pre;
 	int HP_quest_read_db_post;
 	int HP_script_init_pre;
@@ -8946,6 +8956,8 @@ struct {
 	int HP_script_reload_post;
 	int HP_script_parse_pre;
 	int HP_script_parse_post;
+	int HP_script_add_builtin_pre;
+	int HP_script_add_builtin_post;
 	int HP_script_parse_builtin_pre;
 	int HP_script_parse_builtin_post;
 	int HP_script_parse_subexpr_pre;

@@ -342,6 +342,7 @@ typedef enum useskill_fail_cause { // clif_skill_fail
 }useskill_fail_cause;
 
 enum clif_messages {
+	ITEM_CANT_OBTAIN_WEIGHT = 0x34, /* you cannot carry more items because you are overweight. */
 	SKILL_CANT_USE_AREA = 0x536,
 	ITEM_CANT_USE_AREA =  0x537,
 };
@@ -923,12 +924,12 @@ struct clif_interface {
 	int (*hom_food) (struct map_session_data *sd,int foodid,int fail);
 	void (*send_homdata) (struct map_session_data *sd, int state, int param);
 	/* questlog-related */
-	void (*quest_send_list) (struct map_session_data * sd);
-	void (*quest_send_mission) (struct map_session_data * sd);
-	void (*quest_add) (struct map_session_data * sd, struct quest * qd, int index);
-	void (*quest_delete) (struct map_session_data * sd, int quest_id);
-	void (*quest_update_status) (struct map_session_data * sd, int quest_id, bool active);
-	void (*quest_update_objective) (struct map_session_data * sd, struct quest * qd, int index);
+	void (*quest_send_list) (struct map_session_data *sd);
+	void (*quest_send_mission) (struct map_session_data *sd);
+	void (*quest_add) (struct map_session_data *sd, struct quest *qd);
+	void (*quest_delete) (struct map_session_data *sd, int quest_id);
+	void (*quest_update_status) (struct map_session_data *sd, int quest_id, bool active);
+	void (*quest_update_objective) (struct map_session_data *sd, struct quest *qd);
 	void (*quest_show_event) (struct map_session_data *sd, struct block_list *bl, short state, short color);
 	/* mail-related */
 	void (*mail_window) (int fd, int flag);
