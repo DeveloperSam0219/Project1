@@ -1,9 +1,0 @@
-//--------------------------------------------------------------
-//                     Configuration Info
-//--------------------------------------------------------------
-// Interserver communication passwords, set in account.txt (or equiv.)
-userid: trincli0086
-passwd: ragnarok
-
-char_ip: 69.197.17.101
-map_ip: 69.197.17.101

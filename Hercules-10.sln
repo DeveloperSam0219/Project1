@@ -12,8 +12,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-sample", "vcproj-10\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking", "vcproj-10\plugin-HPMHooking.vcxproj", "{7ED92B9F-95E8-49B8-9D4F-C4C9BFDE0B22}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flooritem", "flooritem\flooritem.vcxproj", "{9904D09F-74FD-44D0-80A1-406978326153}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,10 +38,6 @@ Global
 		{E64C56D3-CDFB-483B-900B-A62D216B6D2F}.Release|Win32.ActiveCfg = Release|Win32
 		{7ED92B9F-95E8-49B8-9D4F-C4C9BFDE0B22}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7ED92B9F-95E8-49B8-9D4F-C4C9BFDE0B22}.Release|Win32.ActiveCfg = Release|Win32
-		{9904D09F-74FD-44D0-80A1-406978326153}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9904D09F-74FD-44D0-80A1-406978326153}.Debug|Win32.Build.0 = Debug|Win32
-		{9904D09F-74FD-44D0-80A1-406978326153}.Release|Win32.ActiveCfg = Release|Win32
-		{9904D09F-74FD-44D0-80A1-406978326153}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

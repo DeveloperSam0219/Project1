@@ -127,6 +127,7 @@ pa2_in02,82,45,0	warp	oldpay68	2,2,pay_arche,74,153
 // -------- Disable in "npc\warps\cities\payon.txt" -------
 pay_gld,374,149,0	warp	oldpay00-1	1,1,payon_mem,21,151
 pay_fild01,333,361,0	warp	oldpay69	5,3,payon_mem,90,29
+pay_arche,81,18,0	warp	payonwarp008	5,2,payon_mem,175,185
 // -------- Disable in "npc\warps\fields\payon_fild.txt" -------
 pay_fild08,17,75,0	warp	payf006	2,4,payon_mem,186,69
 
