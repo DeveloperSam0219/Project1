@@ -1334,3 +1334,5 @@ pa2_in01
 pa2_in02
 morocc_mem
 oldmoc_in
+oldizlude
+oldalberta

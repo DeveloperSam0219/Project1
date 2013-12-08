@@ -1,0 +1,72 @@
+//===== Hercules Script ======================================
+//= Alberta Town Pre-Renewal
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= [Official Conversion]
+//= Alberta town NPCs.
+//===== Additional Comments: =================================
+//= 1.0 First Version.
+//============================================================
+
+// cities/amatsu.txt
+//============================================================
+oldalberta,245,93,3	duplicate(Sea_Captain_amatsu)	Sea Captain#oama1	4_M_SEAMAN
+
+// cities/ayothaya.txt
+//============================================================
+oldalberta,247,42,3	duplicate(Aibakthing_ayothaya)	Aibakthing#oayo	4_M_THAIONGBAK
+
+// cities/gonryun.txt
+//============================================================
+oldalberta,245,69,3	duplicate(Kunlun_Envoy_gonryun)	Kunlun Envoy#ogon	4_M_TWMIDMAN
+
+// cities/louyang.txt
+//============================================================
+oldalberta,245,45,3	duplicate(Girl_louyang)	Girl#o0lou	4_F_CHNDRESS1
+
+// cities/moscovia.txt
+//============================================================
+//alberta,245,66,4	duplicate(PR_Officer_moscovia)	Moscovia P.R. Officer#1	4_F_RUSWOMAN2
+
+// quests/quests_alberta.txt
+//============================================================
+oldalberta,247,122,4	duplicate(Sailor_alberta)	Sailor#otur	4_M_SEAMAN
+oldalberta,248,89,4	duplicate(Turtle_Scholar_alberta)	Turtle Island Scholar#o	2_M_MOLGENSTEIN
+
+// quests/skills/merchant_skills.txt
+//============================================================
+oldalberta,232,106,6	duplicate(Gershaun_alberta)	Gershaun#o	1_M_LIBRARYMASTER
+
+//Kafra
+oldalberta,28,229,0	duplicate(kaf_alberta)	Kafra Employee#oldalb	4_F_KAFRA2
+oldalberta,113,60,6	duplicate(kaf_alberta2)	Kafra Employee#oldalb2	4_F_KAFRA6
+
+//shops
+oldalberta,167,135,5	shop	Chef Assistant#oldalb	4_M_05,579:-1
+
+//Ammo Shops
+oldalberta,118,157,3	duplicate(mdk)	Magazine Dealer Kenny#o	4_M_01
+oldalberta,118,160,3	duplicate(bdt)	Bullet Dealer Tony#old	4_M_04
+
+// Bulletin Boards
+oldalberta,111,59,5	duplicate(Bulletin Board#1)	Bulletin Board#old1	2_BULLETIN_BOARD
+
+// Msg Boards
+// Alberta
+//============================================================
+oldalberta,35,241,1	duplicate(Billboard#Alb1)	Billboard#oldAlb1	HIDDEN_NPC
+oldalberta,37,39,1	duplicate(Billboard#Alb2)	Billboard#oldAlb2	HIDDEN_NPC
+oldalberta,99,151,1	duplicate(Sign#Alb3)	Sign#oldAlb3	HIDDEN_NPC
+oldalberta,196,152,1	duplicate(Sign#Alb4)	Sign#oldAlb4	HIDDEN_NPC
+oldalberta,149,54,1	duplicate(Sign#Alb5)	Sign#oldAlb5	HIDDEN_NPC
+
+// Quests
+oldalberta,117,135,0	duplicate(Elin)	Elin#old	4W_KID
+oldalberta,120,53,1	duplicate(Stylish Merchant#new30)	Stylish Merchant#olda	1_M_BARD
+oldalberta,136,79,1	duplicate(Hat store girl#new30)	Hat store girl#olda	1_F_LIBRARYGIRL
+oldalberta,91,70,4	duplicate(Kinsey#tur)	Kinsey#ortur	4_M_ORIENT02
+oldalberta,248,93,4	duplicate(Voyage log#tur)	Voyage log#old	HIDDEN_NPC
+//oldalberta,45,106,5	duplicate(Little Boy#ep3_2)	Little Boy#old	4_M_KID1

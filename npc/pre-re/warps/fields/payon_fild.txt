@@ -24,7 +24,7 @@ pay_fild02,83,386,0	warp	payf01-1	13,2,pay_fild01,278,18
 pay_fild03,15,110,0	warp	payf07-1	2,10,pay_fild02,280,108
 pay_fild03,172,281,0	warp	payf08	5,2,pay_fild07,167,20
 pay_fild03,313,16,0	warp	payf09	4,2,pay_fild06,305,372
-pay_fild03,392,63,0	warp	payf005	2,7,alberta,19,233
+pay_fild03,392,63,0	warp	payf005	2,7,oldalberta,19,233	// OLD ALBERTA USED
 pay_fild04,17,165,0	warp	payf002	2,8,moc_fild01,376,162
 pay_fild04,194,17,0	warp	payf003	7,2,moc_fild02,350,336
 pay_fild05,127,378,0	warp	payf04-1	4,2,pay_fild02,134,19

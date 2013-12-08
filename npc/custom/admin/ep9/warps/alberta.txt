@@ -1,0 +1,25 @@
+//===== Hercules Script ======================================
+//= Alberta Warp Script
+//===== By: ==================================================
+//= Athena (1.0)
+//= Nana (1.1)
+//===== Current Version: =====================================
+//= 1.1
+//===== Description: =========================================
+//= Warp Points for Alberta, Treasure Island & Turtle Island
+//===== Additional Comments: =================================
+//= No comment!
+//============================================================
+
+//Alberta City
+oldalberta,15,234,0	warp	oldalb001	2,5,pay_fild03,388,63
+oldalberta,117,38,0	warp	oldalb01	2,2,alberta_in,180,30
+oldalberta,134,38,0	warp	oldalb02	1,1,alberta_in,70,141
+oldalberta,170,170,0	warp	oldalb03	1,1,alb_ship,26,168
+oldalberta,178,165,0	warp	oldalb04	1,2,alb_ship,39,163
+oldalberta,209,173,0	warp	oldalb05	1,2,alb_ship,162,171
+oldalberta,33,42,0	warp	oldalb06	2,2,alberta_in,74,44
+oldalberta,65,233,0	warp	oldalb07	2,2,alberta_in,18,141
+oldalberta,93,205,0	warp	oldalb08	2,2,alberta_in,114,134
+oldalberta,98,153,0	warp	oldalb09	2,2,alberta_in,185,89
+oldalberta,99,221,0	warp	oldalb10	2,2,alberta_in,122,161
