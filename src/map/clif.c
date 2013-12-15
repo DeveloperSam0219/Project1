@@ -11088,8 +11088,10 @@ void clif_parse_RemoveOption(int fd,struct map_session_data *sd)
 void clif_parse_ChangeCart(int fd,struct map_session_data *sd)
 {// TODO: State tracking?
 	int type;
+	
+	nullpo_retv(sd);
 
-	if( sd && pc->checkskill(sd, MC_CHANGECART) < 1 )
+	if( pc->checkskill(sd, MC_CHANGECART) < 1 )
 		return;
 
 #ifdef RENEWAL
@@ -18250,6 +18252,7 @@ static void __attribute__ ((unused)) packetdb_addpacket(short cmd, int len, ...)
 		
 		packet_db[cmd].pos[i] = pos;
 	}
+	va_end(va);
 }
 void packetdb_loaddb(void) {
 	

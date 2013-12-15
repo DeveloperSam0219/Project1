@@ -1790,9 +1790,8 @@ int pc_disguise(struct map_session_data *sd, int class_) {
 		}
 		if (sd->chatID) {
 			struct chat_data* cd;
-			nullpo_retr(1, sd);
-			cd = (struct chat_data*)map->id2bl(sd->chatID);
-			if( cd != NULL || (struct block_list*)sd == cd->owner )
+
+			if( (cd = (struct chat_data*)map->id2bl(sd->chatID)) )
 				clif->dispchat(cd,0);
 		}
 	}
@@ -9383,11 +9382,10 @@ void pc_regen (struct map_session_data *sd, unsigned int diff_tick) {
 /*==========================================
  * Memo player sd savepoint. (map,x,y)
  *------------------------------------------*/
-int pc_setsavepoint(struct map_session_data *sd, short mapindex,int x,int y)
-{
+int pc_setsavepoint(struct map_session_data *sd, short map_index, int x, int y) {
 	nullpo_ret(sd);
 
-	sd->status.save_point.map = mapindex;
+	sd->status.save_point.map = map_index;
 	sd->status.save_point.x = x;
 	sd->status.save_point.y = y;
 
