@@ -1336,3 +1336,7 @@ morocc_mem
 oldmoc_in
 oldizlude
 oldalberta
+market
+novice
+vend_zone
+wolfmap1
