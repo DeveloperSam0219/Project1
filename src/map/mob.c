@@ -878,14 +878,15 @@ int mob_setdelayspawn(struct mob_data *md)
 }
 
 int mob_count_sub(struct block_list *bl, va_list ap) {
-    int mobid[10], i;
-    ARR_FIND(0, 10, i, (mobid[i] = va_arg(ap, int)) == 0); //fetch till 0
-    if (mobid[0]) { //if there one let's check it otherwise go backward
-        TBL_MOB *md = BL_CAST(BL_MOB, bl);
-        ARR_FIND(0, 10, i, md->class_ == mobid[i]);
-        return (i < 10) ? 1 : 0;
-    }
-    return 1; //backward compatibility
+	int mobid[10] = { 0 }, i;
+	ARR_FIND(0, 10, i, (mobid[i] = va_arg(ap, int)) == 0); //fetch till 0
+	if (mobid[0]) { //if there one let's check it otherwise go backward
+		TBL_MOB *md = BL_CAST(BL_MOB, bl);
+		nullpo_ret(md);
+		ARR_FIND(0, 10, i, md->class_ == mobid[i]);
+		return (i < 10) ? 1 : 0;
+	}
+	return 1; //backward compatibility
 }
 
 /*==========================================
@@ -1767,7 +1768,6 @@ int mob_ai_hard(int tid, int64 tick, int id, intptr_t data) {
  *------------------------------------------*/
 struct item_drop* mob_setdropitem(int nameid, int qty, struct item_data *data) {
 	struct item_drop *drop = ers_alloc(item_drop_ers, struct item_drop);
-	memset(&drop->item_data, 0, sizeof(struct item));
 	drop->item_data.nameid = nameid;
 	drop->item_data.amount = qty;
 	drop->item_data.identify = data ? itemdb->isidentified2(data) : itemdb->isidentified(nameid);
@@ -4104,7 +4104,7 @@ bool mob_parse_row_chatdb(char** str, const char* source, int line, int* last_ms
 	//MSG ID
 	ms->msg_id=msg_id;
 	//Color
-	ms->color=strtoul(str[1],NULL,0);
+	ms->color=(unsigned int)strtoul(str[1],NULL,0);
 	//Message
 	msg = str[2];
 	len = strlen(msg);
@@ -4641,7 +4641,7 @@ int do_init_mob(bool minimal) {
 	memset(mob->db_data,0,sizeof(mob->db_data)); //Clear the array
 	mob->db_data[0] = (struct mob_db*)aCalloc(1, sizeof (struct mob_db)); //This mob is used for random spawns
 	mob->makedummymobdb(0); //The first time this is invoked, it creates the dummy mob
-	item_drop_ers = ers_new(sizeof(struct item_drop),"mob.c::item_drop_ers",ERS_OPT_NONE);
+	item_drop_ers = ers_new(sizeof(struct item_drop),"mob.c::item_drop_ers",ERS_OPT_CLEAN);
 	item_drop_list_ers = ers_new(sizeof(struct item_drop_list),"mob.c::item_drop_list_ers",ERS_OPT_NONE);
 
 	mob->load(minimal);

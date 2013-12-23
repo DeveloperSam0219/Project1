@@ -125,7 +125,7 @@ int intif_rename(struct map_session_data *sd, int type, char *name)
 }
 
 // GM Send a message
-int intif_broadcast(const char* mes, int len, int type)
+int intif_broadcast(const char* mes, size_t len, int type)
 {
 	int lp = (type|BC_COLOR_MASK) ? 4 : 0;
 
@@ -155,7 +155,7 @@ int intif_broadcast(const char* mes, int len, int type)
 	return 0;
 }
 
-int intif_broadcast2(const char* mes, int len, unsigned long fontColor, short fontType, short fontSize, short fontAlign, short fontY)
+int intif_broadcast2(const char* mes, size_t len, unsigned int fontColor, short fontType, short fontSize, short fontAlign, short fontY)
 {
 	// Send to the local players
 	clif->broadcast2(NULL, mes, len, fontColor, fontType, fontSize, fontAlign, fontY, ALL_CLIENT);
@@ -192,7 +192,7 @@ int intif_main_message(struct map_session_data* sd, const char* message)
 	snprintf( output, sizeof(output), msg_txt(386), sd->status.name, message );
 
 	// send the message using the inter-server broadcast service
-	intif_broadcast2( output, strlen(output) + 1, 0xFE000000, 0, 0, 0, 0 );
+	intif->broadcast2( output, strlen(output) + 1, 0xFE000000, 0, 0, 0, 0 );
 
 	// log the chat message
 	logs->chat( LOG_CHAT_MAINCHAT, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, NULL, message );
@@ -201,7 +201,7 @@ int intif_main_message(struct map_session_data* sd, const char* message)
 }
 
 // The transmission of Wisp/Page to inter-server (player not found on this server)
-int intif_wis_message(struct map_session_data *sd, char *nick, char *mes, int mes_len)
+int intif_wis_message(struct map_session_data *sd, char *nick, char *mes, size_t mes_len)
 {
 	nullpo_ret(sd);
 	if (intif->CheckForCharServer())
@@ -247,7 +247,7 @@ int intif_wis_replay(int id, int flag)
 // The transmission of GM only Wisp/Page from server to inter-server
 int intif_wis_message_to_gm(char *wisp_name, int permission, char *mes)
 {
-	int mes_len;
+	size_t mes_len;
 	if (intif->CheckForCharServer())
 		return 0;
 	mes_len = strlen(mes) + 1; // + null
@@ -560,7 +560,7 @@ int intif_guild_addmember(int guild_id,struct guild_member *m)
 }
 
 // Request a new leader for guild
-int intif_guild_change_gm(int guild_id, const char* name, int len)
+int intif_guild_change_gm(int guild_id, const char* name, size_t len)
 {
 	if (intif->CheckForCharServer())
 		return 0;
@@ -893,7 +893,7 @@ int mapif_parse_WisToGM_sub(struct map_session_data* sd,va_list va) {
 	char *message;
 	int len;
 
-	if (!pc->has_permission(sd, permission))
+	if (!pc_has_permission(sd, permission))
 		return 0;
 	wisp_name = va_arg(va, char*);
 	message = va_arg(va, char*);
@@ -1559,7 +1559,7 @@ void intif_parse_MailDelete(int fd) {
 		}
 
 		if( sd->mail.inbox.full )
-			intif_Mail_requestinbox(sd->status.char_id, 1); // Free space is available for new mails
+			intif->Mail_requestinbox(sd->status.char_id, 1); // Free space is available for new mails
 	}
 
 	clif->mail_delete(sd->fd, mail_id, failed);
@@ -1600,7 +1600,7 @@ void intif_parse_MailReturn(int fd) {
 		}
 
 		if( sd->mail.inbox.full )
-			intif_Mail_requestinbox(sd->status.char_id, 1); // Free space is available for new mails
+			intif->Mail_requestinbox(sd->status.char_id, 1); // Free space is available for new mails
 	}
 
 	clif->mail_return(sd->fd, mail_id, fail);
@@ -1797,7 +1797,7 @@ void intif_parse_AuctionClose(int fd) {
 	if( result == 0 ) {
 		// FIXME: Leeching off a parse function
 		clif->pAuction_cancelreg(fd, sd);
-		intif_Auction_requestlist(sd->status.char_id, 6, 0, "", 1);
+		intif->Auction_requestlist(sd->status.char_id, 6, 0, "", 1);
 	}
 }
 
@@ -1834,7 +1834,7 @@ void intif_parse_AuctionBid(int fd) {
 	}
 	if( result == 1 ) { // To update the list, display your buy list
 		clif->pAuction_cancelreg(fd, sd);
-		intif_Auction_requestlist(sd->status.char_id, 7, 0, "", 1);
+		intif->Auction_requestlist(sd->status.char_id, 7, 0, "", 1);
 	}
 }
 

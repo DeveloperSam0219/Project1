@@ -77,15 +77,6 @@ struct map_session_data* pc_get_dummy_sd(void)
 }
 
 /**
- * Gets player's group level.
- * @see pc_group_get_level()
- */
-int pc_get_group_level(struct map_session_data *sd)
-{
-	return pcg->get_level(sd->group);
-}
-
-/**
  * Sets player's group.
  * Caller should handle error (preferably display message and disconnect).
  * @param group_id Group ID
@@ -99,14 +90,6 @@ int pc_set_group(struct map_session_data *sd, int group_id)
 	sd->group_id = group_id;
 	sd->group = group;
 	return 0;
-}
-
-/**
- * Checks if player has permission to perform action.
- */
-bool pc_has_permission(struct map_session_data *sd, unsigned int permission)
-{
-	return ((sd->extra_temp_permissions&permission) != 0 || pcg->has_permission(sd->group, permission));
 }
 
 /**
@@ -560,22 +543,6 @@ void pc_inventory_rental_add(struct map_session_data *sd, int seconds)
 		sd->rental_timer = timer->add(timer->gettick() + min(tick,3600000), pc->inventory_rental_end, sd->bl.id, 0);
 }
 
-/**
- * Determines if player can give / drop / trade / vend items
- */
-bool pc_can_give_items(struct map_session_data *sd)
-{
-	return pc->has_permission(sd, PC_PERM_TRADE);
-}
-
-/**
- * Determines if player can give / drop / trade / vend bounded items
- */
-bool pc_can_give_bound_items(struct map_session_data *sd)
-{
-	return pc->has_permission(sd, PC_PERM_TRADE_BOUND);
-}
-
 /*==========================================
  * prepares character for saving.
  *------------------------------------------*/
@@ -929,7 +896,7 @@ int pc_isequip(struct map_session_data *sd,int n)
 
 	item = sd->inventory_data[n];
 
-	if(pc->has_permission(sd, PC_PERM_USE_ALL_EQUIPMENT))
+	if(pc_has_permission(sd, PC_PERM_USE_ALL_EQUIPMENT))
 		return 1;
 
 	if(item == NULL)
@@ -1451,7 +1418,7 @@ int pc_calc_skilltree(struct map_session_data *sd)
 		}
 	}
 
-	if( pc->has_permission(sd, PC_PERM_ALL_SKILL) ) {
+	if( pc_has_permission(sd, PC_PERM_ALL_SKILL) ) {
 		for( i = 0; i < MAX_SKILL; i++ ) {
 			switch(skill->db[i].nameid) {
 				/**
@@ -1647,7 +1614,7 @@ int pc_calc_skilltree_normalize_job(struct map_session_data *sd)
 	int skill_point, novice_skills;
 	int c = sd->class_;
 
-	if (!battle_config.skillup_limit || pc->has_permission(sd, PC_PERM_ALL_SKILL))
+	if (!battle_config.skillup_limit || pc_has_permission(sd, PC_PERM_ALL_SKILL))
 		return c;
 
 	skill_point = pc->calc_skillpoint(sd);
@@ -4210,10 +4177,15 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 	if( !item->script ) //if it has no script, you can't really consume it!
 		return 0;
 
-	if( (item->item_usage.flag&NOUSE_SITTING) && (pc_issit(sd) == 1) && (pc->get_group_level(sd) < item->item_usage.override) ) {
+	if( (item->item_usage.flag&NOUSE_SITTING) && (pc_issit(sd) == 1) && (pc_get_group_level(sd) < item->item_usage.override) ) {
 		clif->msgtable(sd->fd,0x297);
 		//clif->colormes(sd->fd,COLOR_WHITE,msg_txt(1474));
 		return 0; // You cannot use this item while sitting.
+	}
+
+	if (sd->state.storage_flag && item->type != IT_CASH) {
+		clif->colormes(sd->fd, COLOR_RED, msg_txt(1475));
+		return 0; // You cannot use this item while storage is open.
 	}
 
 	switch( nameid ) { // TODO: Is there no better way to handle this, other than hardcoding item IDs?
@@ -4437,7 +4409,6 @@ int pc_useitem(struct map_session_data *sd,int n) {
 		return 0;
 
 	if( sd->inventory_data[n]->delay > 0 ) {
-		int i;
 		ARR_FIND(0, MAX_ITEMDELAYS, i, sd->item_delay[i].nameid == nameid );
 			if( i == MAX_ITEMDELAYS ) /* item not found. try first empty now */
 				ARR_FIND(0, MAX_ITEMDELAYS, i, !sd->item_delay[i].nameid );
@@ -4540,7 +4511,7 @@ int pc_cart_additem(struct map_session_data *sd,struct item *item_data,int amoun
 		return 1;
 	}
 
-	if( !itemdb_cancartstore(item_data, pc->get_group_level(sd)) || (item_data->bound > IBT_ACCOUNT && !pc->can_give_bound_items(sd)))
+	if( !itemdb_cancartstore(item_data, pc_get_group_level(sd)) || (item_data->bound > IBT_ACCOUNT && !pc_can_give_bound_items(sd)))
  	{ // Check item trade restrictions	[Skotlex]
 		clif->message (sd->fd, msg_txt(264));
 		return 1;/* TODO: there is no official response to this? */
@@ -4922,9 +4893,10 @@ int pc_setpos(struct map_session_data* sd, unsigned short map_index, int x, int 
 			if( i != sd->guild->instances ) {
 				m = instance->list[sd->guild->instance[i]].map[j];
 				map_index = map_id2index(m);
-				stop = true;
+				//stop = true; Uncomment if adding new checks
 			}
 		}
+
 		/* we hit a instance, if empty we populate the spawn data */
 		if( map->list[m].instance_id >= 0 && instance->list[map->list[m].instance_id].respawn.map == 0 &&
 		    instance->list[map->list[m].instance_id].respawn.x == 0 &&
@@ -5121,7 +5093,7 @@ int pc_memo(struct map_session_data* sd, int pos) {
 	nullpo_ret(sd);
 
 	// check mapflags
-	if( sd->bl.m >= 0 && (map->list[sd->bl.m].flag.nomemo || map->list[sd->bl.m].flag.nowarpto) && !pc->has_permission(sd, PC_PERM_WARP_ANYWHERE) ) {
+	if( sd->bl.m >= 0 && (map->list[sd->bl.m].flag.nomemo || map->list[sd->bl.m].flag.nowarpto) && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE) ) {
 		clif->skill_mapinfomessage(sd, 1); // "Saved point cannot be memorized."
 		return 0;
 	}
@@ -6318,7 +6290,7 @@ int pc_skillup(struct map_session_data *sd,uint16 skill_id) {
 		clif->updatestatus(sd,SP_SKILLPOINT);
 		if( skill_id == GN_REMODELING_CART ) /* cart weight info was updated by status_calc_pc */
 			clif->updatestatus(sd,SP_CARTINFO);
-		if (!pc->has_permission(sd, PC_PERM_ALL_SKILL)) // may skill everything at any time anyways, and this would cause a huge slowdown
+		if (!pc_has_permission(sd, PC_PERM_ALL_SKILL)) // may skill everything at any time anyways, and this would cause a huge slowdown
 			clif->skillinfoblock(sd);
 	} else if( battle_config.skillup_limit ){
 		if( sd->sktree.second )
@@ -6351,7 +6323,7 @@ int pc_allskillup(struct map_session_data *sd)
 		}
 	}
 
-	if (pc->has_permission(sd, PC_PERM_ALL_SKILL)) { //Get ALL skills except npc/guild ones. [Skotlex]
+	if (pc_has_permission(sd, PC_PERM_ALL_SKILL)) { //Get ALL skills except npc/guild ones. [Skotlex]
 		//and except SG_DEVIL [Komurka] and MO_TRIPLEATTACK and RG_SNATCHER [ultramage]
 		for(i=0;i<MAX_SKILL;i++){
 			switch( skill->db[i].nameid ) {
@@ -6789,15 +6761,15 @@ void pc_damage(struct map_session_data *sd,struct block_list *src,unsigned int h
  * Invoked when a player has negative current hp
  *------------------------------------------*/
 int pc_dead(struct map_session_data *sd,struct block_list *src) {
-	int i=0,j=0,k=0;
+	int i=0,j=0;
 	int64 tick = timer->gettick();
 
-	for(k = 0; k < 5; k++)
-		if (sd->devotion[k]){
-			struct map_session_data *devsd = map->id2sd(sd->devotion[k]);
+	for(j = 0; j < 5; j++)
+		if (sd->devotion[j]){
+			struct map_session_data *devsd = map->id2sd(sd->devotion[j]);
 			if (devsd)
 				status_change_end(&devsd->bl, SC_DEVOTION, INVALID_TIMER);
-			sd->devotion[k] = 0;
+			sd->devotion[j] = 0;
 		}
 
 	if(sd->status.pet_id > 0 && sd->pd) {
@@ -7057,14 +7029,13 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 			if(id == 0)
 				continue;
 			if(id == -1){
-				int eq_num=0,eq_n[MAX_INVENTORY];
+				int eq_num=0,eq_n[MAX_INVENTORY],k;
 				memset(eq_n,0,sizeof(eq_n));
 				for(i=0;i<MAX_INVENTORY;i++){
 					if( (type == 1 && !sd->status.inventory[i].equip)
 						|| (type == 2 && sd->status.inventory[i].equip)
 						||  type == 3)
 					{
-						int k;
 						ARR_FIND( 0, MAX_INVENTORY, k, eq_n[k] <= 0 );
 						if( k < MAX_INVENTORY )
 							eq_n[k] = i;
@@ -8067,11 +8038,11 @@ int pc_setmadogear(TBL_PC* sd, int flag)
  *------------------------------------------*/
 int pc_candrop(struct map_session_data *sd, struct item *item)
 {
-	if( item && (item->expire_time || (item->bound && !pc->can_give_bound_items(sd))) )
+	if( item && (item->expire_time || (item->bound && !pc_can_give_bound_items(sd))) )
  		return 0;
-	if( !pc->can_give_items(sd) ) //check if this GM level can drop items
+	if( !pc_can_give_items(sd) ) //check if this GM level can drop items
 		return 0;
-	return (itemdb_isdropable(item, pc->get_group_level(sd)));
+	return (itemdb_isdropable(item, pc_get_group_level(sd)));
 }
 
 /*==========================================
@@ -10206,7 +10177,7 @@ int pc_readdb(void) {
 			int stat;
 			if(line[0]=='/' && line[1]=='/')
 				continue;
-			if ((stat=strtoul(line,NULL,10))<0)
+			if ((stat=(int)strtol(line,NULL,10))<0)
 				stat=0;
 			if (i > MAX_LEVEL)
 				break;
@@ -10473,12 +10444,8 @@ void pc_defaults(void) {
 
 	pc->get_dummy_sd = pc_get_dummy_sd;
 	pc->class2idx = pc_class2idx;
-	pc->get_group_level = pc_get_group_level;
-	pc->can_give_items = pc_can_give_items;
-	pc->can_give_bound_items = pc_can_give_bound_items;
 	
 	pc->can_use_command = pc_can_use_command;
-	pc->has_permission = pc_has_permission;
 	pc->set_group = pc_set_group;
 	pc->should_log_commands = pc_should_log_commands;
 
