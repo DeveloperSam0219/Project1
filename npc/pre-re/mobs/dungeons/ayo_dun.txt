@@ -27,3 +27,4 @@ ayo_dun02,0,0,0,0	monster	Tamruan	1584,100,0,0,0
 ayo_dun02,0,0,0,0	monster	Whisper	1179,20,0,0,0
 ayo_dun02,0,0,0,0	monster	Kraben	1587,20,0,0,0
 ayo_dun02,150,90,15,30	boss_monster	Lady Tanee	1688,1,25200000,600000,0
+ayo_dun02,0,0,0,0	boss_monster	Tao Gunka	1583,1,7200000,0,0	// Per request 2 hours respawn time

@@ -55,7 +55,7 @@ oldizlude,144,148,1	script	Sign#oldIz2	HIDDEN_NPC,{
 }
 
 // Airship
-oldizlude,206,55,3	duplicate(Airship_Staff_izlude)	Airship Staff#oldizlude	4_F_01
+//oldizlude,206,55,3	duplicate(Airship_Staff_izlude)	Airship Staff#oldizlude	4_F_01
 
 //Mr Smile
 oldizlude,129,118,4	duplicate(SmileHelper)	Smile Assistance#oldiz	4_F_03
