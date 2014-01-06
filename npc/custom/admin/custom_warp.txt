@@ -1,0 +1,17 @@
+prontera,156,360,0	script	prt005	45,2,2,{
+	switch (select("Prontera Castle:Prontera Guild Map:Prontera Field 1:End")) {
+		case 1:
+			warp "prt_castle",102,20;
+			end;
+		case 2:
+			warp "prt_gld",159,28;
+			end;
+		case 3:
+			warp "prt_fild01",199,30;
+			end;
+		default:
+			close;
+			end;
+	}
+	end;
+}

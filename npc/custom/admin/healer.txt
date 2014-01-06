@@ -1,0 +1,85 @@
+prontera,150,150,0	script	Healer#Custom	100,{
+    .npc$ = "[ " +strnpcinfo(1)+ " ]";
+    setarray .quest_items[0],7227,5,7179,5; // <item id>,<amount>
+    
+    if ( BaseLevel >= 70 && #done3 ) {
+        if ( Zeny < 3000 ) {
+            mes .npc$;
+            mes "You dont have enough money";
+            close;
+        }
+        Zeny -= 3000;
+        specialeffect2 EF_HEAL2; percentheal 100,100;
+        specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
+        specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
+        close;
+    }
+    
+    if ( BaseLevel >= 70 && #done2 ) {
+        mes .npc$;
+        mes "The items are : ";
+        for ( .@i = 0; .@i < getarraysize(.quest_items); .@i+=2 )
+            mes .quest_items[.@i+1]+ "x " +getitemname(.quest_items[.@i]);
+        next;
+        mes .npc$;
+        mes "What you want?";
+        next;
+        if (select("Heal me:I have the requirements now") - 1) {
+            for ( .@i = 0; .@i < getarraysize(.quest_items); .@i+=2 ) {
+                if ( countitem(.quest_items[.@i]) < .quest_items[.@i+1] ) {
+                    mes .npc$;
+                    mes "You don't complete my requirements";
+                    close;
+                }
+            }
+            mes .npc$;
+            mes "Splendid!!! Mind Blowing Traveller!! you made my work easier!!! I was lazy to go out and hunt you know, so i thought i ll make you do it for me!!! Anyways, as promised, from now i give you agi buff too!!";
+            #done3 = 1;
+            close;
+        }
+        if ( Zeny < 3000 ) {
+            mes .npc$;
+            mes "You dont have enough money";
+            close;
+        }
+        Zeny -= 3000;
+        specialeffect2 EF_HEAL2; percentheal 100,100;
+        close;
+    }
+    
+    if ( BaseLevel >= 50 && BaseLevel < 70 && #done1 ) {
+        if ( Zeny < 3000 ) {
+            mes .npc$;
+            mes "You dont have enough money";
+            close;
+        }
+        Zeny -= 3000;
+        specialeffect2 EF_HEAL2; percentheal 100,100;
+        close;
+    }
+    
+    if ( BaseLevel < 50 ) {
+        specialeffect2 EF_HEAL2; percentheal 100,100;
+        end;
+    } else if ( BaseLevel >= 50 && BaseLevel < 70 ) {
+        mes .npc$;
+        mes "From now onwards the healer services would not be for free and will have to pay 3000z for it  since that is King Tristan's order";
+        #done1 = 1;
+        close;
+    } else if ( BaseLevel >= 70 ) {
+        mes .npc$;
+        mes "I am giving you my services of healing you for 5000z but if u pay me a bribe then i can give you agi buff too!! Just make sure no one comes to know about this or else King Tristan will give me death penalty since its agains the law of Rune Midgard";
+        next;
+        .@s = select("Huh??!! What? a bribe?");
+        if (!.@s) close;
+        mes .npc$;
+        mes "Thats right!! Get me some items that i need for my secret potion and i can give u agi and buff too!!";
+        next;
+        mes .npc$;
+        mes "The items are : ";
+        for ( .@i = 0; .@i < getarraysize(.quest_items); .@i+=2 )
+            mes .quest_items[.@i+1]+ "x " +getitemname(.quest_items[.@i]);
+        #done2 = 1;
+        close;
+    }
+}

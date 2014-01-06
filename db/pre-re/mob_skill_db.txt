@@ -2587,8 +2587,8 @@
 1511,Amon Ra@WZ_FIREPILLAR,attack,80,11,5000,0,2000,yes,around2,always,0,,,,,,,
 1511,Amon Ra@NPC_DARKBLESSING,attack,203,1,5000,0,2000,no,randomtarget,always,0,,,,,,,
 1511,Amon Ra@WZ_METEOR,idle,83,11,10000,0,5000,yes,randomtarget,always,0,,,,,,9,
-1511,Amon Ra@AL_TELEPORT,idle,26,1,10000,0,0,yes,self,rudeattacked,,,,,,,,
-1511,Amon Ra@AL_TELEPORT,walk,26,1,5000,0,5000,yes,self,rudeattacked,,,,,,,,
+//1511,Amon Ra@AL_TELEPORT,idle,26,1,10000,0,0,yes,self,rudeattacked,,,,,,,,	//Per Request
+//1511,Amon Ra@AL_TELEPORT,walk,26,1,5000,0,5000,yes,self,rudeattacked,,,,,,,,	//Per Request
 1511,Amon Ra@AL_HEAL,idle,28,11,10000,0,10000,yes,self,myhpltmaxrate,50,,,,,,,
 1512,Hyegun@MO_BODYRELOCATION,chase,264,1,2000,500,5000,no,target,always,0,,,,,,,
 1512,Hyegun@AS_SONICBLOW,attack,136,5,500,1000,30000,no,target,always,0,,,,,,,

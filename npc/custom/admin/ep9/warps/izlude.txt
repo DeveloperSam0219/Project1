@@ -19,3 +19,5 @@ oldizlude,30,78,0	warp	oldiz001	3,3,prt_fild08,367,212
 oldizlude,52,140,0	warp	oldiz04	2,2,izlude_in,74,161
 oldizlude,149,39,0	warp	oldizair1	1,1,oldizlude,182,56
 oldizlude,176,56,0	warp	oldlizair2	1,1,oldizlude,145,40
+oldizlude,128,226,0	warp	oldarena	1,1,arena_room,100,30
+arena_room,99,24,0	warp	bye_arena2	2,2,oldizlude,127,221
