@@ -1,11 +1,18 @@
 novice,51,49,4	script	CosmicRO Welcomer	75,{
 	mes "[ExhilarateRO Welcomer]";
 	mes "Hi! Welcome to Cosmic Ragnarok Online!";
-	announce strcharinfo(0)+" has joined Cosmic Ragnarok Online!",bc_all;
-	sleep2 3000;
-	announce "Cosmic Ragnarok Online Welcomes "+strcharinfo(0)+"!",bc_all;
 	close2;
 	savepoint "new_1-1",53,111;
+	announce strcharinfo(0)+" has joined Cosmic Ragnarok Online!",bc_all;
+	sleep2 1000;
+	announce "Cosmic Ragnarok Online Welcomes "+strcharinfo(0)+"!",bc_all;
 	warp "new_1-1",53,111;
 	end;
 }
+
+novice	mapflag	nowarpto
+novice	mapflag	nowarp
+novice	mapflag	noteleport
+novice	mapflag	nomemo
+novice	mapflag	nosave
+novice	mapflag	noreturn
