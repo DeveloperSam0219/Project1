@@ -25,7 +25,8 @@ if(compare (.@atcmd_parameters$[0],"list")) { dispbottom "Usage: @go #";
 }
 
 // map name,x,y,level requirement, group id minimum requirement
-if(compare (.@atcmd_parameters$[0],"prontera") || .@atcmd_parameters$[0] == "0") { callsub	Process,"prontera",156,191,0,0; }
+//if(compare (.@atcmd_parameters$[0],"prontera") || .@atcmd_parameters$[0] == "0") { callsub	Process,"prontera",156,191,0,0; }
+if(compare (.@atcmd_parameters$[0],"prontera") || .@atcmd_parameters$[0] == "0") { callsub	Process,"prontera",116,79,0,0; }
 //if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc",156,93,0,0; }
 if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc_mem",156,93,0,0; }
 if(compare (.@atcmd_parameters$[0],"geffen") || .@atcmd_parameters$[0] == "2") { callsub	Process,"geffen",119,59,0,0; }

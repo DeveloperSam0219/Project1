@@ -52,12 +52,6 @@ ACMD(security)
 	if( sd->npc_id || sd->vender_id || sd->buyer_id || sd->state.trading || sd->state.storage_flag )
 		return false;
 
-	if( my->secure_items ){
-		clif->message(sd->fd, "Security Enabled");
-	}
-	else {
-		clif->message(sd->fd, "Security Disabled");
-	}
 	npc->event(sd,"SecuritySystem::OnSettings",0);
 	return true;
 }
