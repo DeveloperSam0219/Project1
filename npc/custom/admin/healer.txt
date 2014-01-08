@@ -1,4 +1,4 @@
-prontera,150,150,0	script	Healer#Custom	100,{
+prontera,146,92,0	script	Healer#Custom	100,{
     .npc$ = "[ " +strnpcinfo(1)+ " ]";
     setarray .quest_items[0],7227,5,7179,5; // <item id>,<amount>
     
@@ -83,3 +83,34 @@ prontera,150,150,0	script	Healer#Custom	100,{
         close;
     }
 }
+
+/* Duplicates */
+alberta,25,240,6	duplicate(Healer#Custom)	Healer#alb	100
+aldebaran,135,118,6	duplicate(Healer#Custom)	Healer#alde	100
+amatsu,200,79,4	duplicate(Healer#Custom)	Healer#ama	100
+ayothaya,207,169,6	duplicate(Healer#Custom)	Healer#ayo	100
+comodo,184,158,6	duplicate(Healer#Custom)	Healer#com	100
+einbech,57,36,6	duplicate(Healer#Custom)	Healer#einbe	100
+einbroch,57,202,6	duplicate(Healer#Custom)	Healer#einbr	100
+geffen,115,72,6	duplicate(Healer#Custom)	Healer#gef	100
+gonryun,156,122,6	duplicate(Healer#Custom)	Healer#gon	100
+hugel,89,150,6	duplicate(Healer#Custom)	Healer#hug	100
+izlude,125,118,5	duplicate(Healer#Custom)	Healer#izl	100
+jawaii,250,139,4	duplicate(Healer#Custom)	Healer#jaw	100
+lighthalzen,152,100,6	duplicate(Healer#Custom)	Healer#lhz	100
+louyang,226,103,4	duplicate(Healer#Custom)	Healer#lou	100
+manuk,272,144,6	duplicate(Healer#Custom)	Healer#man	100
+mid_camp,203,289,6	duplicate(Healer#Custom)	Healer#mid	100
+moc_ruins,72,164,4	duplicate(Healer#Custom)	Healer#moc	100
+morocc,153,97,6	duplicate(Healer#Custom)	Healer#mor	100
+moscovia,220,191,4	duplicate(Healer#Custom)	Healer#mos	100
+niflheim,212,182,5	duplicate(Healer#Custom)	Healer#nif	100
+payon,179,106,4	duplicate(Healer#Custom)	Healer#pay	100
+prontera,162,193,4	duplicate(Healer#Custom)	Healer#prt	100
+rachel,125,116,6	duplicate(Healer#Custom)	Healer#rac	100
+splendide,201,153,4	duplicate(Healer#Custom)	Healer#spl	100
+thor_camp,249,74,4	duplicate(Healer#Custom)	Healer#thor	100
+umbala,105,148,3	duplicate(Healer#Custom)	Healer#umb	100
+veins,217,121,4	duplicate(Healer#Custom)	Healer#ve	100
+xmas,143,136,4	duplicate(Healer#Custom)	Healer#xmas	100
+yuno,164,45,4	duplicate(Healer#Custom)	Healer#yuno	100
