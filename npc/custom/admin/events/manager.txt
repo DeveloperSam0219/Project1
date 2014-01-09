@@ -163,7 +163,7 @@ OpenShop:
 
 			function	ShopSettings	{
 				switch( getarg(0) ){
-					Case 1:
+					case 1:
 						// Currency [ Item ID / Variable Name ]
 						set @Currency$,"7711";
 						// Item ID Lists
@@ -171,7 +171,7 @@ OpenShop:
 						// Item Price
 						setarray @ItemCost[0],1;
 						break;
-					Case 2:
+					case 2:
 						// Currency [ Item ID / Variable Name ]
 						set @Currency$,"7711";
 						// Item ID Lists
