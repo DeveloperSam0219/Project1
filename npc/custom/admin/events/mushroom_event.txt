@@ -1,0 +1,46 @@
+//===== Hercules Script ======================================
+//= Find the Mushroom
+//===== By: ================================================== 
+//= Admin Elijah
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= Hercules
+//===== Description: =========================================
+//= Find the Mushroom - random amount of Mushrooms spawn in a map.
+//= Players need to find these mushrooms and kill them to gain prizes!
+//===== Additional Comments: =================================
+//= 1.0 Inital Release
+//============================================================
+
+-	script	Find the Mushroom	-1,{
+
+OnInit:
+	//setarray .Maps$[0],"prontera"; // Possible maps
+	set .Map$,"prontera";
+	bindatcmd "checkmushroom",strnpcinfo(3)+"::OnAtcommand";
+	end;
+
+OnClock0600:
+OnClock1400:
+OnClock2200:
+OnAdminStart:
+	if (mobcount(.Map$,strnpcinfo(0)+"::OnMushroomKilled") >= 25) { end; }
+	set .Spawn,rand(1,3);	// How many Mushrooms should spawn?
+	//set .Map$,.Maps$[rand(getarraysize(.Maps$))];
+	monster .Map$,0,0,"Please don't kill me!",1857,.Spawn,strnpcinfo(0)+"::OnMushroomKilled";
+	announce "Find the Mushroom : Total of "+.Spawn+" Mushrooms have been spawned in "+.Map$+"!",0;
+	sleep 2500;
+	announce "Find the Mushroom : Every Mushroom you kill will give you "+getitemname(getvariableofnpc(.eventprize,"Event Manager"))+"!",0;
+	end;
+
+OnMushroomKilled:
+	/* Item Prize */
+	getitem getvariableofnpc(.eventprize,"Event Manager"),getvariableofnpc(.mushroom,"Event Manager");
+	if (.Spawn) announce "[ "+strcharinfo(0)+" ] has killed a Mushroom. There are now "+mobcount(.Map$,strnpcinfo(0)+"::OnMushroomKilled")+" Mushroom(s) left in "+.Map$+".",bc_map;
+	end;
+
+OnAtcommand:
+	dispbottom "There are now "+mobcount(.Map$,strnpcinfo(0)+"::OnMushroomKilled")+" Mushroom(s) left in "+.Map$+".";
+	end;
+}
