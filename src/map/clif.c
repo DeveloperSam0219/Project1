@@ -9194,7 +9194,7 @@ void clif_parse_WantToConnection(int fd, struct map_session_data* sd) {
 	WFIFOSET(fd,packet_len(0x283));
 #endif
 
-	chrif->authreq(sd);
+	chrif->authreq(sd,false);
 }
 void clif_hercules_chsys_mjoin(struct map_session_data *sd) {
 	if( !map->list[sd->bl.m].channel ) {
@@ -14419,7 +14419,7 @@ void clif_parse_FeelSaveOk(int fd,struct map_session_data *sd)
 
 	sd->feel_map[i].index = map_id2index(sd->bl.m);
 	sd->feel_map[i].m = sd->bl.m;
-	pc_setglobalreg(sd,pc->sg_info[i].feel_var,sd->feel_map[i].index);
+	pc_setglobalreg(sd,script->add_str(pc->sg_info[i].feel_var),sd->feel_map[i].index);
 
 //Are these really needed? Shouldn't they show up automatically from the feel save packet?
 //	clif_misceffect2(&sd->bl, 0x1b0);

@@ -1,5 +1,6 @@
-// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
-// For more information, see LICENCE in the main folder
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef _LOGIN_H_
 #define _LOGIN_H_
@@ -42,6 +43,8 @@ struct login_session_data {
 	int has_client_hash;
 
 	int fd;
+	
+	time_t expiration_time;
 };
 
 struct mmo_char_server {

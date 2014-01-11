@@ -5479,12 +5479,19 @@ ACMD(autotrade) {
 		int timeout = atoi(message);
 		status->change_start(&sd->bl, SC_AUTOTRADE, 10000, 0, 0, 0, 0, ((timeout > 0) ? min(timeout,battle_config.at_timeout) : battle_config.at_timeout) * 60000, 0);
 	}
-	
+		
 	clif->chsys_quit(sd);
 	
 	clif->authfail_fd(sd->fd, 15);
 	
+	
+#ifdef AUTOTRADE_PERSISTENCY
+	pc->autotrade_prepare(sd);
+	
+	return false;/* we fail to not cause it to proceed on is_atcommand */
+#else
 	return true;
+#endif
 }
 
 /*==========================================
@@ -8437,12 +8444,12 @@ ACMD(set) {
 				break;
 			case '#':
 				if( reg[1] == '#' )
-					data->u.str = pc_readaccountreg2str(sd, reg);// global
+					data->u.str = pc_readaccountreg2str(sd, script->add_str(reg));// global
 				else
-					data->u.str = pc_readaccountregstr(sd, reg);// local
+					data->u.str = pc_readaccountregstr(sd, script->add_str(reg));// local
 				break;
 			default:
-				data->u.str = pc_readglobalreg_str(sd, reg);
+				data->u.str = pc_readglobalreg_str(sd, script->add_str(reg));
 				break;
 		}
 		
@@ -8466,12 +8473,12 @@ ACMD(set) {
 				break;
 			case '#':
 				if( reg[1] == '#' )
-					data->u.num = pc_readaccountreg2(sd, reg);// global
+					data->u.num = pc_readaccountreg2(sd, script->add_str(reg));// global
 				else
-					data->u.num = pc_readaccountreg(sd, reg);// local
+					data->u.num = pc_readaccountreg(sd, script->add_str(reg));// local
 				break;
 			default:
-				data->u.num = pc_readglobalreg(sd, reg);
+				data->u.num = pc_readglobalreg(sd, script->add_str(reg));
 				break;
 		}
 		
