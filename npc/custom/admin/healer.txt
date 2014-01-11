@@ -1,4 +1,4 @@
-prontera,146,92,0	script	Healer#Custom	1002,{
+prontera,146,92,4	script	Healer#Custom	1002,{
     .npc$ = "[ " +strnpcinfo(1)+ " ]";
     setarray .quest_items[0],7227,5,7179,5; // <item id>,<amount>
     
@@ -63,7 +63,7 @@ prontera,146,92,0	script	Healer#Custom	1002,{
         end;
     } else if ( BaseLevel >= 50 && BaseLevel < 70 ) {
         mes .npc$;
-        mes "From now onwards the healer services would not be for free and will have to pay 3000z for it  since that is King Tristan's order";
+        mes "From now onwards the healer services would not be for free and will have to pay 5000z for it  since that is King Tristan's order";
         #done1 = 1;
         close;
     } else if ( BaseLevel >= 70 ) {

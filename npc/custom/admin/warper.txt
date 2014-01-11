@@ -21,7 +21,7 @@ morocc,100,100,0	script	Old Lady	78,{
 	close;
 }
 
-prontera,146,95,0	script	Warper	4_F_VALKYRIE,{
+prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	function Go; function Disp; function Pick; function Restrict;
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
@@ -372,7 +372,7 @@ prontera,146,95,0	script	Warper	4_F_VALKYRIE,{
 	}
 	if ( !#old_done ) {
 		mes .npc$;
-		mes "Get away from me";
+		mes "Oh, have you met my grandmother in morocc?";
 		close;
 	}
 	if ( #old_done && #quest ) {
@@ -385,7 +385,7 @@ prontera,146,95,0	script	Warper	4_F_VALKYRIE,{
 	next;
 	if (select("Nothing:I have message from your grand mother") - 1) {
 		mes .npc$;
-		mes "What!! ohh my god! i should hurry up to my grandmother";
+		mes "What!! ohh my god! I should hurry up to my grandmother";
 		next;
 		mes .npc$;
 		mes "Can you inform our other family members too?";

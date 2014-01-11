@@ -1,1 +1,94 @@
 prontera,164,92,4	duplicate(gkut)	PVP Warper#1	413
+
+-	script	PVP Announcer	-1,{
+
+OnInit:
+	.GMLevel = 90;
+	.Broadcast = 0; //Where do you want to broadcast? (0:bc_all|1:bc_map)
+	.KColor$ = "0xFFFF00"; //Kill Broadcast Color | e.g. Jguy pwned Mercurial 
+	.KSColor$ = "0xFFFF00"; //Killing Streak Broadcast Color | e.g. jTynne is on a Killing Spree
+	.MKColor$ = "0x33FF00"; //Multiple Kill Broadcast Color | e.g. Mercurial just got a Double Kill
+	.ESColor$ = "0xFF0000"; //End Streak Broadcast Color | e.g. BrianL just ended Jguy's Killing Spree
+	setarray .KSDotA$[0],"is on a Killing Spree", "is Dominating", "has a Mega-Kill", "is Unstoppable", "is Wicked Sick", "has a M-m-m-m....Monster Kill", "is Godlike", "is Beyond Godlike";
+	setarray .MKDotA$[0],"just got a Double Kill", "just got a Triple Kill", "just got an Ultra Kill", "is on a Rampage", "is Owning his enemies";
+	setarray .ESDotA$[0], "Killing Spree", "Dominating", "Mega-Kill", "Unstoppable", "Wicked Sick", "Monster Kill", "Godlike", "Beyond Godlike";
+	end;
+
+OnPCKillEvent:
+	if(getgmlevel() >= .GMLevel){ end; }
+	announce strcharinfo(0)+" pawned "+rid2name(killedrid)+"'s head in "+strcharinfo(3)+"!", ((.Broadcast)?bc_map:bc_all), .KColor$;
+	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) {
+		set Kill, Kill + 1;
+		dispbottom "Total PvP Kills: " + Kill;
+	}
+	if(@ks < 10){ set @ks, @ks + 1; }
+	if(@mk < 6){ set @mk, @mk + 1; }
+	callsub OnRecordStreak;
+	callsub OnAnnounce;
+	callsub OnDeath;
+	end;
+
+OnPCDieEvent:
+	if(getgmlevel() >= .GMLevel){ end; }
+	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) {
+		set Death, Death + 1;
+	}
+	end;
+
+OnDeath:
+	attachrid(killedrid);
+	if(@ks > 2){
+		announce rid2name(killerrid)+" just ended "+strcharinfo(0)+"'s "+.ESDotA$[@ks - 3]+" "+((.Streak)?"("+@ks+")":"")+"", ((.Broadcast)?bc_map:bc_all), .ESColor$;
+	}
+	callsub OnClearData;
+	return;
+
+OnClearData: 
+	sleep2 3000;
+	set @ks, 0;
+	set @mk, 0;
+	return;
+
+OnRecordStreak:
+if(@ks > 2){
+	set KillingStreak, KillingStreak + 1;
+	switch(@ks){
+	case 0:	case 1:	case 2: break; 
+	case 3: set KillingSpree, KillingSpree + 1; break; 
+	case 4: set Dominating, Dominating + 1; break;
+	case 5: set MegaKill, MegaKill + 1; break; 
+	case 6: set Unstoppable, Unstoppable + 1; break; 
+	case 7: set WickedSick, WickedSick + 1; break;
+	case 8: set MonsterKill, MonsterKill + 1; break; 
+	case 9: set Godlike, Godlike + 1; break; 
+	case 10: set BeyondGodlike, BeyondGodlike + 1; break;
+	default: break;
+	}
+}
+if(@mk > 1){
+	set MultiKill, MultiKill + 1;
+	switch(@mk){
+	case 0:	case 1: break; 
+	case 2: set DoubleKill, DoubleKill + 1; break; 
+	case 3: set TripleKill, TripleKill + 1; break;
+	case 4: set UltraKill, UltraKill + 1; break;
+	case 5: set Rampage, Rampage + 1; break; 
+	case 6: set Ownage, Ownage + 1; break;
+	default: break;
+	}
+}
+return;
+
+OnAnnounce:
+	if((@ks == 1) && (#FirstBlood == 1)){
+		announce strcharinfo(0)+" drew first blood", ((.Broadcast)?bc_map:bc_all), .KSColor$;
+		set #FirstBlood, 0;
+	}
+	if(@ks > 2){
+		announce strcharinfo(0)+" "+.KSDotA$[@ks - 3]+" "+((.Streak)?"("+@ks+")":"")+"", ((.Broadcast)?bc_map:bc_all), .KSColor$;
+	}
+	if(@mk > 1){
+		announce strcharinfo(0)+" "+.MKDotA$[@mk - 2]+" "+((.Multiple)?"("+@mk+")":"")+"", ((.Broadcast)?bc_map:bc_all), .MKColor$;
+	}
+	return;
+}
