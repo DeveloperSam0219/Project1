@@ -2682,7 +2682,7 @@ packet(0x020d,-1);
 #endif
 
 #if PACKETVER >= 20130807
-	packetKeys(0x7E241DE0,0x5E805580,0x3D807D80); /* Thanks to Shakto */
+	/*packetKeys(0x7E241DE0,0x5E805580,0x3D807D80); /* Thanks to Shakto */ packetKeys(0x780D15C0,0x78152F71,0x8380414E); /* Customized by Samuel */
 #endif
 
 #if PACKETVER >= 20131223
