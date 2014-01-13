@@ -2,6 +2,7 @@
 -- Table structure for table `auction`
 --
 
+DROP TABLE IF EXISTS `auction`;
 CREATE TABLE IF NOT EXISTS `auction` (
   `auction_id` bigint(20) unsigned NOT NULL auto_increment,
   `seller_id` int(11) unsigned NOT NULL default '0',
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
 -- Table structure for table `cart_inventory`
 --
 
+DROP TABLE IF EXISTS `cart_inventory`;
 CREATE TABLE IF NOT EXISTS `cart_inventory` (
   `id` int(11) NOT NULL auto_increment,
   `char_id` int(11) NOT NULL default '0',
@@ -53,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `cart_inventory` (
 -- Table structure for table `char`
 --
 
+DROP TABLE IF EXISTS `char`;
 CREATE TABLE IF NOT EXISTS `char` (
   `char_id` int(11) unsigned NOT NULL auto_increment,
   `account_id` int(11) unsigned NOT NULL default '0',
@@ -123,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `char` (
 -- Table structure for table `charlog`
 --
 
+DROP TABLE IF EXISTS `charlog`;
 CREATE TABLE IF NOT EXISTS `charlog` (
   `time` datetime NOT NULL default '0000-00-00 00:00:00',
   `char_msg` varchar(255) NOT NULL default 'char select',
@@ -143,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `charlog` (
 -- Table structure for table `elemental`
 --
 
+DROP TABLE IF EXISTS `elemental`;
 CREATE TABLE IF NOT EXISTS `elemental` (
   `ele_id` int(11) unsigned NOT NULL auto_increment,
   `char_id` int(11) NOT NULL,
@@ -168,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `elemental` (
 -- Table structure for table `friends`
 --
 
+DROP TABLE IF EXISTS `friends`;
 CREATE TABLE IF NOT EXISTS `friends` (
   `char_id` int(11) NOT NULL default '0',
   `friend_account` int(11) NOT NULL default '0',
@@ -179,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
 -- Table structure for table `hotkey`
 --
 
+DROP TABLE IF EXISTS `hotkey`;
 CREATE TABLE IF NOT EXISTS `hotkey` (
 	`char_id` INT(11) NOT NULL,
 	`hotkey` TINYINT(2) unsigned NOT NULL,
@@ -189,23 +196,10 @@ CREATE TABLE IF NOT EXISTS `hotkey` (
 ) ENGINE=MyISAM;
 
 --
--- Table structure for table `global_reg_value`
---
-
-CREATE TABLE IF NOT EXISTS `global_reg_value` (
-  `char_id` int(11) unsigned NOT NULL default '0',
-  `str` varchar(255) NOT NULL default '',
-  `value` varchar(255) NOT NULL default '0',
-  `type` tinyint(1) NOT NULL default '3',
-  `account_id` int(11) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`char_id`,`str`,`account_id`),
-  KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
-
---
 -- Table structure for table `guild`
 --
 
+DROP TABLE IF EXISTS `guild`;
 CREATE TABLE IF NOT EXISTS `guild` (
   `guild_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(24) NOT NULL default '',
@@ -232,6 +226,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
 -- Table structure for table `guild_alliance`
 --
 
+DROP TABLE IF EXISTS `guild_alliance`;
 CREATE TABLE IF NOT EXISTS `guild_alliance` (
   `guild_id` int(11) unsigned NOT NULL default '0',
   `opposition` int(11) unsigned NOT NULL default '0',
@@ -245,6 +240,7 @@ CREATE TABLE IF NOT EXISTS `guild_alliance` (
 -- Table structure for table `guild_castle`
 --
 
+DROP TABLE IF EXISTS `guild_castle`;
 CREATE TABLE IF NOT EXISTS `guild_castle` (
   `castle_id` int(11) unsigned NOT NULL default '0',
   `guild_id` int(11) unsigned NOT NULL default '0',
@@ -272,6 +268,7 @@ CREATE TABLE IF NOT EXISTS `guild_castle` (
 -- Table structure for table `guild_expulsion`
 --
 
+DROP TABLE IF EXISTS `guild_expulsion`;
 CREATE TABLE IF NOT EXISTS `guild_expulsion` (
   `guild_id` int(11) unsigned NOT NULL default '0',
   `account_id` int(11) unsigned NOT NULL default '0',
@@ -284,6 +281,7 @@ CREATE TABLE IF NOT EXISTS `guild_expulsion` (
 -- Table structure for table `guild_member`
 --
 
+DROP TABLE IF EXISTS `guild_member`;
 CREATE TABLE IF NOT EXISTS `guild_member` (
   `guild_id` int(11) unsigned NOT NULL default '0',
   `account_id` int(11) unsigned NOT NULL default '0',
@@ -306,6 +304,7 @@ CREATE TABLE IF NOT EXISTS `guild_member` (
 -- Table structure for table `guild_position`
 --
 
+DROP TABLE IF EXISTS `guild_position`;
 CREATE TABLE IF NOT EXISTS `guild_position` (
   `guild_id` int(9) unsigned NOT NULL default '0',
   `position` tinyint(6) unsigned NOT NULL default '0',
@@ -319,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `guild_position` (
 -- Table structure for table `guild_skill`
 --
 
+DROP TABLE IF EXISTS `guild_skill`;
 CREATE TABLE IF NOT EXISTS `guild_skill` (
   `guild_id` int(11) unsigned NOT NULL default '0',
   `id` smallint(11) unsigned NOT NULL default '0',
@@ -330,6 +330,7 @@ CREATE TABLE IF NOT EXISTS `guild_skill` (
 -- Table structure for table `guild_storage`
 --
 
+DROP TABLE IF EXISTS `guild_storage`;
 CREATE TABLE IF NOT EXISTS `guild_storage` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `guild_id` int(11) unsigned NOT NULL default '0',
@@ -354,6 +355,7 @@ CREATE TABLE IF NOT EXISTS `guild_storage` (
 -- Table structure for table `homunculus`
 --
 
+DROP TABLE IF EXISTS `homunculus`;
 CREATE TABLE IF NOT EXISTS `homunculus` (
   `homun_id` int(11) NOT NULL auto_increment,
   `char_id` int(11) NOT NULL,
@@ -385,6 +387,7 @@ CREATE TABLE IF NOT EXISTS `homunculus` (
 -- Table structure for table `interlog`
 --
 
+DROP TABLE IF EXISTS `interlog`;
 CREATE TABLE IF NOT EXISTS `interlog` (
   `time` datetime NOT NULL default '0000-00-00 00:00:00',
   `log` varchar(255) NOT NULL default ''
@@ -394,6 +397,7 @@ CREATE TABLE IF NOT EXISTS `interlog` (
 -- Table structure for table `inventory`
 --
 
+DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE IF NOT EXISTS `inventory` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `char_id` int(11) unsigned NOT NULL default '0',
@@ -419,6 +423,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 -- Table structure for table `ipbanlist`
 --
 
+DROP TABLE IF EXISTS `ipbanlist`;
 CREATE TABLE IF NOT EXISTS `ipbanlist` (
   `list` varchar(255) NOT NULL default '',
   `btime` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -431,6 +436,7 @@ CREATE TABLE IF NOT EXISTS `ipbanlist` (
 -- Table structure for table `login`
 --
 
+DROP TABLE IF EXISTS `login`;
 CREATE TABLE IF NOT EXISTS `login` (
   `account_id` int(11) unsigned NOT NULL auto_increment,
   `userid` varchar(23) NOT NULL default '',
@@ -456,23 +462,31 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- inserted into the table called login which is above
 
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('1', 'trincli0086', 'ragnarok', 'S','athena@athena.com');
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000000', 'admin', '1234', 'M','cosmicragnarokonline@gmail.com', 99);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000001', 'wakoko321', 'wakoko23', 'M','johnsamuel_santos3@yahoo.com', 99);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000002', '2000002', 'abcd1234', 'M','cosmicragnarokonline@gmail.com', 80);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000003', '2000003', 'abcd1234', 'M','cosmicragnarokonline@gmail.com', 80);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000004', '2000004', 'abcd1234', 'M','cosmicragnarokonline@gmail.com', 80);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000005', '2000005', 'abcd1234', 'M','cosmicragnarokonline@gmail.com', 80);
+
 
 --
 -- Table structure for table `mapreg`
 --
 
+DROP TABLE IF EXISTS `mapreg`;
 CREATE TABLE IF NOT EXISTS `mapreg` (
-  `varname` varchar(32) NOT NULL,
+  `varname` varchar(32) BINARY NOT NULL,
   `index` int(11) unsigned NOT NULL default '0',
   `value` varchar(255) NOT NULL,
-  KEY `varname` (`varname`),
-  KEY `index` (`index`)
+  PRIMARY KEY  (`varname`,`index`)
 ) ENGINE=MyISAM;
 
 --
 -- Table structure for table `sc_data`
 --
 
+DROP TABLE IF EXISTS `sc_data`;
 CREATE TABLE IF NOT EXISTS `sc_data` (
   `account_id` int(11) unsigned NOT NULL,
   `char_id` int(11) unsigned NOT NULL,
@@ -490,6 +504,7 @@ CREATE TABLE IF NOT EXISTS `sc_data` (
 -- Table structure for table `mail`
 --
 
+DROP TABLE IF EXISTS `mail`;
 CREATE TABLE IF NOT EXISTS `mail` (
   `id` bigint(20) unsigned NOT NULL auto_increment,
   `send_name` varchar(30) NOT NULL default '',
@@ -518,6 +533,7 @@ CREATE TABLE IF NOT EXISTS `mail` (
 -- Table structure for table `memo`
 --
 
+DROP TABLE IF EXISTS `memo`;
 CREATE TABLE IF NOT EXISTS `memo` (
   `memo_id` int(11) unsigned NOT NULL auto_increment,
   `char_id` int(11) unsigned NOT NULL default '0',
@@ -532,6 +548,7 @@ CREATE TABLE IF NOT EXISTS `memo` (
 -- Table structure for table `mercenary`
 --
 
+DROP TABLE IF EXISTS `mercenary`;
 CREATE TABLE IF NOT EXISTS `mercenary` (
   `mer_id` int(11) unsigned NOT NULL auto_increment,
   `char_id` int(11) NOT NULL,
@@ -547,6 +564,7 @@ CREATE TABLE IF NOT EXISTS `mercenary` (
 -- Table structure for table `mercenary_owner`
 --
 
+DROP TABLE IF EXISTS `mercenary_owner`;
 CREATE TABLE IF NOT EXISTS `mercenary_owner` (
   `char_id` int(11) NOT NULL,
   `merc_id` int(11) NOT NULL default '0',
@@ -563,6 +581,7 @@ CREATE TABLE IF NOT EXISTS `mercenary_owner` (
 -- Table structure for table `party`
 --
 
+DROP TABLE IF EXISTS `party`;
 CREATE TABLE IF NOT EXISTS `party` (
   `party_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(24) NOT NULL default '',
@@ -577,6 +596,7 @@ CREATE TABLE IF NOT EXISTS `party` (
 -- Table structure for table `pet`
 --
 
+DROP TABLE IF EXISTS `pet`;
 CREATE TABLE IF NOT EXISTS `pet` (
   `pet_id` int(11) unsigned NOT NULL auto_increment,
   `class` mediumint(9) unsigned NOT NULL default '0',
@@ -597,6 +617,7 @@ CREATE TABLE IF NOT EXISTS `pet` (
 -- Table structure for table `quest`
 --
 
+DROP TABLE IF EXISTS `quest`;
 CREATE TABLE IF NOT EXISTS `quest` (
   `char_id` int(11) unsigned NOT NULL default '0',
   `quest_id` int(10) unsigned NOT NULL,
@@ -612,6 +633,7 @@ CREATE TABLE IF NOT EXISTS `quest` (
 -- Table structure for table `ragsrvinfo`
 --
 
+DROP TABLE IF EXISTS `ragsrvinfo`;
 CREATE TABLE IF NOT EXISTS `ragsrvinfo` (
   `index` int(11) NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
@@ -624,6 +646,7 @@ CREATE TABLE IF NOT EXISTS `ragsrvinfo` (
 -- Table structure for table `skill`
 --
 
+DROP TABLE IF EXISTS `skill`;
 CREATE TABLE IF NOT EXISTS `skill` (
   `char_id` int(11) unsigned NOT NULL default '0',
   `id` smallint(11) unsigned NOT NULL default '0',
@@ -636,6 +659,7 @@ CREATE TABLE IF NOT EXISTS `skill` (
 -- Table structure for table `skill_homunculus`
 --
 
+DROP TABLE IF EXISTS `skill_homunculus`;
 CREATE TABLE IF NOT EXISTS `skill_homunculus` (
   `homun_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
@@ -647,6 +671,7 @@ CREATE TABLE IF NOT EXISTS `skill_homunculus` (
 -- Table structure for table `sql_updates`
 --
 
+DROP TABLE IF EXISTS `sql_updates`;
 CREATE TABLE IF NOT EXISTS `sql_updates` (
   `timestamp` int(11) unsigned NOT NULL,
   `ignored` enum('Yes','No') NOT NULL DEFAULT 'No',
@@ -672,11 +697,14 @@ INSERT INTO `sql_updates` (`timestamp`) VALUES (1383955424);
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1384545461);
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1384588175);
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1387844126);
+INSERT INTO `sql_updates` (`timestamp`) VALUES (1388854043);
+INSERT INTO `sql_updates` (`timestamp`) VALUES (1389028967);
 
 --
 -- Table structure for table `sstatus`
 --
 
+DROP TABLE IF EXISTS `sstatus`;
 CREATE TABLE IF NOT EXISTS `sstatus` (
   `index` tinyint(4) unsigned NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
@@ -687,6 +715,7 @@ CREATE TABLE IF NOT EXISTS `sstatus` (
 -- Table structure for table `storage`
 --
 
+DROP TABLE IF EXISTS `storage`;
 CREATE TABLE IF NOT EXISTS `storage` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `account_id` int(11) unsigned NOT NULL default '0',
@@ -711,6 +740,7 @@ CREATE TABLE IF NOT EXISTS `storage` (
 -- Table structure for table `interreg`
 --
 
+DROP TABLE IF EXISTS `interreg`;
 CREATE TABLE IF NOT EXISTS `interreg` (
   `varname` varchar(11) NOT NULL,
   `value` varchar(20) NOT NULL,
@@ -723,6 +753,7 @@ INSERT INTO `interreg` (`varname`, `value`) VALUES
 -- Table structure for table `account_data`
 --
 
+DROP TABLE IF EXISTS `account_data`;
 CREATE TABLE IF NOT EXISTS `account_data` (
   `account_id` int(11) unsigned NOT NULL default '0',
   `bank_vault` int(11) unsigned NOT NULL default '0',
@@ -736,6 +767,7 @@ CREATE TABLE IF NOT EXISTS `account_data` (
 -- Table structure for table `npc_market_data`
 --
 
+DROP TABLE IF EXISTS `npc_market_data`;
 CREATE TABLE IF NOT EXISTS `npc_market_data` (
   `name` varchar(24) NOT NULL default '',
   `itemid` int(11) unsigned NOT NULL default '0',
@@ -744,8 +776,119 @@ CREATE TABLE IF NOT EXISTS `npc_market_data` (
 ) ENGINE=MyISAM;
 
 --
+-- Table structure for table `acc_reg_num_db`
+--
+
+DROP TABLE IF EXISTS `acc_reg_num_db`;
+CREATE TABLE IF NOT EXISTS `acc_reg_num_db` (
+  `account_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`account_id`,`key`,`index`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `acc_reg_str_db`
+--
+
+DROP TABLE IF EXISTS `acc_reg_str_db`;
+CREATE TABLE IF NOT EXISTS `acc_reg_str_db` (
+  `account_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` varchar(254) NOT NULL default '0',
+  PRIMARY KEY  (`account_id`,`key`,`index`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `char_reg_num_db`
+--
+
+DROP TABLE IF EXISTS `char_reg_num_db`;
+CREATE TABLE IF NOT EXISTS `char_reg_num_db` (
+  `char_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`char_id`,`key`,`index`),
+  KEY `char_id` (`char_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `char_reg_str_db`
+--
+
+DROP TABLE IF EXISTS `char_reg_str_db`;
+CREATE TABLE IF NOT EXISTS `char_reg_str_db` (
+  `char_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` varchar(254) NOT NULL default '0',
+  PRIMARY KEY  (`char_id`,`key`,`index`),
+  KEY `char_id` (`char_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `global_acc_reg_num_db`
+--
+
+DROP TABLE IF EXISTS `global_acc_reg_num_db`;
+CREATE TABLE IF NOT EXISTS `global_acc_reg_num_db` (
+  `account_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`account_id`,`key`,`index`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `global_acc_reg_str_db`
+--
+
+DROP TABLE IF EXISTS `global_acc_reg_str_db`;
+CREATE TABLE IF NOT EXISTS `global_acc_reg_str_db` (
+  `account_id` int(11) unsigned NOT NULL default '0',
+  `key` varchar(32) BINARY NOT NULL default '',
+  `index` int(11) unsigned NOT NULL default '0',
+  `value` varchar(254) NOT NULL default '0',
+  PRIMARY KEY  (`account_id`,`key`,`index`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `autotrade_merchants`
+--
+
+DROP TABLE IF EXISTS `autotrade_merchants`;
+CREATE TABLE IF NOT EXISTS `autotrade_merchants` (
+  `account_id` int(11) NOT NULL default '0',
+  `char_id` int(11) NOT NULL default '0',
+  `sex` tinyint(2) NOT NULL default '0',
+  `title` varchar(80) NOT NULL default 'Buy From Me!',
+  PRIMARY KEY  (`account_id`,`char_id`)
+) ENGINE=MyISAM; 
+
+--
+-- Table structure for table `autotrade_data`
+--
+
+DROP TABLE IF EXISTS `autotrade_data`;
+CREATE TABLE IF NOT EXISTS `autotrade_data` (
+  `char_id` int(11) NOT NULL default '0',
+  `itemkey` int(11) NOT NULL default '0',
+  `amount` int(11) NOT NULL default '0',
+  `price` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`char_id`,`itemkey`)
+) ENGINE=MyISAM; 
+
+--
 -- Table structure for table `itemizer`
 --
+
 DROP TABLE IF EXISTS `itemizer`;
 CREATE TABLE IF NOT EXISTS `itemizer` (
   `id` int(11) unsigned NOT NULL auto_increment,
