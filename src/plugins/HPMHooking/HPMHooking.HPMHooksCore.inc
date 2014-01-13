@@ -2459,8 +2459,6 @@ struct {
 	struct HPMHookPoint *HP_itemdb_reload_post;
 	struct HPMHookPoint *HP_itemdb_name_constants_pre;
 	struct HPMHookPoint *HP_itemdb_name_constants_post;
-	struct HPMHookPoint *HP_itemdb_force_name_constants_pre;
-	struct HPMHookPoint *HP_itemdb_force_name_constants_post;
 	struct HPMHookPoint *HP_itemdb_read_groups_pre;
 	struct HPMHookPoint *HP_itemdb_read_groups_post;
 	struct HPMHookPoint *HP_itemdb_read_chains_pre;
@@ -4055,8 +4053,6 @@ struct {
 	struct HPMHookPoint *HP_script_set_constant_post;
 	struct HPMHookPoint *HP_script_set_constant2_pre;
 	struct HPMHookPoint *HP_script_set_constant2_post;
-	struct HPMHookPoint *HP_script_set_constant_force_pre;
-	struct HPMHookPoint *HP_script_set_constant_force_post;
 	struct HPMHookPoint *HP_script_get_constant_pre;
 	struct HPMHookPoint *HP_script_get_constant_post;
 	struct HPMHookPoint *HP_script_label_add_pre;
@@ -4263,6 +4259,8 @@ struct {
 	struct HPMHookPoint *HP_script_array_highest_key_post;
 	struct HPMHookPoint *HP_script_array_free_db_pre;
 	struct HPMHookPoint *HP_script_array_free_db_post;
+	struct HPMHookPoint *HP_script_array_ensure_zero_pre;
+	struct HPMHookPoint *HP_script_array_ensure_zero_post;
 	struct HPMHookPoint *HP_script_reg_destroy_single_pre;
 	struct HPMHookPoint *HP_script_reg_destroy_single_post;
 	struct HPMHookPoint *HP_script_reg_destroy_pre;
@@ -7484,8 +7482,6 @@ struct {
 	int HP_itemdb_reload_post;
 	int HP_itemdb_name_constants_pre;
 	int HP_itemdb_name_constants_post;
-	int HP_itemdb_force_name_constants_pre;
-	int HP_itemdb_force_name_constants_post;
 	int HP_itemdb_read_groups_pre;
 	int HP_itemdb_read_groups_post;
 	int HP_itemdb_read_chains_pre;
@@ -9080,8 +9076,6 @@ struct {
 	int HP_script_set_constant_post;
 	int HP_script_set_constant2_pre;
 	int HP_script_set_constant2_post;
-	int HP_script_set_constant_force_pre;
-	int HP_script_set_constant_force_post;
 	int HP_script_get_constant_pre;
 	int HP_script_get_constant_post;
 	int HP_script_label_add_pre;
@@ -9288,6 +9282,8 @@ struct {
 	int HP_script_array_highest_key_post;
 	int HP_script_array_free_db_pre;
 	int HP_script_array_free_db_post;
+	int HP_script_array_ensure_zero_pre;
+	int HP_script_array_ensure_zero_post;
 	int HP_script_reg_destroy_single_pre;
 	int HP_script_reg_destroy_single_post;
 	int HP_script_reg_destroy_pre;

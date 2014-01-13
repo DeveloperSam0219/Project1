@@ -4343,10 +4343,6 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 		return 0;
 	}
 
-	//Dead Branch & Bloody Branch & Porings Box
-	if( nameid == ITEMID_BRANCH_OF_DEAD_TREE || nameid == ITEMID_BLOODY_DEAD_BRANCH || nameid == ITEMID_PORING_BOX )
-		logs->branch(sd);
-
 	return 1;
 }
 
@@ -4455,6 +4451,10 @@ int pc_useitem(struct map_session_data *sd,int n) {
 			return 0;
 		}
 	}
+	
+	//Dead Branch & Bloody Branch & Porings Box
+	if( nameid == ITEMID_BRANCH_OF_DEAD_TREE || nameid == ITEMID_BLOODY_DEAD_BRANCH || nameid == ITEMID_PORING_BOX )
+		logs->branch(sd);
 	
 	sd->itemid = sd->status.inventory[n].nameid;
 	sd->itemindex = n;
@@ -8097,6 +8097,7 @@ void pc_setregstr(struct map_session_data* sd, int64 reg, const char* str) {
 		p = ers_alloc(pc->str_reg_ers, struct script_reg_str);
 		
 		p->value = aStrdup(str);
+		p->flag.type = 1;
 		
 		if( sd->var_db->put(sd->var_db,DB->i642key(reg),DB->ptr2data(p),&prev) ) {
 			p = DB->data2ptr(&prev);
@@ -10513,9 +10514,9 @@ void do_init_pc(bool minimal) {
 	
 	pcg->init();
 	
-	pc->sc_display_ers = ers_new(sizeof(struct sc_display_entry), "pc.c:sc_display_ers", ERS_OPT_NONE);
-	pc->num_reg_ers = ers_new(sizeof(struct script_reg_num), "pc.c::num_reg_ers", ERS_OPT_CLEAN);
-	pc->str_reg_ers = ers_new(sizeof(struct script_reg_str), "pc.c::str_reg_ers", ERS_OPT_CLEAN);
+	pc->sc_display_ers = ers_new(sizeof(struct sc_display_entry), "pc.c:sc_display_ers", ERS_OPT_FLEX_CHUNK);
+	pc->num_reg_ers = ers_new(sizeof(struct script_reg_num), "pc.c::num_reg_ers", ERS_OPT_CLEAN|ERS_OPT_FLEX_CHUNK);
+	pc->str_reg_ers = ers_new(sizeof(struct script_reg_str), "pc.c::str_reg_ers", ERS_OPT_CLEAN|ERS_OPT_FLEX_CHUNK);
 
 	ers_chunk_size(pc->sc_display_ers, 150);
 	ers_chunk_size(pc->num_reg_ers, 300);

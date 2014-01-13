@@ -575,7 +575,6 @@ struct script_interface {
 	void (*pop_stack) (struct script_state* st, int start, int end);
 	void (*set_constant) (const char* name, int value, bool isparameter);
 	void (*set_constant2) (const char *name, int value, bool isparameter);
-	void (*set_constant_force) (const char *name, int value, bool isparameter);
 	bool (*get_constant) (const char* name, int* value);
 	void (*label_add)(int key, int pos);
 	void (*run) (struct script_code *rootscript,int pos,int rid,int oid);
@@ -688,6 +687,7 @@ struct script_interface {
 	unsigned int (*array_size) (struct script_state *st, struct map_session_data *sd, const char *name);
 	unsigned int (*array_highest_key) (struct script_state *st, struct map_session_data *sd, const char *name);
 	int (*array_free_db) (DBKey key, DBData *data, va_list ap);
+	void (*array_ensure_zero) (struct script_state *st, struct map_session_data *sd, int64 uid, struct DBMap** ref);
 	/* */
 	void (*reg_destroy_single) (struct map_session_data *sd, int64 reg, struct script_reg_state *data);
 	int (*reg_destroy) (DBKey key, DBData *data, va_list ap);
