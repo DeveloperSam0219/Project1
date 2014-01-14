@@ -1,5 +1,17 @@
-// @security Plugin
-// Made by Samuel
+//===== Hercules Plugin ======================================
+//= @security
+//===== By: ==================================================
+//= Samuel
+//===== Current Version: =====================================
+//= 1.1
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Description: =========================================
+//= Allow to disable/enable item transfers
+//===== Additional Comments: =================================  
+// 1.0.0 Release
+// 1.1.0 Added support for Hercules 2014 Megapatch
+//============================================================
 
 #include <stdio.h>
 #include <string.h>
@@ -147,8 +159,9 @@ int my_pc_reg_received(struct map_session_data *sd)
 {
 	struct security_data_struct *my = get_security_variable(sd);
 	
+	sd->vars_ok = true;
 // Security System
-	if( pc_readaccountreg(sd,"#SECURITYCODE") > 0 )
+	if( pc_readaccountreg(sd,script->add_str("#SECURITYCODE")) > 0 )
 	{
 		clif->message(sd->fd, "Item Security System ENABLE : Use @security for more options.");
 		my->secure_items = 1;

@@ -372,7 +372,7 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	}
 	if ( !#old_done ) {
 		mes .npc$;
-		mes "Oh, have you met my grandmother in morocc?";
+		mes "Oh, have you seen my grandmother in morocc?";
 		close;
 	}
 	if ( #old_done && #quest ) {
@@ -385,7 +385,7 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	next;
 	if (select("Nothing:I have message from your grand mother") - 1) {
 		mes .npc$;
-		mes "What!! ohh my god! I should hurry up to my grandmother";
+		mes "What!! ohh my god! i should hurry up to my grandmother";
 		next;
 		mes .npc$;
 		mes "Can you inform our other family members too?";
@@ -430,9 +430,11 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 			message strcharinfo(0),"This map is not enabled in "+((checkre(0))?"":"Pre-")+"Renewal.";
 			end;
 		}
-		warp .@map$,@c[.@i*2],@c[.@i*2+1];
-		getmapxy(lastwarp$,lastwarpx,lastwarpy,0);
-		deletearray @c[0],getarraysize(@c);
+		if ( getd("map_save_" +.@map$+ "") == 1 ) {
+			warp .@map$,@c[.@i*2],@c[.@i*2+1];
+			getmapxy(lastwarp$,lastwarpx,lastwarpy,0);
+			deletearray @c[0],getarraysize(@c);
+		} else message strcharinfo(0),"This dungeon is not accessible on your character";
 		end;
 	}
 	function Restrict {
@@ -506,10 +508,9 @@ aldebaran,203,201,0	script	Mother	123,{
 			close;
 		}
 		if ( #quest_done1 ) {
-			getmapxy(.@map$,.@x,.@y,0);
-			savepoint .@map$,.@x,.@y;
 			mes .npc$;
 			mes "Your spawn point is now here";
+			setd("map_save_" +strnpcinfo(4)+ ""), 1;
 			close;
 		}
 		mes .npc$;
@@ -520,8 +521,7 @@ aldebaran,203,201,0	script	Mother	123,{
 		mes .npc$;
 		mes "Okay done! You are now saved on this map";
 		#quest_done1 = 1;
-		getmapxy(.@map$,.@x,.@y,0);
-		savepoint .@map$,.@x,.@y;
+		setd("map_save_" +strnpcinfo(4)+ ""), 1;
 		close;
 	}
 	if ( !#mother && !#quest && !#old_done ) {
@@ -555,7 +555,7 @@ aldebaran,203,201,0	script	Mother	123,{
 	close;
 }
 
-pay_arche,39,128,0	duplicate(Sister)	Nina	123
+pay_dun00,19,183,0	duplicate(Sister)	Nina	123
 
 // --------------------------------------------------
 //	Duplicates:
