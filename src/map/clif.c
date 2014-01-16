@@ -5492,10 +5492,10 @@ void clif_status_change_notick(struct block_list *bl,int type,int flag,int tick,
 	
 	nullpo_retv(bl);
 	
-	if (!(status->type2relevant_bl_types(type)&bl->type)) // only send status changes that actually matter to the client
+	if (type == SI_BLANK)  //It shows nothing on the client...
 		return;
 	
-	if (type == SI_BLANK)  //It shows nothing on the client...
+	if (!(status->type2relevant_bl_types(type)&bl->type)) // only send status changes that actually matter to the client
 		return;
 	
 	sd = BL_CAST(BL_PC, bl);
@@ -9197,6 +9197,8 @@ void clif_parse_WantToConnection(int fd, struct map_session_data* sd) {
 	chrif->authreq(sd,false);
 }
 void clif_hercules_chsys_mjoin(struct map_session_data *sd) {
+	if( sd->state.autotrade || sd->state.standalone )
+		return;
 	if( !map->list[sd->bl.m].channel ) {
 		
 		if (map->list[sd->bl.m].flag.chsysnolocalaj || (map->list[sd->bl.m].instance_id >= 0 && instance->list[map->list[sd->bl.m].instance_id].owner_type != IOT_NONE) )
@@ -13347,8 +13349,6 @@ void clif_parse_CatchPet(int fd, struct map_session_data *sd)
 void clif_parse_SelectEgg(int fd, struct map_session_data *sd)
 {
 	if (sd->menuskill_id != SA_TAMINGMONSTER || sd->menuskill_val != -1) {
-		//Forged packet, disconnect them [Kevin]
-		clif->authfail_fd(fd, 0);
 		return;
 	}
 	pet->select_egg(sd,RFIFOW(fd,2)-2);
