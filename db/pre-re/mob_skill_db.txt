@@ -287,9 +287,9 @@
 1059,Mistress@AL_HEAL,chase,28,11,10000,0,5000,yes,self,myhpltmaxrate,30,,,,,,,
 1059,Mistress@AL_PNEUMA,attack,25,1,2000,0,5000,yes,self,longrangeattacked,,,,,,,18,
 1059,Mistress@AL_PNEUMA,chase,25,1,2000,0,5000,yes,self,longrangeattacked,,,,,,,18,
-1059,Mistress@AL_TELEPORT,idle,26,1,10000,0,0,yes,self,rudeattacked,,,,,,,,
-1059,Mistress@AL_TELEPORT,idle,26,1,5000,0,5000,yes,self,always,0,,,,,,,
-1059,Mistress@AL_TELEPORT,walk,26,1,5000,0,5000,yes,self,always,0,,,,,,,
+//1059,Mistress@AL_TELEPORT,idle,26,1,10000,0,0,yes,self,rudeattacked,,,,,,,,
+//1059,Mistress@AL_TELEPORT,idle,26,1,5000,0,5000,yes,self,always,0,,,,,,,
+//1059,Mistress@AL_TELEPORT,walk,26,1,5000,0,5000,yes,self,always,0,,,,,,,
 1059,Mistress@NPC_AGIUP,attack,350,5,10000,0,30000,yes,self,myhpltmaxrate,30,,,,,,6,
 1059,Mistress@NPC_CALLSLAVE,attack,352,1,10000,0,30000,yes,self,always,0,,,,,,,
 1059,Mistress@NPC_CALLSLAVE,idle,352,1,10000,0,30000,yes,self,always,0,,,,,,,
@@ -2585,7 +2585,7 @@
 1511,Amon Ra@WZ_FIREPILLAR,idle,80,11,10000,0,2000,yes,around2,always,0,,,,,,,
 1511,Amon Ra@WZ_FIREPILLAR,idle,80,11,10000,0,2000,yes,around2,always,0,,,,,,,
 1511,Amon Ra@WZ_FIREPILLAR,attack,80,11,5000,0,2000,yes,around2,always,0,,,,,,,
-1511,Amon Ra@NPC_DARKBLESSING,attack,203,1,5000,0,2000,no,randomtarget,always,0,,,,,,,
+//1511,Amon Ra@NPC_DARKBLESSING,attack,203,1,5000,0,2000,no,randomtarget,always,0,,,,,,,
 1511,Amon Ra@WZ_METEOR,idle,83,11,10000,0,5000,yes,randomtarget,always,0,,,,,,9,
 //1511,Amon Ra@AL_TELEPORT,idle,26,1,10000,0,0,yes,self,rudeattacked,,,,,,,,	//Per Request
 //1511,Amon Ra@AL_TELEPORT,walk,26,1,5000,0,5000,yes,self,rudeattacked,,,,,,,,	//Per Request

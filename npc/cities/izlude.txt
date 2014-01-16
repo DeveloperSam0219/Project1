@@ -509,7 +509,7 @@ izlu2dun,108,27,0	script	Sailor#2izlude	4W_SAILOR,{
 		if(checkre(0))
 			warp "izlude",197,210;
 		else
-			warp "izlude",176,182;
+			warp "oldizlude",176,182;	//changed to old izlude
 		end;
 	}
 	close;

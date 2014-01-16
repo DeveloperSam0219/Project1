@@ -13,7 +13,7 @@
 
 // PVP Warpers
 //============================================================
-pvp_y_room,86,85,4	script	Fight Square Reception#8	8W_SOLDIER,{
+pvp_y_room,86,85,4	script	Fight Square Reception#1	8W_SOLDIER,{	//Changed to 1 because only pvp_y_1-2 uses old izlude
 	callfunc "F_PVP_FSRS";
 	end;
 
