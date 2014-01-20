@@ -117,6 +117,7 @@ gef_fild06,0,0,0,0	monster	Kobold	1133,20,0,0,0
 gef_fild06,0,0,0,0	monster	Kobold	1134,10,0,0,0
 gef_fild06,0,0,0,0	monster	Kobold	1135,10,0,0,0
 gef_fild06,0,0,0,0	monster	Petite	1156,50,0,0,0
+gef_fild06,0,0,0,0	monster	Petite	1155,50,0,0,0	// Per request to be added
 gef_fild06,0,0,0,0	monster	Poporing	1031,10,0,0,0
 gef_fild06,0,0,0,0	monster	Mantis	1139,20,0,0,0
 gef_fild06,0,0,0,0	monster	Shining Plant	1083,4,1800000,900000,1

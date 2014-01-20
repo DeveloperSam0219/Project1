@@ -1,4 +1,4 @@
-prontera,146,92,4	script	Healer#Custom	402,{
+prontera,164,96,4	script	Healer#Custom	402,{
     .npc$ = "[ " +strnpcinfo(1)+ " ]";
     setarray .quest_items[0],942,30,952,30,1043,30; // <item id>,<amount>
     

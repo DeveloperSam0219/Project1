@@ -139,8 +139,10 @@ pay_fild10,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1	// Per Request
 // pay_fild11 - Payon Forest
 //==================================================
 pay_fild11,0,0,0,0	monster	Greatest General	1277,30,0,0,0
-pay_fild11,0,0,0,0	monster	Nine Tail	1180,60,180000,0,0
-pay_fild11,0,0,0,0	monster	Dragon Tail	1321,50,180000,0,0
+//pay_fild11,0,0,0,0	monster	Nine Tail	1180,60,180000,0,0	//Per request to be remove
+//pay_fild11,0,0,0,0	monster	Dragon Tail	1321,50,180000,0,0	//Per request to be remove
 //pay_fild11,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1
 pay_fild11,241,162,5,5	monster	Red Mushroom	1085,3,360000,180000,1
 pay_fild11,66,293,5,5	monster	Red Mushroom	1085,3,360000,180000,1
+pay_fild11,0,0,0,0	monster	Poison Spore	1077,25,0,0,0	// Per request to be added
+pay_fild11,0,0,0,0	monster	Side Winder	1037,40,0,0,0

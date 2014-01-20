@@ -1,6 +1,8 @@
 novice,51,49,4	script	CosmicRO Welcomer	75,{
 	mes "[ExhilarateRO Welcomer]";
 	mes "Hi! Welcome to Cosmic Ragnarok Online!";
+	set Zeny, Zeny + 5000;
+	dispbottom "You have received 5,000z";
 	close2;
 	savepoint "new_1-1",53,111;
 	announce strcharinfo(0)+" has joined Cosmic Ragnarok Online!",bc_all;

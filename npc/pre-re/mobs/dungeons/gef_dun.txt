@@ -41,6 +41,7 @@ gef_dun01,188,104,10,10	monster	White Plant	1082,3,180000,90000,1
 gef_dun01,263,115,10,10	monster	White Plant	1082,3,180000,90000,1
 gef_dun01,48,67,10,10	monster	White Plant	1082,2,180000,90000,1
 gef_dun01,150,237,10,10	monster	White Plant	1082,2,180000,90000,1
+gef_dun01,0,0,0,0	monster	Whisper	1179,12,0,0,0	// Per request to be added
 
 //==================================================
 // gef_dun02 - Geffenia
