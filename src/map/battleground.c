@@ -42,12 +42,12 @@ struct map_session_data* bg_getavailablesd(struct battleground_data *bgd) {
 }
 
 /// Deletes BG Team from db
-int bg_team_delete(int bg_id) {
+bool bg_team_delete(int bg_id) {
 	int i;
 	struct map_session_data *sd;
 	struct battleground_data *bgd = bg->team_search(bg_id);
 
-	if( bgd == NULL ) return 0;
+	if( bgd == NULL ) return false;
 	for( i = 0; i < MAX_BG_MEMBERS; i++ ) {
 		if( (sd = bgd->members[i].sd) == NULL )
 			continue;
@@ -56,35 +56,34 @@ int bg_team_delete(int bg_id) {
 		sd->bg_id = 0;
 	}
 	idb_remove(bg->team_db, bg_id);
-	return 1;
+	return true;
 }
 
 /// Warps a Team
-int bg_team_warp(int bg_id, unsigned short map_index, short x, short y) {
+bool bg_team_warp(int bg_id, unsigned short map_index, short x, short y) {
 	int i;
 	struct battleground_data *bgd = bg->team_search(bg_id);
-	if( bgd == NULL ) return 0;
+	if( bgd == NULL ) return false;
 	for( i = 0; i < MAX_BG_MEMBERS; i++ )
 		if( bgd->members[i].sd != NULL ) pc->setpos(bgd->members[i].sd, map_index, x, y, CLR_TELEPORT);
-	return 1;
+	return true;
 }
 
-int bg_send_dot_remove(struct map_session_data *sd) {
+void bg_send_dot_remove(struct map_session_data *sd) {
 	if( sd && sd->bg_id )
 		clif->bg_xy_remove(sd);
-	return 0;
 }
 
 /// Player joins team
-int bg_team_join(int bg_id, struct map_session_data *sd) {
+bool bg_team_join(int bg_id, struct map_session_data *sd) {
 	int i;
 	struct battleground_data *bgd = bg->team_search(bg_id);
 	struct map_session_data *pl_sd;
 
-	if( bgd == NULL || sd == NULL || sd->bg_id ) return 0;
+	if( bgd == NULL || sd == NULL || sd->bg_id ) return false;
 
 	ARR_FIND(0, MAX_BG_MEMBERS, i, bgd->members[i].sd == NULL);
-	if( i == MAX_BG_MEMBERS ) return 0; // No free slots
+	if( i == MAX_BG_MEMBERS ) return false; // No free slots
 
 	sd->bg_id = bg_id;
 	bgd->members[i].sd = sd;
@@ -110,7 +109,7 @@ int bg_team_join(int bg_id, struct map_session_data *sd) {
 
 	clif->bg_hp(sd);
 	clif->bg_xy(sd);
-	return 1;
+	return true;
 }
 
 /// Single Player leaves team
@@ -156,16 +155,16 @@ int bg_team_leave(struct map_session_data *sd, int flag) {
 }
 
 /// Respawn after killed
-int bg_member_respawn(struct map_session_data *sd) {
+bool bg_member_respawn(struct map_session_data *sd) {
 	struct battleground_data *bgd;
 	if( sd == NULL || !pc_isdead(sd) || !sd->bg_id || (bgd = bg->team_search(sd->bg_id)) == NULL )
-		return 0;
+		return false;
 	if( bgd->mapindex == 0 )
-		return 0; // Respawn not handled by Core
+		return false; // Respawn not handled by Core
 	pc->setpos(sd, bgd->mapindex, bgd->x, bgd->y, CLR_OUTSIGHT);
 	status->revive(&sd->bl, 1, 100);
 
-	return 1; // Warped
+	return true; // Warped
 }
 
 int bg_create(unsigned short map_index, short rx, short ry, const char *ev, const char *dev) {
@@ -219,14 +218,14 @@ int bg_team_get_id(struct block_list *bl) {
 	return 0;
 }
 
-int bg_send_message(struct map_session_data *sd, const char *mes, int len) {
+bool bg_send_message(struct map_session_data *sd, const char *mes, int len) {
 	struct battleground_data *bgd;
 
 	nullpo_ret(sd);
 	if( sd->bg_id == 0 || (bgd = bg->team_search(sd->bg_id)) == NULL )
-		return 0;
+		return false; // Couldn't send message
 	clif->bg_message(bgd, sd->bl.id, sd->status.name, mes, len);
-	return 0;
+	return true;
 }
 
 /**
@@ -258,34 +257,34 @@ void bg_config_read(void) {
 	config_setting_t *data = NULL;
 	const char *config_filename = "conf/battlegrounds.conf"; // FIXME hardcoded name
 	
-	if (conf_read_file(&bg_conf, config_filename))
+	if (libconfig->read_file(&bg_conf, config_filename))
 		return;
 	
-	data = config_lookup(&bg_conf, "battlegrounds");
+	data = libconfig->lookup(&bg_conf, "battlegrounds");
 	
 	if (data != NULL) {
-		config_setting_t *settings = config_setting_get_elem(data, 0);
+		config_setting_t *settings = libconfig->setting_get_elem(data, 0);
 		config_setting_t *arenas;
 		const char *delay_var;
 		int i, arena_count = 0, offline = 0;
 		
-		if( !config_setting_lookup_string(settings, "global_delay_var", &delay_var) )
+		if( !libconfig->setting_lookup_string(settings, "global_delay_var", &delay_var) )
 			delay_var = "BG_Delay_Tick";
 		
 		safestrncpy(bg->gdelay_var, delay_var, BG_DELAY_VAR_LENGTH);
 		
-		config_setting_lookup_int(settings, "maximum_afk_seconds", &bg->mafksec);
+		libconfig->setting_lookup_int(settings, "maximum_afk_seconds", &bg->mafksec);
 		
-		config_setting_lookup_bool(settings, "feature_off", &offline);
+		libconfig->setting_lookup_bool(settings, "feature_off", &offline);
 
 		if( offline == 0 )
 			bg->queue_on = true;
 
-		if( (arenas = config_setting_get_member(settings, "arenas")) != NULL ) {
-			arena_count = config_setting_length(arenas);
+		if( (arenas = libconfig->setting_get_member(settings, "arenas")) != NULL ) {
+			arena_count = libconfig->setting_length(arenas);
 			CREATE( bg->arena, struct bg_arena *, arena_count );
 			for(i = 0; i < arena_count; i++) {
-				config_setting_t *arena = config_setting_get_elem(arenas, i);
+				config_setting_t *arena = libconfig->setting_get_elem(arenas, i);
 				config_setting_t *reward;
 				const char *aName, *aEvent, *aDelayVar;
 				int minLevel = 0, maxLevel = 0;
@@ -296,18 +295,18 @@ void bg_config_read(void) {
 				
 				bg->arena[i] = NULL;
 				
-				if( !config_setting_lookup_string(arena, "name", &aName) ) {
+				if( !libconfig->setting_lookup_string(arena, "name", &aName) ) {
 					ShowError("bg_config_read: failed to find 'name' for arena #%d\n",i);
 					continue;
 				}
 				
-				if( !config_setting_lookup_string(arena, "event", &aEvent) ) {
+				if( !libconfig->setting_lookup_string(arena, "event", &aEvent) ) {
 					ShowError("bg_config_read: failed to find 'event' for arena #%d\n",i);
 					continue;
 				}
 
-				config_setting_lookup_int(arena, "minLevel", &minLevel);
-				config_setting_lookup_int(arena, "maxLevel", &maxLevel);
+				libconfig->setting_lookup_int(arena, "minLevel", &minLevel);
+				libconfig->setting_lookup_int(arena, "maxLevel", &maxLevel);
 				
 				if( minLevel < 0 ) {
 					ShowWarning("bg_config_read: invalid %d value for arena '%s' minLevel\n",minLevel,aName);
@@ -318,14 +317,14 @@ void bg_config_read(void) {
 					maxLevel = MAX_LEVEL;
 				}
 				
-				if( !(reward = config_setting_get_member(arena, "reward")) ) {
+				if( !(reward = libconfig->setting_get_member(arena, "reward")) ) {
 					ShowError("bg_config_read: failed to find 'reward' for arena '%s'/#%d\n",aName,i);
 					continue;
 				}
 				
-				config_setting_lookup_int(reward, "win", &prizeWin);
-				config_setting_lookup_int(reward, "loss", &prizeLoss);
-				config_setting_lookup_int(reward, "draw", &prizeDraw);
+				libconfig->setting_lookup_int(reward, "win", &prizeWin);
+				libconfig->setting_lookup_int(reward, "loss", &prizeLoss);
+				libconfig->setting_lookup_int(reward, "draw", &prizeDraw);
 				
 				if( prizeWin < 0 ) {
 					ShowWarning("bg_config_read: invalid %d value for arena '%s' reward:win\n",prizeWin,aName);
@@ -340,9 +339,9 @@ void bg_config_read(void) {
 					prizeDraw = 0;
 				}
 				
-				config_setting_lookup_int(arena, "minPlayers", &minPlayers);
-				config_setting_lookup_int(arena, "maxPlayers", &maxPlayers);
-				config_setting_lookup_int(arena, "minTeamPlayers", &minTeamPlayers);
+				libconfig->setting_lookup_int(arena, "minPlayers", &minPlayers);
+				libconfig->setting_lookup_int(arena, "maxPlayers", &maxPlayers);
+				libconfig->setting_lookup_int(arena, "minTeamPlayers", &minTeamPlayers);
 				
 				if( minPlayers < 0 ) {
 					ShowWarning("bg_config_read: invalid %d value for arena '%s' minPlayers\n",minPlayers,aName);
@@ -357,20 +356,20 @@ void bg_config_read(void) {
 					minTeamPlayers = 0;
 				}
 
-				if( !config_setting_lookup_string(arena, "delay_var", &aDelayVar) ) {
+				if( !libconfig->setting_lookup_string(arena, "delay_var", &aDelayVar) ) {
 					ShowError("bg_config_read: failed to find 'delay_var' for arena '%s'/#%d\n",aName,i);
 					continue;
 				}
 				
-				config_setting_lookup_int(arena, "maxDuration", &maxDuration);
+				libconfig->setting_lookup_int(arena, "maxDuration", &maxDuration);
 				
 				if( maxDuration < 0 ) {
 					ShowWarning("bg_config_read: invalid %d value for arena '%s' maxDuration\n",maxDuration,aName);
 					maxDuration = 30;
 				}
 				
-				config_setting_lookup_int(arena, "fillDuration", &fillup_duration);
-				config_setting_lookup_int(arena, "pGameDuration", &pregame_duration);
+				libconfig->setting_lookup_int(arena, "fillDuration", &fillup_duration);
+				libconfig->setting_lookup_int(arena, "pGameDuration", &pregame_duration);
 
 				if( fillup_duration < 20 ) {
 					ShowWarning("bg_config_read: invalid %d value for arena '%s' fillDuration, minimum has to be 20, defaulting to 20.\n",fillup_duration,aName);
@@ -409,7 +408,7 @@ void bg_config_read(void) {
 			bg->arenas = arena_count;
 		}
 		
-		config_destroy(&bg_conf);
+		libconfig->destroy(&bg_conf);
 	}
 }
 struct bg_arena *bg_name2arena (char *name) {

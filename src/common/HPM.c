@@ -261,21 +261,21 @@ void hplugins_config_read(void) {
 		fclose(fp);
 	}
 	
-	if (conf_read_file(&plugins_conf, config_filename))
+	if (libconfig->read_file(&plugins_conf, config_filename))
 		return;
 
 	if( HPM->symbol_defaults_sub )
 		HPM->symbol_defaults_sub();
 	
-	plist = config_lookup(&plugins_conf, "plugins_list");
+	plist = libconfig->lookup(&plugins_conf, "plugins_list");
 	
 	if (plist != NULL) {
-		int length = config_setting_length(plist), i;
+		int length = libconfig->setting_length(plist), i;
 		char filename[60];
 		for(i = 0; i < length; i++) {
-			if( !strcmpi(config_setting_get_string_elem(plist,i),"HPMHooking") ) {//must load it first
+			if( !strcmpi(libconfig->setting_get_string_elem(plist,i),"HPMHooking") ) {//must load it first
 				struct hplugin *plugin;
-				snprintf(filename, 60, "plugins/%s%s", config_setting_get_string_elem(plist,i), DLL_EXT);
+				snprintf(filename, 60, "plugins/%s%s", libconfig->setting_get_string_elem(plist,i), DLL_EXT);
 				if( ( plugin = HPM->load(filename) )  ) {
 					bool (*func)(bool *fr);
 					bool (*addhook_sub) (enum HPluginHookType type, const char *target, void *hook, unsigned int pID);
@@ -289,12 +289,12 @@ void hplugins_config_read(void) {
 			}
 		}
 		for(i = 0; i < length; i++) {
-			if( strcmpi(config_setting_get_string_elem(plist,i),"HPMHooking") ) {//now all others
-				snprintf(filename, 60, "plugins/%s%s", config_setting_get_string_elem(plist,i), DLL_EXT);
+			if( strcmpi(libconfig->setting_get_string_elem(plist,i),"HPMHooking") ) {//now all others
+				snprintf(filename, 60, "plugins/%s%s", libconfig->setting_get_string_elem(plist,i), DLL_EXT);
 				HPM->load(filename);
 			}
 		}
-		config_destroy(&plugins_conf);
+		libconfig->destroy(&plugins_conf);
 	}
 	
 	if( HPM->plugin_count )
@@ -316,19 +316,21 @@ CPCMD(plugins) {
 void hplugins_grabHPData(struct HPDataOperationStorage *ret, enum HPluginDataTypes type, void *ptr) {
 	/* record address */
 	switch( type ) {
+		/* core-handled */
 		case HPDT_SESSION:
 			ret->HPDataSRCPtr = (void**)(&((struct socket_data *)ptr)->hdata);
 			ret->hdatac = &((struct socket_data *)ptr)->hdatac;
 			break;
 		/* goes to sub */
-		case HPDT_MSD:
-		case HPDT_NPCD:
-			if( HPM->grabHPDataSub )
-				HPM->grabHPDataSub(ret,type,ptr);
-			else
-				ShowError("HPM:grabHPData failed, type %d needs sub-handler!\n",type);
-			break;
 		default:
+			if( HPM->grabHPDataSub ) {
+				if( HPM->grabHPDataSub(ret,type,ptr) )
+					return;
+				else {
+					ShowError("HPM:HPM:grabHPData failed, unknown type %d!\n",type);
+				}
+			} else
+				ShowError("HPM:grabHPData failed, type %d needs sub-handler!\n",type);
 			ret->HPDataSRCPtr = NULL;
 			ret->hdatac = NULL;
 			return;
@@ -675,11 +677,7 @@ void hplugins_share_defaults(void) {
 	HPM->share(DB, "DB");
 	HPM->share(HPMiMalloc, "iMalloc");
 	/* socket */
-	HPM->share(RFIFOSKIP,"RFIFOSKIP");
-	HPM->share(WFIFOSET,"WFIFOSET");
-	HPM->share(do_close,"do_close");
-	HPM->share(make_connection,"make_connection");
-	//session,fd_max and addr_ are shared from within socket.c
+	HPM->share(sockt,"sockt");
 	/* strlib */
 	HPM->share(strlib,"strlib");
 	HPM->share(sv,"sv");
@@ -688,11 +686,8 @@ void hplugins_share_defaults(void) {
 	HPM->share(SQL,"SQL");
 	/* timer */
 	HPM->share(timer,"timer");
-	/* libconfig (temp) */
-	HPM->share(config_setting_lookup_string,"config_setting_lookup_string");
-	HPM->share(config_setting_lookup_int,"config_setting_lookup_int");
-	HPM->share(config_setting_get_member,"config_setting_get_member");
-	HPM->share(config_setting_length,"config_setting_length");
+	/* libconfig */
+	HPM->share(libconfig,"libconfig");
 }
 
 void hpm_init(void) {

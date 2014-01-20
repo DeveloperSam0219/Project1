@@ -83,7 +83,7 @@ const char* atcommand_msg(int msg_number) {
 /*==========================================
  * Read Message Data
  *------------------------------------------*/
-int msg_config_read(const char* cfgName)
+bool msg_config_read(const char* cfgName)
 {
 	int msg_number;
 	char line[1024], w1[1024], w2[1024];
@@ -92,7 +92,7 @@ int msg_config_read(const char* cfgName)
 
 	if ((fp = fopen(cfgName, "r")) == NULL) {
 		ShowError("Messages file not found: %s\n", cfgName);
-		return 1;
+		return false;
 	}
 
 	if ((--called) == 0)
@@ -123,7 +123,7 @@ int msg_config_read(const char* cfgName)
 
 	fclose(fp);
 
-	return 0;
+	return true;
 }
 
 /*==========================================
@@ -3544,19 +3544,19 @@ ACMD(reloadskilldb)
 ACMD(reloadatcommand) {
 	config_t run_test;
 	
-	if (conf_read_file(&run_test, "conf/groups.conf")) {
+	if (libconfig->read_file(&run_test, "conf/groups.conf")) {
 		clif->message(fd, msg_txt(1036)); // Error reading groups.conf, reload failed.
 		return false;
 	}
 	
-	config_destroy(&run_test);
+	libconfig->destroy(&run_test);
 	
-	if (conf_read_file(&run_test, map->ATCOMMAND_CONF_FILENAME)) {
+	if (libconfig->read_file(&run_test, map->ATCOMMAND_CONF_FILENAME)) {
 		clif->message(fd, msg_txt(1037)); // Error reading atcommand.conf, reload failed.
 		return false;
 	}
 	
-	config_destroy(&run_test);
+	libconfig->destroy(&run_test);
 	
 	atcommand->doload();
 	pcg->reload();
@@ -3917,7 +3917,6 @@ ACMD(mapinfo) {
 		default: // normally impossible to arrive here
 			clif->message(fd, msg_txt(1118)); // Please enter at least one valid list number (usage: @mapinfo <0-3> <map>).
 			return false;
-			break;
 	}
 	
 	return true;
@@ -5339,7 +5338,7 @@ ACMD(skilltree) {
 	if( j == MAX_SKILL_TREE || pc->skill_tree[c][j].id == 0 )
 	{
 		clif->message(fd, msg_txt(1169)); // The player cannot use that skill.
-		return true;
+		return false;
 	}
 	
 	ent = &pc->skill_tree[c][j];
@@ -7215,7 +7214,7 @@ ACMD(version) {
  * @mutearea by MouseJstr
  *------------------------------------------*/
 int atcommand_mutearea_sub(struct block_list *bl,va_list ap)
-{
+{ // As it is being used [ACMD(mutearea)] there's no need to be a bool, but if there's need to reuse it, it's better to be this way
 	
 	int time, id;
 	struct map_session_data *pl_sd = (struct map_session_data *)bl;
@@ -7232,7 +7231,7 @@ int atcommand_mutearea_sub(struct block_list *bl,va_list ap)
 		else
 			status_change_end(&pl_sd->bl, SC_NOCHAT, INVALID_TIMER);
 	}
-	return 0;
+	return 1;
 }
 
 ACMD(mutearea) {
@@ -7593,10 +7592,11 @@ ACMD(invite) {
 	unsigned int did = sd->duel_group;
 	struct map_session_data *target_sd = map->nick2sd((char *)message);
 	
-	if(did == 0)	{
+	if(did == 0)
+	{
 		// "Duel: @invite without @duel."
 		clif->message(fd, msg_txt(350));
-		return true;
+		return false;
 	}
 	
 	if(duel->list[did].max_players_limit > 0 &&
@@ -7604,26 +7604,27 @@ ACMD(invite) {
 		
 		// "Duel: Limit of players is reached."
 		clif->message(fd, msg_txt(351));
-		return true;
+		return false;
 	}
 	
 	if(target_sd == NULL) {
 		// "Duel: Player not found."
 		clif->message(fd, msg_txt(352));
-		return true;
+		return false;
 	}
 	
 	if(target_sd->duel_group > 0 || target_sd->duel_invite > 0) {
 		// "Duel: Player already in duel."
 		clif->message(fd, msg_txt(353));
-		return true;
+		return false;
 	}
 	
 	if(battle_config.duel_only_on_same_map && target_sd->bl.m != sd->bl.m)
 	{
+		// "Duel: You can't invite %s because he/she isn't on the same map."
 		sprintf(atcmd_output, msg_txt(364), message);
 		clif->message(fd, atcmd_output);
-		return true;
+		return false;
 	}
 	
 	duel->invite(did, sd, target_sd);
@@ -7643,7 +7644,7 @@ ACMD(duel) {
 	if(sd->duel_invite > 0) {
 		// "Duel: @duel without @reject."
 		clif->message(fd, msg_txt(355));
-		return true;
+		return false;
 	}
 	
 	if(!duel->checktime(sd)) {
@@ -7651,14 +7652,14 @@ ACMD(duel) {
 		// "Duel: You can take part in duel only one time per %d minutes."
 		sprintf(output, msg_txt(356), battle_config.duel_time_interval);
 		clif->message(fd, output);
-		return true;
+		return false;
 	}
 	
 	if( message[0] ) {
 		if(sscanf(message, "%d", &maxpl) >= 1) {
 			if(maxpl < 2 || maxpl > 65535) {
 				clif->message(fd, msg_txt(357)); // "Duel: Invalid value."
-				return true;
+				return false;
 			}
 			duel->create(sd, maxpl);
 		} else {
@@ -7669,7 +7670,7 @@ ACMD(duel) {
 				if((newduel = duel->create(sd, 2)) != -1) {
 					if(target_sd->duel_group > 0 ||	target_sd->duel_invite > 0) {
 						clif->message(fd, msg_txt(353)); // "Duel: Player already in duel."
-						return true;
+						return false;
 					}
 					duel->invite(newduel, sd, target_sd);
 					clif->message(fd, msg_txt(354)); // "Duel: Invitation has been sent."
@@ -7677,7 +7678,7 @@ ACMD(duel) {
 			} else {
 				// "Duel: Player not found."
 				clif->message(fd, msg_txt(352));
-				return true;
+				return false;
 			}
 		}
 	} else
@@ -7691,7 +7692,7 @@ ACMD(leave) {
 	if(sd->duel_group <= 0) {
 		// "Duel: @leave without @duel."
 		clif->message(fd, msg_txt(358));
-		return true;
+		return false;
 	}
 	
 	duel->leave(sd->duel_group, sd);
@@ -7705,20 +7706,20 @@ ACMD(accept) {
 		// "Duel: You can take part in duel only one time per %d minutes."
 		sprintf(output, msg_txt(356), battle_config.duel_time_interval);
 		clif->message(fd, output);
-		return true;
+		return false;
 	}
 	
 	if(sd->duel_invite <= 0) {
 		// "Duel: @accept without invititation."
 		clif->message(fd, msg_txt(360));
-		return true;
+		return false;
 	}
 	
 	if( duel->list[sd->duel_invite].max_players_limit > 0
 	 && duel->list[sd->duel_invite].members_count >= duel->list[sd->duel_invite].max_players_limit ) {
 		// "Duel: Limit of players is reached."
 		clif->message(fd, msg_txt(351));
-		return true;
+		return false;
 	}
 	
 	duel->accept(sd->duel_invite, sd);
@@ -7731,7 +7732,7 @@ ACMD(reject) {
 	if(sd->duel_invite <= 0) {
 		// "Duel: @reject without invititation."
 		clif->message(fd, msg_txt(362));
-		return true;
+		return false;
 	}
 	
 	duel->reject(sd->duel_invite, sd);
@@ -7800,17 +7801,17 @@ ACMD(clone) {
 	
 	if (!message || !*message) {
 		clif->message(sd->fd,msg_txt(1323)); // You must enter a player name or ID.
-		return true;
+		return false;
 	}
 	
 	if((pl_sd=map->nick2sd((char *)message)) == NULL && (pl_sd=map->charid2sd(atoi(message))) == NULL) {
 		clif->message(fd, msg_txt(3));	// Character not found.
-		return true;
+		return false;
 	}
 	
 	if(pc_get_group_level(pl_sd) > pc_get_group_level(sd)) {
 		clif->message(fd, msg_txt(126));	// Cannot clone a player of higher GM level than yourself.
-		return true;
+		return false;
 	}
 	
 	if (strcmpi(info->command, "clone") == 0)
@@ -7818,14 +7819,15 @@ ACMD(clone) {
 	else if (strcmpi(info->command, "slaveclone") == 0) {
 		flag = 2;
 		if(pc_isdead(sd)){
+			//"Unable to spawn slave clone."
 		    clif->message(fd, msg_txt(129+flag*2));
-		    return true;
+		    return false;
 		}
 		master = sd->bl.id;
 		if (battle_config.atc_slave_clone_limit
 			&& mob->countslave(&sd->bl) >= battle_config.atc_slave_clone_limit) {
 			clif->message(fd, msg_txt(127));	// You've reached your slave clones limit.
-			return true;
+			return false;
 		}
 	}
 	
@@ -7844,7 +7846,7 @@ ACMD(clone) {
 		return true;
 	}
 	clif->message(fd, msg_txt(129+flag*2));	// Unable to spawn evil clone. Unable to spawn clone. Unable to spawn slave clone.
-	return true;
+	return false;
 }
 
 /*=====================================
@@ -9845,7 +9847,7 @@ bool is_atcommand(const int fd, struct map_session_data* sd, const char* message
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_ATCOMMAND )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	//Clearing these to be used once more.
 	memset(command, '\0', sizeof(command));
@@ -9957,11 +9959,11 @@ void atcommand_config_read(const char* config_filename) {
 	const char *symbol = NULL;
 	int num_aliases = 0;
 
-	if (conf_read_file(&atcommand_config, config_filename))
+	if (libconfig->read_file(&atcommand_config, config_filename))
 		return;
 
 	// Command symbols
-	if (config_lookup_string(&atcommand_config, "atcommand_symbol", &symbol)) {
+	if (libconfig->lookup_string(&atcommand_config, "atcommand_symbol", &symbol)) {
 		if (ISPRINT(*symbol) && // no control characters
 			*symbol != '/' && // symbol of client commands
 			*symbol != '%' && // symbol of party chat
@@ -9970,7 +9972,7 @@ void atcommand_config_read(const char* config_filename) {
 			atcommand->at_symbol = *symbol;
 	}
 
-	if (config_lookup_string(&atcommand_config, "charcommand_symbol", &symbol)) {
+	if (libconfig->lookup_string(&atcommand_config, "charcommand_symbol", &symbol)) {
 		if (ISPRINT(*symbol) && // no control characters
 			*symbol != '/' && // symbol of client commands
 			*symbol != '%' && // symbol of party chat
@@ -9980,10 +9982,10 @@ void atcommand_config_read(const char* config_filename) {
 	}
 
 	// Command aliases
-	aliases = config_lookup(&atcommand_config, "aliases");
+	aliases = libconfig->lookup(&atcommand_config, "aliases");
 	if (aliases != NULL) {
 		int i = 0;
-		int count = config_setting_length(aliases);
+		int count = libconfig->setting_length(aliases);
 
 		for (i = 0; i < count; ++i) {
 			config_setting_t *command;
@@ -9991,7 +9993,7 @@ void atcommand_config_read(const char* config_filename) {
 			int j = 0, alias_count = 0;
 			AtCommandInfo *commandinfo = NULL;
 
-			command = config_setting_get_elem(aliases, i);
+			command = libconfig->setting_get_elem(aliases, i);
 			if (config_setting_type(command) != CONFIG_TYPE_ARRAY)
 				continue;
 			commandname = config_setting_name(command);
@@ -9999,9 +10001,9 @@ void atcommand_config_read(const char* config_filename) {
 				ShowConfigWarning(command, "atcommand_config_read: can not set alias for non-existent command %s", commandname);
 				continue;
 			}
-			alias_count = config_setting_length(command);
+			alias_count = libconfig->setting_length(command);
 			for (j = 0; j < alias_count; ++j) {
-				const char *alias = config_setting_get_string_elem(command, j);
+				const char *alias = libconfig->setting_get_string_elem(command, j);
 				if (alias != NULL) {
 					AliasInfo *alias_info;
 					if (strdb_exists(atcommand->alias_db, alias)) {
@@ -10018,17 +10020,17 @@ void atcommand_config_read(const char* config_filename) {
 		}
 	}
 
-	nolog = config_lookup(&atcommand_config, "nolog");
+	nolog = libconfig->lookup(&atcommand_config, "nolog");
 	if (nolog != NULL) {
 		int i = 0;
-		int count = config_setting_length(nolog);
+		int count = libconfig->setting_length(nolog);
 		
 		for (i = 0; i < count; ++i) {
 			config_setting_t *command;
 			const char *commandname = NULL;
 			AtCommandInfo *commandinfo = NULL;
 			
-			command = config_setting_get_elem(nolog, i);
+			command = libconfig->setting_get_elem(nolog, i);
 			commandname = config_setting_name(command);
 			if ( !( commandinfo = atcommand_exists(commandname) ) ) {
 				ShowConfigWarning(command, "atcommand_config_read: can not disable logging for non-existent command %s", commandname);
@@ -10040,9 +10042,9 @@ void atcommand_config_read(const char* config_filename) {
 	
 	// Commands help
 	// We only check if all commands exist
-	help = config_lookup(&atcommand_config, "help");
+	help = libconfig->lookup(&atcommand_config, "help");
 	if (help != NULL) {
-		int count = config_setting_length(help);
+		int count = libconfig->setting_length(help);
 		int i;
 
 		for (i = 0; i < count; ++i) {
@@ -10050,13 +10052,13 @@ void atcommand_config_read(const char* config_filename) {
 			const char *commandname;
 			AtCommandInfo *commandinfo = NULL;
 
-			command = config_setting_get_elem(help, i);
+			command = libconfig->setting_get_elem(help, i);
 			commandname = config_setting_name(command);
 			if ( !( commandinfo = atcommand_exists(commandname) ) )
 				ShowConfigWarning(command, "atcommand_config_read: command %s does not exist", commandname);
 			else {
 				if( commandinfo->help == NULL ) {
-					const char *str = config_setting_get_string(command);
+					const char *str = libconfig->setting_get_string(command);
 					size_t len = strlen(str);
 					commandinfo->help = aMalloc( len * sizeof(char) );
 					safestrncpy(commandinfo->help, str, len);
@@ -10067,7 +10069,7 @@ void atcommand_config_read(const char* config_filename) {
 
 	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' command aliases in '"CL_WHITE"%s"CL_RESET"'.\n", num_aliases, config_filename);
 	
-	config_destroy(&atcommand_config);
+	libconfig->destroy(&atcommand_config);
 	return;
 }
 

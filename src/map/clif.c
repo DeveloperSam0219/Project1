@@ -2624,13 +2624,13 @@ void read_channels_config(void) {
 	config_setting_t *chsys = NULL;
 	const char *config_filename = "conf/channels.conf"; // FIXME hardcoded name
 	
-	if (conf_read_file(&channels_conf, config_filename))
+	if (libconfig->read_file(&channels_conf, config_filename))
 		return;
 	
-	chsys = config_lookup(&channels_conf, "chsys");
+	chsys = libconfig->lookup(&channels_conf, "chsys");
 	
 	if (chsys != NULL) {
-		config_setting_t *settings = config_setting_get_elem(chsys, 0);
+		config_setting_t *settings = libconfig->setting_get_elem(chsys, 0);
 		config_setting_t *channels;
 		config_setting_t *colors;
 		int i,k;
@@ -2642,21 +2642,21 @@ void read_channels_config(void) {
 			allow_user_channel_creation = 0,
 			irc_enabled = 0;
 		
-		if( !config_setting_lookup_string(settings, "map_local_channel_name", &local_name) )
+		if( !libconfig->setting_lookup_string(settings, "map_local_channel_name", &local_name) )
 			local_name = "map";
 		safestrncpy(hChSys.local_name, local_name, HCHSYS_NAME_LENGTH);
 		
-		if( !config_setting_lookup_string(settings, "ally_channel_name", &ally_name) )
+		if( !libconfig->setting_lookup_string(settings, "ally_channel_name", &ally_name) )
 			ally_name = "ally";
 		safestrncpy(hChSys.ally_name, ally_name, HCHSYS_NAME_LENGTH);
 		
-		if( !config_setting_lookup_string(settings, "irc_channel_name", &irc_name) )
+		if( !libconfig->setting_lookup_string(settings, "irc_channel_name", &irc_name) )
 			irc_name = "irc";
 		safestrncpy(hChSys.irc_name, irc_name, HCHSYS_NAME_LENGTH);
 		
-		config_setting_lookup_bool(settings, "map_local_channel", &local_enabled);
-		config_setting_lookup_bool(settings, "ally_channel_enabled", &ally_enabled);
-		config_setting_lookup_bool(settings, "irc_channel_enabled", &irc_enabled);
+		libconfig->setting_lookup_bool(settings, "map_local_channel", &local_enabled);
+		libconfig->setting_lookup_bool(settings, "ally_channel_enabled", &ally_enabled);
+		libconfig->setting_lookup_bool(settings, "irc_channel_enabled", &irc_enabled);
 		
 		if( local_enabled )
 			hChSys.local = true;
@@ -2671,7 +2671,7 @@ void read_channels_config(void) {
 			const char *irc_server, *irc_channel,
 				 *irc_nick, *irc_nick_pw;
 			int irc_use_ghost = 0;
-			if( config_setting_lookup_string(settings, "irc_channel_network", &irc_server) ) {
+			if( libconfig->setting_lookup_string(settings, "irc_channel_network", &irc_server) ) {
 				if( !strstr(irc_server,":") ) {
 					hChSys.irc = false;
 					ShowWarning("channels.conf : network port wasn't found in 'irc_channel_network', disabling irc channel...\n");
@@ -2695,13 +2695,13 @@ void read_channels_config(void) {
 				hChSys.irc = false;
 				ShowWarning("channels.conf : irc channel enabled but irc_channel_network wasn't found, disabling irc channel...\n");
 			}
-			if( config_setting_lookup_string(settings, "irc_channel_channel", &irc_channel) )
+			if( libconfig->setting_lookup_string(settings, "irc_channel_channel", &irc_channel) )
 				safestrncpy(hChSys.irc_channel, irc_channel, 50);
 			else {
 				hChSys.irc = false;
 				ShowWarning("channels.conf : irc channel enabled but irc_channel_channel wasn't found, disabling irc channel...\n");
 			}
-			if( config_setting_lookup_string(settings, "irc_channel_nick", &irc_nick) ) {
+			if( libconfig->setting_lookup_string(settings, "irc_channel_nick", &irc_nick) ) {
 				if( strcmpi(irc_nick,"Hercules_chSysBot") == 0 ) {
 					sprintf(hChSys.irc_nick, "Hercules_chSysBot%d",rand()%777);
 				} else
@@ -2710,7 +2710,7 @@ void read_channels_config(void) {
 				hChSys.irc = false;
 				ShowWarning("channels.conf : irc channel enabled but irc_channel_nick wasn't found, disabling irc channel...\n");
 			}
-			if( config_setting_lookup_string(settings, "irc_channel_nick_pw", &irc_nick_pw) ) {
+			if( libconfig->setting_lookup_string(settings, "irc_channel_nick_pw", &irc_nick_pw) ) {
 				safestrncpy(hChSys.irc_nick_pw, irc_nick_pw, 30);
 				config_setting_lookup_bool(settings, "irc_channel_use_ghost", &irc_use_ghost);
 				hChSys.irc_use_ghost = irc_use_ghost;
@@ -2718,37 +2718,37 @@ void read_channels_config(void) {
 
 		}
 		
-		config_setting_lookup_bool(settings, "map_local_channel_autojoin", &local_autojoin);
-		config_setting_lookup_bool(settings, "ally_channel_autojoin", &ally_autojoin);
+		libconfig->setting_lookup_bool(settings, "map_local_channel_autojoin", &local_autojoin);
+		libconfig->setting_lookup_bool(settings, "ally_channel_autojoin", &ally_autojoin);
 
 		if( local_autojoin )
 			hChSys.local_autojoin = true;
 		if( ally_autojoin )
 			hChSys.ally_autojoin = true;
 		
-		config_setting_lookup_bool(settings, "allow_user_channel_creation", &allow_user_channel_creation);
+		libconfig->setting_lookup_bool(settings, "allow_user_channel_creation", &allow_user_channel_creation);
 
 		if( allow_user_channel_creation )
 			hChSys.allow_user_channel_creation = true;
 
-		if( (colors = config_setting_get_member(settings, "colors")) != NULL ) {
-			int color_count = config_setting_length(colors);
+		if( (colors = libconfig->setting_get_member(settings, "colors")) != NULL ) {
+			int color_count = libconfig->setting_length(colors);
 			CREATE( hChSys.colors, unsigned int, color_count );
 			CREATE( hChSys.colors_name, char *, color_count );
 			for(i = 0; i < color_count; i++) {
-				config_setting_t *color = config_setting_get_elem(colors, i);
+				config_setting_t *color = libconfig->setting_get_elem(colors, i);
 
 				CREATE( hChSys.colors_name[i], char, HCHSYS_NAME_LENGTH );
 				
 				safestrncpy(hChSys.colors_name[i], config_setting_name(color), HCHSYS_NAME_LENGTH);
 
-				hChSys.colors[i] = (unsigned int)strtoul(config_setting_get_string_elem(colors,i),NULL,0);
+				hChSys.colors[i] = (unsigned int)strtoul(libconfig->setting_get_string_elem(colors,i),NULL,0);
 				hChSys.colors[i] = (hChSys.colors[i] & 0x0000FF) << 16 | (hChSys.colors[i] & 0x00FF00) | (hChSys.colors[i] & 0xFF0000) >> 16;//RGB to BGR
 			}
 			hChSys.colors_count = color_count;
 		}
 		
-		config_setting_lookup_string(settings, "map_local_channel_color", &local_color);
+		libconfig->setting_lookup_string(settings, "map_local_channel_color", &local_color);
 		
 		for (k = 0; k < hChSys.colors_count; k++) {
 			if( strcmpi(hChSys.colors_name[k],local_color) == 0 )
@@ -2762,7 +2762,7 @@ void read_channels_config(void) {
 			hChSys.local = false;
 		}
 		
-		config_setting_lookup_string(settings, "ally_channel_color", &ally_color);
+		libconfig->setting_lookup_string(settings, "ally_channel_color", &ally_color);
 		
 		for (k = 0; k < hChSys.colors_count; k++) {
 			if( strcmpi(hChSys.colors_name[k],ally_color) == 0 )
@@ -2776,7 +2776,7 @@ void read_channels_config(void) {
 			hChSys.ally = false;
 		}
 		
-		config_setting_lookup_string(settings, "irc_channel_color", &irc_color);
+		libconfig->setting_lookup_string(settings, "irc_channel_color", &irc_color);
 		
 		for (k = 0; k < hChSys.colors_count; k++) {
 			if( strcmpi(hChSys.colors_name[k],irc_color) == 0 )
@@ -2801,13 +2801,13 @@ void read_channels_config(void) {
 			ircbot->channel = chd;
 		}
 		
-		if( (channels = config_setting_get_member(settings, "default_channels")) != NULL ) {
-			int channel_count = config_setting_length(channels);
+		if( (channels = libconfig->setting_get_member(settings, "default_channels")) != NULL ) {
+			int channel_count = libconfig->setting_length(channels);
 		
 			for(i = 0; i < channel_count; i++) {
-				config_setting_t *channel = config_setting_get_elem(channels, i);
+				config_setting_t *channel = libconfig->setting_get_elem(channels, i);
 				const char *name = config_setting_name(channel);
-				const char *color = config_setting_get_string_elem(channels,i);
+				const char *color = libconfig->setting_get_string_elem(channels,i);
 				struct hChSysCh *chd;
 				
 				for (k = 0; k < hChSys.colors_count; k++) {
@@ -2833,7 +2833,7 @@ void read_channels_config(void) {
 		}
 					
 		ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' channels in '"CL_WHITE"%s"CL_RESET"'.\n", db_size(clif->channel_db), config_filename);
-		config_destroy(&channels_conf);
+		libconfig->destroy(&channels_conf);
 	}
 }
 
@@ -9708,7 +9708,7 @@ void clif_parse_WalkToXY(int fd, struct map_session_data *sd)
 
 	//Set last idle time... [Skotlex]
 	if( battle_config.idletime_criteria & BCIDLE_WALK )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 
 	unit->walktoxy(&sd->bl, x, y, 4);
 }
@@ -9859,7 +9859,7 @@ void clif_parse_GlobalMessage(int fd, struct map_session_data* sd)
 	}
 	
 	if( battle_config.idletime_criteria & BCIDLE_CHAT )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	if( sd->gcbind ) {
 		clif->chsys_send(sd->gcbind,sd,message);
@@ -10024,7 +10024,7 @@ void clif_parse_Emotion(int fd, struct map_session_data *sd)
 		sd->emotionlasttime = time(NULL);
 		
 		if( battle_config.idletime_criteria & BCIDLE_EMOTION )
-			sd->idletime = last_tick;
+			sd->idletime = sockt->last_tick;
 
 		if(battle_config.client_reshuffle_dice && emoticon>=E_DICE1 && emoticon<=E_DICE6) {// re-roll dice
 			emoticon = rnd()%6+E_DICE1;
@@ -10099,7 +10099,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 
 			pc->delinvincibletimer(sd);
 			if( battle_config.idletime_criteria & BCIDLE_ATTACK )
-				sd->idletime = last_tick;
+				sd->idletime = sockt->last_tick;
 			unit->attack(&sd->bl, target_id, action_type != 0);
 		break;
 		case 0x02: // sitdown
@@ -10124,7 +10124,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 				break;
 
 			if( battle_config.idletime_criteria & BCIDLE_SIT )
-				sd->idletime = last_tick;
+				sd->idletime = sockt->last_tick;
 			
 			pc_setsit(sd);
 			skill->sit(sd,1);
@@ -10138,7 +10138,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 			}
 			
 			if( battle_config.idletime_criteria & BCIDLE_SIT )
-				sd->idletime = last_tick;
+				sd->idletime = sockt->last_tick;
 			
 			pc->setstand(sd);
 			skill->sit(sd,0);
@@ -10332,7 +10332,7 @@ void clif_parse_WisMessage(int fd, struct map_session_data* sd)
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_CHAT )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	// Chat logging type 'W' / Whisper
 	logs->chat(LOG_CHAT_WHISPER, 0, sd->status.char_id, sd->status.account_id, mapindex_id2name(sd->mapindex), sd->bl.x, sd->bl.y, target, message);
@@ -10552,7 +10552,7 @@ void clif_parse_DropItem(int fd, struct map_session_data *sd)
 			break;
 
 		if( battle_config.idletime_criteria & BCIDLE_DROPITEM )
-			sd->idletime = last_tick;
+			sd->idletime = sockt->last_tick;
 		
 		return;
 	}
@@ -10580,7 +10580,7 @@ void clif_parse_UseItem(int fd, struct map_session_data *sd)
 
 	//Whether the item is used or not is irrelevant, the char ain't idle. [Skotlex]
 	if( battle_config.idletime_criteria & BCIDLE_USEITEM )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	n = RFIFOW(fd,packet_db[RFIFOW(fd,0)].pos[0])-2;
 
 	if(n <0 || n >= MAX_INVENTORY)
@@ -10627,7 +10627,7 @@ void clif_parse_EquipItem(int fd,struct map_session_data *sd) {
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_USEITEM )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	//Client doesn't send the position for ammo.
 	if(sd->inventory_data[p->index]->type == IT_AMMO)
@@ -10747,7 +10747,7 @@ void clif_parse_UnequipItem(int fd,struct map_session_data *sd)
 	index = RFIFOW(fd,2)-2;
 
 	if( battle_config.idletime_criteria & BCIDLE_USEITEM )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	pc->unequipitem(sd,index,1);
 }
@@ -11297,7 +11297,7 @@ void clif_parse_UseSkillToId(int fd, struct map_session_data *sd)
 
 	// Whether skill fails or not is irrelevant, the char ain't idle. [Skotlex]
 	if( battle_config.idletime_criteria & BCIDLE_USESKILLTOID )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 
 	if( sd->npc_id || sd->state.workinprogress&1 ){
 #ifdef RENEWAL
@@ -11398,7 +11398,7 @@ void clif_parse_UseSkillToPosSub(int fd, struct map_session_data *sd, uint16 ski
 
 	//Whether skill fails or not is irrelevant, the char ain't idle. [Skotlex]
 	if( battle_config.idletime_criteria & BCIDLE_USESKILLTOPOS )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 
 	if( skill->not_ok(skill_id, sd) )
 		return;
@@ -12154,7 +12154,7 @@ void clif_parse_PartyMessage(int fd, struct map_session_data* sd)
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_CHAT )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	party->send_message(sd, text, textlen);
 }
@@ -13214,7 +13214,7 @@ void clif_parse_GuildMessage(int fd, struct map_session_data* sd)
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_CHAT )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	if( sd->bg_id )
 		bg->send_message(sd, text, textlen);
@@ -14154,7 +14154,7 @@ void clif_parse_FriendsListRemove(int fd, struct map_session_data *sd)
 		}
 
 	} else { //friend not online -- ask char server to delete from his friendlist
-		if(chrif->removefriend(char_id,sd->status.char_id)) { // char-server offline, abort
+		if(!chrif->removefriend(char_id,sd->status.char_id)) { // char-server offline, abort
 			clif->message(fd, msg_txt(673)); //"This action can't be performed at the moment. Please try again later."
 			return;
 		}
@@ -16203,7 +16203,7 @@ void clif_parse_BattleChat(int fd, struct map_session_data* sd)
 	}
 
 	if( battle_config.idletime_criteria & BCIDLE_CHAT )
-		sd->idletime = last_tick;
+		sd->idletime = sockt->last_tick;
 	
 	bg->send_message(sd, text, textlen);
 }
@@ -17378,32 +17378,33 @@ void clif_cashshop_db(void) {
 	config_setting_t *cashshop = NULL, *cats = NULL;
 	const char *config_filename = "db/cashshop_db.conf"; // FIXME hardcoded name
 	int i, item_count_t = 0;
+	
 	for( i = 0; i < CASHSHOP_TAB_MAX; i++ ) {
 		CREATE(clif->cs.data[i], struct hCSData *, 1);
 		clif->cs.item_count[i] = 0;
 	}
 	
-	if (conf_read_file(&cashshop_conf, config_filename)) {
+	if (libconfig->read_file(&cashshop_conf, config_filename)) {
 		ShowError("can't read %s\n", config_filename);
 		return;
 	}
 	
-	cashshop = config_lookup(&cashshop_conf, "cash_shop");
+	cashshop = libconfig->lookup(&cashshop_conf, "cash_shop");
 	
-	if( cashshop != NULL && (cats = config_setting_get_elem(cashshop, 0)) != NULL ) {
+	if( cashshop != NULL && (cats = libconfig->setting_get_elem(cashshop, 0)) != NULL ) {
 		for(i = 0; i < CASHSHOP_TAB_MAX; i++) {
 			config_setting_t *cat;
 			char entry_name[10];
 			
 			sprintf(entry_name,"cat_%d",i);
 			
-			if( (cat = config_setting_get_member(cats, entry_name)) != NULL ) {
-				int k, item_count = config_setting_length(cat);
+			if( (cat = libconfig->setting_get_member(cats, entry_name)) != NULL ) {
+				int k, item_count = libconfig->setting_length(cat);
 				
 				for(k = 0; k < item_count; k++) {
-					config_setting_t *entry = config_setting_get_elem(cat,k);
+					config_setting_t *entry = libconfig->setting_get_elem(cat,k);
 					const char *name = config_setting_name(entry);
-					int price = config_setting_get_int(entry);
+					int price = libconfig->setting_get_int(entry);
 					struct item_data * data = NULL;
 
 					if( price < 1 ) {
@@ -17434,7 +17435,7 @@ void clif_cashshop_db(void) {
 			}
 		}
 		
-		config_destroy(&cashshop_conf);
+		libconfig->destroy(&cashshop_conf);
 	}
 	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", item_count_t, config_filename);
 }

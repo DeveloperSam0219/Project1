@@ -261,10 +261,10 @@ struct {
 	struct HPMHookPoint *HP_chat_trigger_event_post;
 	struct HPMHookPoint *HP_chat_create_pre;
 	struct HPMHookPoint *HP_chat_create_post;
-	struct HPMHookPoint *HP_chrif_final_pre;
-	struct HPMHookPoint *HP_chrif_final_post;
 	struct HPMHookPoint *HP_chrif_init_pre;
 	struct HPMHookPoint *HP_chrif_init_post;
+	struct HPMHookPoint *HP_chrif_final_pre;
+	struct HPMHookPoint *HP_chrif_final_post;
 	struct HPMHookPoint *HP_chrif_setuserid_pre;
 	struct HPMHookPoint *HP_chrif_setuserid_post;
 	struct HPMHookPoint *HP_chrif_setpasswd_pre;
@@ -313,8 +313,6 @@ struct {
 	struct HPMHookPoint *HP_chrif_save_scdata_post;
 	struct HPMHookPoint *HP_chrif_ragsrvinfo_pre;
 	struct HPMHookPoint *HP_chrif_ragsrvinfo_post;
-	struct HPMHookPoint *HP_chrif_char_offline_pre;
-	struct HPMHookPoint *HP_chrif_char_offline_post;
 	struct HPMHookPoint *HP_chrif_char_offline_nsd_pre;
 	struct HPMHookPoint *HP_chrif_char_offline_nsd_post;
 	struct HPMHookPoint *HP_chrif_char_reset_offline_pre;
@@ -331,8 +329,8 @@ struct {
 	struct HPMHookPoint *HP_chrif_removefriend_post;
 	struct HPMHookPoint *HP_chrif_send_report_pre;
 	struct HPMHookPoint *HP_chrif_send_report_post;
-	struct HPMHookPoint *HP_chrif_flush_fifo_pre;
-	struct HPMHookPoint *HP_chrif_flush_fifo_post;
+	struct HPMHookPoint *HP_chrif_flush_pre;
+	struct HPMHookPoint *HP_chrif_flush_post;
 	struct HPMHookPoint *HP_chrif_skillid2idx_pre;
 	struct HPMHookPoint *HP_chrif_skillid2idx_post;
 	struct HPMHookPoint *HP_chrif_sd_to_auth_pre;
@@ -5282,10 +5280,10 @@ struct {
 	int HP_chat_trigger_event_post;
 	int HP_chat_create_pre;
 	int HP_chat_create_post;
-	int HP_chrif_final_pre;
-	int HP_chrif_final_post;
 	int HP_chrif_init_pre;
 	int HP_chrif_init_post;
+	int HP_chrif_final_pre;
+	int HP_chrif_final_post;
 	int HP_chrif_setuserid_pre;
 	int HP_chrif_setuserid_post;
 	int HP_chrif_setpasswd_pre;
@@ -5334,8 +5332,6 @@ struct {
 	int HP_chrif_save_scdata_post;
 	int HP_chrif_ragsrvinfo_pre;
 	int HP_chrif_ragsrvinfo_post;
-	int HP_chrif_char_offline_pre;
-	int HP_chrif_char_offline_post;
 	int HP_chrif_char_offline_nsd_pre;
 	int HP_chrif_char_offline_nsd_post;
 	int HP_chrif_char_reset_offline_pre;
@@ -5352,8 +5348,8 @@ struct {
 	int HP_chrif_removefriend_post;
 	int HP_chrif_send_report_pre;
 	int HP_chrif_send_report_post;
-	int HP_chrif_flush_fifo_pre;
-	int HP_chrif_flush_fifo_post;
+	int HP_chrif_flush_pre;
+	int HP_chrif_flush_post;
 	int HP_chrif_skillid2idx_pre;
 	int HP_chrif_skillid2idx_post;
 	int HP_chrif_sd_to_auth_pre;
