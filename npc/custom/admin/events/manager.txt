@@ -115,7 +115,7 @@ OnWhisperGlobal:
 						close;
 					}
 		case 3:
-		goto OpenShop;
+		goto openshop;
 		default:
 			close;
 		}
@@ -124,13 +124,13 @@ OnWhisperGlobal:
 	mes "What do you want to do?";
 	switch (select("Open Event Shop:Nothing")) {
 		case 1:
-			goto OpenShop;
+			goto openshop;
 		default:
 			close;
 		}
 	}
 
-OpenShop:
+openshop:
 			function ShopSettings;
 			function ValidateCost;
 			function CurrencyInfo;
