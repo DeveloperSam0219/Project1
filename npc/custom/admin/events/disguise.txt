@@ -76,7 +76,6 @@ end;
 OnClock0000:
 OnClock0900:
 OnClock1700:
-OnStart:
 set $@ResetCounter,$@ResetCounter+1;
 set $@EventON,1;
 set $@Timer,1;
