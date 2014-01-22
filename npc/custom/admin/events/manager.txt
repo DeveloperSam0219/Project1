@@ -1,6 +1,6 @@
 -	shop	Event_Shop	-1,512:100
 
-prontera,130,215,5	script	Event Manager	109,{
+poring_c01,104,110,5	script	Event Manager	109,{
 OnWhisperGlobal:
 	if (getgmlevel() >= 80) || (getgroupid() == 4) {
 	mes "Hi "+strcharinfo(0)+"!";
