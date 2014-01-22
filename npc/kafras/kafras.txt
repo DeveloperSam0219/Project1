@@ -194,7 +194,8 @@ payon,181,104,4	script	Kafra Employee::kaf_payon	4_F_KAFRA5,{
 	mes "you with convenient services.";
 	mes "How may I be of assistance?";
 	callfunc "F_Kafra",5,0,1,60,930;
-	savepoint "payon",160,58;
+	//savepoint "payon",160,58;
+	savepoint "payon_mem",69,100;	// Changed to Old Payon
 	callfunc "F_KafEnd",0,1,"in the city of Payon";
 }
 
@@ -352,7 +353,7 @@ alberta,28,229,0	script	Kafra Employee::kaf_alberta	4_F_KAFRA2,{
 	mes "always ready to serve you.";
 	mes "How can I help you today?";
 	callfunc "F_Kafra",5,0,0,50,850;
-	savepoint "alberta",31,231;
+	savepoint "oldalberta",31,231;	// Changed to old alberta
 	callfunc "F_KafEnd",0,1,"in the city of Alberta";
 }
 
@@ -367,7 +368,7 @@ alberta,113,60,6	script	Kafra Employee::kaf_alberta2	4_F_KAFRA6,{
 	mes "you. So how can I be";
 	mes "of service today?";
 	callfunc "F_Kafra",5,0,0,50,850;
-	savepoint "alberta",117,57;
+	savepoint "oldalberta",117,57;	// Changed to old alberta
 	callfunc "F_KafEnd",0,1,"in the city of Alberta";
 }
 
@@ -416,7 +417,7 @@ cmd_fild07,136,134,4	script	Kafra Employee::kaf_cmd_fild07	4_F_KAFRA7,{
 	if (checkre(0))
 		savepoint strnpcinfo(4),129,97;
 	else
-		savepoint "izlude",94,103;
+		savepoint "oldizlude",94,103;	// Changed to old izlude
 	callfunc "F_KafEnd",0,1,"in the city of Izlude";
 }
 

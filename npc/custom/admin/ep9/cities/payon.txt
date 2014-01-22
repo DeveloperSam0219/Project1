@@ -206,22 +206,7 @@ OnRecvCastlePy05:
 // Kafra
 //############################################################################################################################################################
 
-payon_mem,99,116,4	script	Kafra Employee::kaf_oldpayon	113,{
-	cutin "kafra_05",2;
-	callfunc "F_KafSetPay";
-
-	mes "[Kafra Employee]";
-	mes "The Kafra Corporation";
-	mes "is always working to provide";
-	mes "you with convenient services.";
-	mes "How may I be of assistance?";
-
-	callfunc "F_Kafra",5,0,1,60,930;
-
-	M_Save:
-		savepoint "payon_mem",69,100;
-		callfunc "F_KafEnd",0,1,"in the city of Payon";
-}
+payon_mem,99,116,4	duplicate(Kafra Employee::kaf_payon)	Kafra Employee::kaf_oldpayon	4_F_KAFRA5
 
 //############################################################################################################################################################
 // Merchants
