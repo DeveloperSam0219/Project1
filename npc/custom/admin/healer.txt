@@ -106,7 +106,7 @@ morocc,153,97,6	duplicate(Healer#Custom)	Healer#mor	402
 moscovia,220,191,4	duplicate(Healer#Custom)	Healer#mos	402
 niflheim,212,182,5	duplicate(Healer#Custom)	Healer#nif	402
 payon,179,106,4	duplicate(Healer#Custom)	Healer#pay	402
-prontera,162,193,4	duplicate(Healer#Custom)	Healer#prt	402
+//prontera,162,193,4	duplicate(Healer#Custom)	Healer#prt	402
 rachel,125,116,6	duplicate(Healer#Custom)	Healer#rac	402
 splendide,201,153,4	duplicate(Healer#Custom)	Healer#spl	402
 thor_camp,249,74,4	duplicate(Healer#Custom)	Healer#thor	402

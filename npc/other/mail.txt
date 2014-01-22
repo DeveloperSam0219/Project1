@@ -51,7 +51,7 @@
 
 // Prontera
 //============================================================
-prontera,146,86,0	duplicate(MailBox)	Mailbox#prt	2_POSTBOX
+prontera,141,86,0	duplicate(MailBox)	Mailbox#prt	2_POSTBOX	// Moved from 146,86 to 141,86
 prontera,275,213,0	duplicate(MailBox)	Mailbox#2prt	2_POSTBOX
 prontera,34,212,0	duplicate(MailBox)	Mailbox#3prt	2_POSTBOX
 
