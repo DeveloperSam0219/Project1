@@ -700,7 +700,7 @@ morocc_mem,156,97,4	script	Kafra Employee::kaf_oldmorocc	4_F_KAFRA5,{
 	mes "you with convenient services.";
 	mes "How may I be of assistance?";
 	callfunc "F_Kafra",5,0,0,60,930;
-	savepoint "morocc",156,46;
+	savepoint "morocc_mem",156,46;
 	callfunc "F_KafEnd",0,1,"in the city of Morroc";
 }
 
@@ -715,7 +715,7 @@ morocc_mem,160,258,4	script	Kafra::kaf_oldmorocc2	4_F_KAFRA4,{
 	mes "with its excellent service. So";
 	mes "what can I do for you today?";
 	callfunc "F_Kafra",5,0,0,60,930;
-	savepoint "morocc",157,272;
+	savepoint "morocc_mem",157,272;
 	callfunc "F_KafEnd",0,1,"in the city of Morroc";
 }
 
