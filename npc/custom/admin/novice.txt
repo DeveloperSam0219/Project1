@@ -121,7 +121,7 @@ new_1-2,100,29,4	script	Receptionist#nv1	4_M_04,{
 				break;
 			case 1:
 				savepoint "morocc",160,94;
-				warp "morocc",160,94;
+				warp "morocc_mem",160,94;	// Reverted to old morocc
 				break;
 			case 2:
 				savepoint "geffen",120,100;
@@ -129,15 +129,15 @@ new_1-2,100,29,4	script	Receptionist#nv1	4_M_04,{
 				break;
 			case 3:
 				savepoint "payon",70,100;
-				warp "payon",70,100;
+				warp "payon_mem",70,100;	// Reverted to old payon
 				break;
 			case 4:
 				savepoint "alberta",116,57;
-				warp "alberta",116,57;
+				warp "oldalberta",116,57;	// Reverted to old alberta
 				break;
 			case 5:
 				savepoint "izlude",94,103;
-				warp "izlude",94,103;
+				warp "oldizlude",94,103;	// Reverted to old izlude
 			}
 			end;
 		case 3:
