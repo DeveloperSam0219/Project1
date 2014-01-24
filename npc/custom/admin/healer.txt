@@ -2,7 +2,7 @@ prontera,164,96,4	script	Healer#Custom	402,{
     .npc$ = "[ " +strnpcinfo(1)+ " ]";
     setarray .quest_items[0],942,30,952,30,1043,30; // <item id>,<amount>
     
-    if ( BaseLevel >= 70 && #done3 ) {
+    if ( BaseLevel >= 80 && #done3 ) {
         if ( Zeny < 5000 ) {
             mes .npc$;
             mes "You dont have enough money";
@@ -15,7 +15,7 @@ prontera,164,96,4	script	Healer#Custom	402,{
         close;
     }
     
-    if ( BaseLevel >= 70 && #done2 ) {
+    if ( BaseLevel >= 80 && #done2 ) {
         mes .npc$;
         mes "The items are : ";
         for ( .@i = 0; .@i < getarraysize(.quest_items); .@i+=2 )
@@ -47,7 +47,7 @@ prontera,164,96,4	script	Healer#Custom	402,{
         close;
     }
     
-    if ( BaseLevel >= 50 && BaseLevel < 70 && #done1 ) {
+    if ( BaseLevel >= 70 && BaseLevel < 80 && #done1 ) {
         if ( Zeny < 5000 ) {
             mes .npc$;
             mes "You dont have enough money";
@@ -58,15 +58,15 @@ prontera,164,96,4	script	Healer#Custom	402,{
         close;
     }
     
-    if ( BaseLevel < 50 ) {
+    if ( BaseLevel < 70 ) {
         specialeffect2 EF_HEAL2; percentheal 100,100;
         end;
-    } else if ( BaseLevel >= 50 && BaseLevel < 70 ) {
+    } else if ( BaseLevel >= 70 && BaseLevel < 80 ) {
         mes .npc$;
         mes "From now onwards the healer services would not be for free and will have to pay 5000z for it  since that is King Tristan's order";
         #done1 = 1;
         close;
-    } else if ( BaseLevel >= 70 ) {
+    } else if ( BaseLevel >= 80 ) {
         mes .npc$;
         mes "I am giving you my services of healing you for 5000z but if u pay me a bribe then i can give you agi buff too!! Just make sure no one comes to know about this or else King Tristan will give me death penalty since its agains the law of Rune Midgard";
         next;
