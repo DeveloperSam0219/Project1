@@ -133,7 +133,7 @@ pay_fild10,66,332,10,10	monster	Green Plant	1080,5,360000,180000,1
 pay_fild10,213,157,10,10	monster	Blue Plant	1079,1,360000,180000,1
 pay_fild10,281,307,10,10	monster	Blue Plant	1079,1,360000,180000,1
 pay_fild10,66,332,10,10	monster	Blue Plant	1079,1,360000,180000,1
-pay_fild10,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1	// Per Request
+pay_fild10,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1// Per Request
 
 //==================================================
 // pay_fild11 - Payon Forest
@@ -144,5 +144,5 @@ pay_fild11,0,0,0,0	monster	Greatest General	1277,30,0,0,0
 //pay_fild11,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1
 pay_fild11,241,162,5,5	monster	Red Mushroom	1085,3,360000,180000,1
 pay_fild11,66,293,5,5	monster	Red Mushroom	1085,3,360000,180000,1
-pay_fild11,0,0,0,0	monster	Poison Spore	1077,25,0,0,0	// Per request to be added
-pay_fild11,0,0,0,0	monster	Side Winder	1037,40,0,0,0
+pay_fild11,0,0,0,0	monster	Poison Spore	1077,25,0,0,0// Per request to be added
+pay_fild11,0,0,0,0	monster	Side Winder	1037,40,0,0,0// Per request to be added

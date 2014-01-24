@@ -12,10 +12,10 @@
 // c_tower1 - Clock Tower F1
 //==================================================
 c_tower1,0,0,0,0	monster	Punk	1199,70,0,0,0
-//c_tower1,0,0,0,0	monster	Rideword	1195,70,0,0,0	// Per request to be removed
+//c_tower1,0,0,0,0	monster	Rideword	1195,70,0,0,0// Per request to be removed
 c_tower1,0,0,0,0	monster	Clock Tower Manager	1270,1,0,0,0
 c_tower1,0,0,0,0	monster	Bathory	1102,1,0,0,0
-c_tower1,0,0,0,0	monster	Baphomet Jr.	1101,20,0,0,0	// Per request to be added
+c_tower1,0,0,0,0	monster	Baphomet Jr.	1101,20,0,0,0//Per request to be added
 
 //==================================================
 // c_tower2 - Clock Tower F2
@@ -32,8 +32,8 @@ c_tower2,0,0,0,0	monster	Clock	1269,40,0,0,0
 c_tower2,0,0,0,0	monster	Clock Tower Manager	1270,1,0,0,0
 //c_tower2,0,0,0,0	monster	Elder	1377,1,3600000,1800000,0	// Per request to be removed
 //c_tower2,0,0,0,0	monster	Elder	1377,1,3600000,1800000,0	// Per request to be removed
-c_tower2,0,0,0,0	monster	Deviruchi	1109,1,0,0,0	// Per request to be added
-c_tower2,0,0,0,0	monster	Archer Skeleton	1016,15,0,0,0	// Per request to be added
+c_tower2,0,0,0,0	monster	Deviruchi	1109,1,0,0,0// Per request to be added
+c_tower2,0,0,0,0	monster	Archer Skeleton	1016,15,0,0,0// Per request to be added
 
 //==================================================
 // c_tower3 - Clock Tower F3
@@ -43,7 +43,7 @@ c_tower3,0,0,0,0	monster	Alarm	1193,80,0,0,0
 //c_tower3,153,220,10,10	monster	Rideword	1195,1,126000,100000,0	// Per request to be removed
 //c_tower3,0,0,0,0	monster	Mimic	1191,7,0,0,	// Per request to be removed
 c_tower3,0,0,0,0	monster	Clock Tower Manager	1270,3,0,0,0
-c_tower3,0,0,0,0	monster	Archer Skeleton	1016,25,0,0,0	// Per request to be added
+c_tower3,0,0,0,0	monster	Archer Skeleton	1016,25,0,0,0// Per request to be added
 
 //==================================================
 // c_tower4 - Clock Tower F4
