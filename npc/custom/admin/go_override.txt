@@ -7,7 +7,7 @@
 // Version 2.1 - Fixed the usage of variables - Samuel
 
 	OnInit:
-		bindatcmd "go","gobind::OnAtcommand",0,10;
+		bindatcmd "go","gobind::OnAtcommand",2,0;
 		end;
 
 OnAtcommand:

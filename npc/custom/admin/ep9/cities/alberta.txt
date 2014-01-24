@@ -70,3 +70,7 @@ oldalberta,136,79,1	duplicate(Hat store girl#new30)	Hat store girl#olda	1_F_LIBR
 oldalberta,91,70,4	duplicate(Kinsey#tur)	Kinsey#ortur	4_M_ORIENT02
 oldalberta,248,93,4	duplicate(Voyage log#tur)	Voyage log#old	HIDDEN_NPC
 //oldalberta,45,106,5	duplicate(Little Boy#ep3_2)	Little Boy#old	4_M_KID1
+
+// Sunken Ship Teleporter
+oldalberta,189,151,5	duplicate(Fisk)	Fisk#old	4W_SAILOR
+oldalberta,195,151,2	duplicate(Paul)	Paul#old	4_M_04

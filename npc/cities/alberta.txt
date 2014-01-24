@@ -233,7 +233,7 @@ alb2trea,39,50,6	script	Fisk#a2t	4W_SAILOR,{
 	mes "So you wanna head back to the mainland in Alberta, eh?";
 	next;
 	if(select("Yes please.","I changed my mind.")==1)
-		warp "alberta",192,169;
+		warp "oldalberta",192,169;	// Changed to old alberta
 	close;
 }
 
