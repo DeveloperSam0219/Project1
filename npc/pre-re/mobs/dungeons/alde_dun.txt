@@ -21,7 +21,6 @@ alde_dun01,0,0,0,0	monster	Drainliar	1111,40,0,0,0
 //==================================================
 alde_dun02,0,0,0,0	monster	High Orc	1213,90,0,0,0	// Per Request (Increased to 90 spawn from 50)
 alde_dun02,0,0,0,0	monster	Orc Archer	1189,20,0,0,0
-alde_dun02,0,0,0,0	monster	Drainliar	1111,20,0,0,0	// Per request to be added
 //alde_dun02,0,0,0,0	monster	Brilight	1211,20,0,0,0	// Per Request
 //alde_dun02,0,0,0,0	monster	Arclouze	1194,20,0,0,0	// Per Request
 
