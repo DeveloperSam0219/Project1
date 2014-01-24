@@ -1,0 +1,54 @@
+//===== Hercules Script ======================================
+//= Floating Server Rates
+//===== By: ==================================================
+//= Lupus
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= Hercules
+//===== Description: =========================================
+//= It's a simply example of setbattleflag
+//= This script will change your server rates from 1x to 1.5x every 6 hours
+//= Note: It doesn't affect Card granted drops, MVP & Treasure Chests drops ^_-
+//=       It also doesn't affect CARD drops, because they are just 0.01%
+//===== Additional Comments: =================================
+//= You can make incredible scripts with 'setbattleflag'!
+//============================================================
+
+-	script	FloatingRates	-1,{
+//add any other HOURS
+OnStart:
+OnSat0000:
+//-------------------
+	set .@brate,(getbattleflag("base_exp_rate")*2);
+	set .@jrate,(getbattleflag("job_exp_rate")*2);
+	//Base exp
+	setbattleflag("base_exp_rate",.@brate);
+	//Job exp
+	setbattleflag("job_exp_rate",.@jrate);
+	//we don't change card drops rate, because these values won't change them anyway
+	atcommand "@reloadmobdb";
+	
+	announce "Floating rates Activated: "+(.@brate/100)+"x / "+(.@jrate/100)+"x / "+(.@drate)+"x",bc_all,0xFF6060;
+	sleep 10000;
+	announce "Floating rates will last until Sunday 11:59 PM",bc_all,0xFF6060;
+	end;
+
+OnEnd:
+OnMon0000:
+//-------------------
+	/*Original Rates*/
+	set .@brate,300;
+	set .@jrate,300;
+	//Base exp
+	setbattleflag("base_exp_rate",.@brate);
+	//Job exp
+	setbattleflag("job_exp_rate",.@jrate);
+	//we don't change card drops rate, because these values won't change them anyway
+	atcommand "@reloadmobdb";
+	
+	announce "Floating Rates Ended.",bc_all,0xFF6060;
+	sleep 4000;
+	announce "Current CosmicRO rates are: "+(.@brate/100)+"x / "+(.@jrate/100)+"x / "+(.@drate)+"x",bc_all,0xFF6060;
+	end;
+}
