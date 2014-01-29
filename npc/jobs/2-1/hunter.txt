@@ -55,7 +55,7 @@
 
 // Notices in the old Hunter Guild.
 //============================================================
-in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	4_F_JOB_HUNTER,{
+/*in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	4_F_JOB_HUNTER,{
 	mes "============Notice ============";
 	mes "We would like to inform that the Hunter Job Change Location";
 	mes "has been moved to ^ff0000Hugel^000000 in the Schwaltzvalt Republic.";
@@ -70,9 +70,9 @@ in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	4_F_JOB_HUNTER,{
 	mes " ";
 	mes "I, the Falcon breeder have moved out as well.";
 	close;
-}
+}*/
 
-pay_fild10,148,252,3	duplicate(HntNotice)	Job Change Location#hu	4_BOARD3
+//pay_fild10,148,252,3	duplicate(HntNotice)	Job Change Location#hu	4_BOARD3
 
 // Actual Job quest start
 //============================================================
