@@ -175,7 +175,7 @@ OnMobKilled:
 
 OnMobKilled:
 	dispbottom "Poring Catcher : Wahaha, your a loser! - I wasnt the correct Poring.";
-	warp "Crystilia",93,85;
+	warp "prontera",150,150;
 	end;
 
 }

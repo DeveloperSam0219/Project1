@@ -1239,7 +1239,7 @@ tur_dun01,165,29,4	script	Sailor#tur2	4_M_SEAMAN,{
 		if (checkre(0))
 			warp "alberta",238,112;
 		else
-			warp "alberta",241,115;
+			warp "oldalberta",241,115;	// Changed to old alberta
 	}
 	close;
 }
@@ -2280,7 +2280,7 @@ tur_dun03,67,130,4	script	Knight#tur4	8W_SOLDIER,{
 				mes "[Nysurea]";
 				mes "Okay then, let me activate this teleport thingee donated to us by Kafra Corporation...";
 				close2;
-				warp "alberta",241,115;
+				warp "oldalberta",241,115;	// Changed to old alberta
 				end;
 			}
 			mes "[Nysurea]";

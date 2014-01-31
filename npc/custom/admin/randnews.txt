@@ -1,0 +1,14 @@
+-	script	News	-1,{
+OnInit:
+set .Time,60;		// Announce every x Minute.
+
+setarray .News$[0],	// Random Message to be Announced
+			"Howdy Players! Play in CosmicRO and win exciting gifts and prizes!You have chances to win Android Phones,gaming mouses,gaming keyboards and many more! Get you friends here and double the fun!! Hurry!",
+			"An opportunity to gain something out of nothing and yes! Along with unlimited fun which is ofcourse priceless!! Yes! you heard it right! We are giving out exciting prizes for player of the month and don't forget to share this amongst your friends. Happy leveling :) For more info Log on to our webpage or check forums",
+			"Cosmic RO gives you the chance to relax or kill time with having fun, while earning chances to win great rewards.Log on to forums or our website for more information.";
+while( 1 ){
+	announce .News$[ rand( getarraysize( .News$ ) ) ],0;
+	sleep ( .Time * 60000 );
+	}
+end;
+}

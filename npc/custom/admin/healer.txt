@@ -8,11 +8,17 @@ prontera,164,96,4	script	Healer#Custom	402,{
             mes "You dont have enough money";
             close;
         }
-        Zeny -= 5000;
-        specialeffect2 EF_HEAL2; percentheal 100,100;
-        specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
-        specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
-        close;
+		mes "Do you want to be healed?";
+		switch(select("Yes:No")) {
+        case 1:
+			Zeny -= 5000;
+			specialeffect2 EF_HEAL2; percentheal 100,100;
+			specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
+			specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
+			close;
+		default:
+			close;
+		}
     }
     
     if ( BaseLevel >= 80 && #done2 ) {

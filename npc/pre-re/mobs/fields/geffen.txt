@@ -33,6 +33,7 @@ gef_fild01,215,225,10,10	monster	Green Plant	1080,5,360000,180000,1
 
 //==================================================
 // gef_fild02 - Geffen Field
+// - Removed Orc Hero
 //==================================================
 gef_fild02,0,0,0,0	monster	Yoyo	1057,10,0,0,0
 gef_fild02,0,0,0,0	monster	Orc Warrior	1023,60,0,0,0
@@ -112,12 +113,13 @@ gef_fild05,130,293,0,0	monster	Red Plant	1078,1,180000,90000,1
 
 //==================================================
 // gef_fild06 - Geffen Field
+// - Added 50 Petite
 //==================================================
 gef_fild06,0,0,0,0	monster	Kobold	1133,20,0,0,0
 gef_fild06,0,0,0,0	monster	Kobold	1134,10,0,0,0
 gef_fild06,0,0,0,0	monster	Kobold	1135,10,0,0,0
 gef_fild06,0,0,0,0	monster	Petite	1156,50,0,0,0
-gef_fild06,0,0,0,0	monster	Petite	1155,50,0,0,0// Per request to be added
+gef_fild06,0,0,0,0	monster	Petite	1155,50,0,0,0
 gef_fild06,0,0,0,0	monster	Poporing	1031,10,0,0,0
 gef_fild06,0,0,0,0	monster	Mantis	1139,20,0,0,0
 gef_fild06,0,0,0,0	monster	Shining Plant	1083,4,1800000,900000,1
