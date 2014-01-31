@@ -59,7 +59,7 @@
 			close;
 		}
 		Zeny -= 500;
-		warp "alberta",188,169;
+		warp "oldalberta",188,169;	// Changed to Old Alberta
 		end;
 	case 3:
 		close;
