@@ -44,7 +44,7 @@ menu "Turn ON/OFF Event",iEvent,"Event Settings",iSettings;
       set $@EventON,1; set $@Timer,1; setnpctimer 0; initnpctimer;
       set $@ResetCounter,$@ResetCounter+1;
       announce "The Disguise Event will begin in 3 minutes.",bc_all | bc_blue;
-      announce "The Event is being held at Crystilia,39,93.",bc_all | bc_blue;
+      announce "The Event is being held at Prontera,145,220.",bc_all | bc_blue;
       close;
     iSettings:
     next;
@@ -81,7 +81,7 @@ set $@EventON,1;
 set $@Timer,1;
 set $@Wait,1;
 announce "The Disguise Event will begin in 3 minutes.",bc_all | bc_blue;
-announce "The Event is being held at Crystilia, 39, 93.",bc_all | bc_blue;
+announce "The Event is being held at Prontera,145,220.",bc_all | bc_blue;
 setnpctimer 0;
 initnpctimer;
 initnpctimer;
@@ -109,19 +109,19 @@ OnTimer60000:
 if ($@Timer!=1){end;}
 if ($@Timer==1)
 {announce "The Disguise Event will begin in 2 minutes.",bc_all | bc_blue;
-  announce "The Event is being held at Crystilia, 39,93.",bc_all | bc_blue;
+  announce "The Event is being held at Prontera,145,220.",bc_all | bc_blue;
     end;}
 OnTimer120000:
 if ($@Timer!=1){end;}
 if ($@Timer==1)
 {announce "The Disguise Event will begin 1 minute.",bc_all | bc_blue;
-  announce "The Event is being held at Crystilia, 39,93.",bc_all | bc_blue;
+  announce "The Event is being held at Prontera,145,220.",bc_all | bc_blue;
     end;}
 OnTimer180000:
 if ($@Timer!=1){end;}
 if ($@Timer==1)
 {announce "The Disguise Event has begun!",bc_all | bc_blue;
-  announce "The Event is being held at Crystilia, 39,93.",bc_all | bc_blue;
+  announce "The Event is being held at Prontera,145,220.",bc_all | bc_blue;
     set $@Timer,0; stopnpctimer;
     setnpctimer 0; initnpctimer;
     goto iDisguise;

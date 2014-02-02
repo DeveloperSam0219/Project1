@@ -43,9 +43,10 @@ cmd_fild02,0,0,0,0	monster	Galapago	1391,20,0,0,0
 
 //==================================================
 // cmd_fild03 - Zenhai Marsh
+// - Decreased Pest from 30 to 3
 //==================================================
 cmd_fild03,0,0,0,0	monster	Mutant Dragonoid	1262,1,0,0,1
-cmd_fild03,0,0,0,0	monster	Pest	1256,30,0,0,0
+cmd_fild03,0,0,0,0	monster	Pest	1256,3,0,0,0
 cmd_fild03,0,0,0,0	monster	Poporing	1031,10,0,0,0
 cmd_fild03,0,0,0,0	monster	Anolian	1206,90,0,0,0
 cmd_fild03,0,0,0,0	monster	Toad	1089,1,3600000,1800000,1

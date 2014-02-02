@@ -1,0 +1,8 @@
+/* OLD BLACKSMITH JOB CHANGE */
+
+geffen_in.gat,110,169,4	duplicate(Guildsman#BLS)	Guildsman#oldBLS	4_M_JOB_BLACKSMITH
+alberta_in.gat,174,22,3	duplicate(Guildsman#alberta)	Guildsman#oldalb	4_M_JOB_BLACKSMITH
+
+izlude.gat,69,181,4	duplicate(Krongast#BLS)	Krongast#oldBLS	4_M_JOB_KNIGHT2
+comodo.gat,158,342,4	duplicate(Bismarc#BLS)	Bismarc#oldBLS	2_M_THIEFMASTER
+morocc.gat,95,133,4	duplicate(Blacksmith Guildsman#moc)	Blacksmith Guildsman#old	4_F_JOB_BLACKSMITH

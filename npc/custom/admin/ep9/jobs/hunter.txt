@@ -8,3 +8,5 @@ pay_fild10.gat,148,251,4	script	Hunter Guildsman#old2	98,{
 in_hunter,99,99,4	duplicate(Hunter Guildsman#hnt)	Hunter Sherin#old	4_F_JOB_HUNTER
 
 in_hunter.gat,55,99,7	duplicate(Guild Receptionist#hnt)	Demon Hunter#old	4_M_JOB_HUNTER
+
+in_hunter.gat,146,100,2	duplicate(Falcon Breeder#hnt)	Falcon Breeder#old	8W_SOLDIER

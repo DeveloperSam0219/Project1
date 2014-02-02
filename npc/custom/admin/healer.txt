@@ -59,14 +59,27 @@ prontera,164,96,4	script	Healer#Custom	402,{
             mes "You dont have enough money";
             close;
         }
+		mes "The healer services would not be for free and will have to pay 5000z for it  since that is King Tristan's order";
+		mes "Do you want to be healed?";
+		switch(select("Yes:No")) {
+        case 1:
         Zeny -= 5000;
         specialeffect2 EF_HEAL2; percentheal 100,100;
         close;
+		default:
+		close;
+		}
     }
     
     if ( BaseLevel < 70 ) {
+		mes "Do you want to be healed?";
+		switch(select("Yes:No")) {
+        case 1:
         specialeffect2 EF_HEAL2; percentheal 100,100;
-        end;
+        close;
+		default:
+		close;
+		}
     } else if ( BaseLevel >= 70 && BaseLevel < 80 ) {
         mes .npc$;
         mes "From now onwards the healer services would not be for free and will have to pay 5000z for it  since that is King Tristan's order";

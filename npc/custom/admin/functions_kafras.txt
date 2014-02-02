@@ -363,19 +363,19 @@ function	script	F_KafCart	{
 	else {
 		mes "[Kafra Employee]";
 		mes "The Pushcart rental";
-		mes "fee is "+getarg(1)+" zeny. Would";
+		mes "fee is "+800+" zeny. Would";
 		mes "you like to rent a Pushcart?";
 		next;
 		if (select("Rent a Pushcart.:Cancel") == 2) return 0;
-			if(Zeny<getarg(1)){
+			if(Zeny < 800){
 				mes "[Kafra Employee]";
 				mes "I'm sorry, but you";
 				mes "don't have enough";
 				mes "zeny to pay the Pushcart";
-				mes "rental fee of "+getarg(1)+" zeny.";
+				mes "rental fee of "+ 800 +" zeny.";
 				return 1;
 			}
-			Zeny -= getarg(1);
+			Zeny -= 800;
 			set RESRVPTS, RESRVPTS + 48;
 	}
 	setcart;
@@ -592,8 +592,8 @@ function	script	F_KafSet	{
 	cleararray @viewpX[0],"",getarraysize(@viewpX);
 	cleararray @viewpY[0],"",getarraysize(@viewpY);
 	if (strnpcinfo(4) == "prontera") {
-		setarray @wrpD$[0], "Izlude", "Geffen", "Payon", "Morroc", "Orc Dungeon", "Alberta";
-		setarray @wrpP[0], 600, 1200, 1200, 1200, 1200, 1800;
+		setarray @wrpD$[0], "Izlude", "Geffen", "Payon", "Morroc", "Orc Dungeon", "Comodo", "Alberta";
+		setarray @wrpP[0], 600, 1200, 1200, 1200, 1200, 1200, 1800;
 		setarray @viewpX[0], 151, 29, 282, 152;
 		setarray @viewpY[0], 29, 207, 200, 326;
 	} else if (strnpcinfo(4) == "oldalberta") {	// Changed to old Alberta

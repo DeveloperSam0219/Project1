@@ -38,6 +38,7 @@
 //= 2.6a Typo fix [Yommy]
 //= 2.7 Added Quest Log commands. [Kisuka]
 //= 2.8 Removed the need for use of 'goto.' [L0ne_W0lf]
+//= 2.9 Added a fix with altrigen not closing
 //==============================================================
 
 ein_in01,18,28,4	script	Guildsman#BLS	4_M_JOB_BLACKSMITH,{
@@ -160,7 +161,7 @@ ein_in01,18,28,4	script	Guildsman#BLS	4_M_JOB_BLACKSMITH,{
 					next;
 					mes "[Altiregen]";
 					mes "Hmmm...";
-					mes "One of our Blacksmiths in Einbech, ^8E6B23Geschupenschte^000000 has sent us word that he's short on help. Your first test of character will be to help him out.";
+					mes "One of our Blacksmiths in Alberta, ^8E6B23Geschupenschte^000000 has sent us word that he's short on help. Your first test of character will be to help him out.";	//Changed to alberta instead of einbroch
 					next;
 					set BSMITH_Q,1;
 					setquest 2000;
@@ -196,7 +197,7 @@ ein_in01,18,28,4	script	Guildsman#BLS	4_M_JOB_BLACKSMITH,{
 		else if (BSMITH_Q > 0  && BSMITH_Q < 8) {
 			mes "[Altiregen]";
 			mes "You haven't left yet?";
-			mes "Go to Einbech and find ^8E6B23Geschupenschte^000000. Finish helping him out, and when you're done, come back to me.";
+			mes "Go to Alberta and find ^8E6B23Geschupenschte^000000. Finish helping him out, and when you're done, come back to me.";	//Changed to alberta instead of Einbech
 			close;
 		}
 		else if (BSMITH_Q > 8 && BSMITH_Q < 15) {
@@ -274,6 +275,9 @@ ein_in01,18,28,4	script	Guildsman#BLS	4_M_JOB_BLACKSMITH,{
 			close;
 		}
 	}
+	mes "[Altiregen]";
+	mes "Only Merchants can become Blacksmiths.";
+	close;
 }
 
 ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
@@ -701,7 +705,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 					mes "to ^8E6B23Wickebine^000000 in Morroc of Rune-Midgarts Kingdom,";
 					break;
 				case 11:
-					mes "Okay, now take this to ^8E6B23Krongast^000000 in Lighthalzen. Simply deliver it and bring me the receipt.";
+					mes "Okay, now take this to ^8E6B23Krongast^000000 in Izlude. Simply deliver it and bring me the receipt.";	// Changed to Izlude instead of Lightalzen
 					getitem 1119,1; //Tsurugi
 					if (checkquest(2005) != -1) {
 						changequest 2005,2010;
@@ -724,7 +728,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 					next;
 					mes "[Geschupenschte]";
 					mes "Anyway, take this";
-					mes "to ^8E6B23Krongast^000000 in Lighthalzen";
+					mes "to ^8E6B23Krongast^000000 in Izlude";	// Changed to Izlude instead of Lightalzen
 					break;
 				case 12:
 					mes "Okay, now take this to ^8E6B23Talpiz^000000 in Payon of Rune-Midgarts Kingdom. Simply deliver this and bring me the receipt.";
@@ -751,7 +755,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 					mes "to ^8E6B23Talpiz^000000 in Payon of Rune-Midgarts Kindgom,";
 					break;
 				case 13:
-					mes "Okay, now take this to ^8E6B23Bismarc^000000 in Hugel. Simply deliver this and bring back the receipt.";
+					mes "Okay, now take this to ^8E6B23Bismarc^000000 in Comodo. Simply deliver this and bring back the receipt.";	// Changed to comodo instead of hugel
 					getitem 1122,1; //Ring_Pommel_Saber
 					if (checkquest(2007) != -1) {
 						changequest 2007,2012;
@@ -778,7 +782,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 					next;
 					mes "[Geschupenschte]";
 					mes "Anyway, take this";
-					mes "to ^8E6B23Bismarc^000000 in Hugel";
+					mes "to ^8E6B23Bismarc^000000 in Comodo";	// Changed to Comodo instead of Hugel
 				}
 				mes "and don't forget";
 				mes "the receipt!";
@@ -828,13 +832,13 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 				mes "dealer ^8E6B23Wickebine^000000 in Morroc. And don't forget the receipt.";
 			}
 			else if (BSMITH_Q == 11) {
-				mes "In Lighthalzen, 6 o'clock direction from the town center, you will find ^8E6B23Krongast^000000 near the weapon shop. And don't forget the receipt.";
+				mes "In Izlude, 11 o'clock direction from the town center, you will find ^8E6B23Krongast^000000 near the weapon shop. And don't forget the receipt.";	// Changed to Izlude 11 o clock instead of Lightalzen 6 o clock
 			}
 			else if (BSMITH_Q == 12) {
 				mes "In Payon, at the 5 o'clock direction from the town center, you will find ^8E6B23Talpiz^000000. And don't forget the receipt.";
 			}
 			else {
-				mes "In Hugel, at the 1 o'clock direction from the town center, you will find ^8E6B23Bismarc^000000 near the airship. And don't forget the receipt.";
+				mes "In Comodo, at the 12 o'clock direction from the town center, you will find ^8E6B23Bismarc^000000 near the airship. And don't forget the receipt.";	// Changed to Izlude 12 o clock instead of Hugel 1 o clock
 			}
 			close;
 		}
@@ -873,7 +877,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 					next;
 					mes "[Geschupenschte]";
 					mes "Good job!";
-					mes "Return to ^8E6B23Altiregen^000000 in Einbroch, the guy you first met when you applied for the Blacksmith job.";
+					mes "Return to ^8E6B23Altiregen^000000 in Geffen, the guy you first met when you applied for the Blacksmith job.";	// Changed to geffen instead of einbroch
 					next;
 					mes "[Geschupenschte]";
 					mes "I have faith that you";
@@ -908,7 +912,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	1_M_SMITH,{
 			mes "Thank you";
 			mes "very much";
 			mes "your help.";
-			mes "Return to Einbroch";
+			mes "Return to Geffen";	//Changed to geffen instead of Einbroch
 			mes "and see ^8E6B23Altiregen^000000!";
 			close;
 		}
@@ -1043,7 +1047,7 @@ morocc,27,112,4	script	Wickebine#BLS	4_F_JOB_ASSASSIN,{
 		cutin "Job_Black_hucke01",2;
 		mes "[Wickebine]";
 		mes "Are you with the";
-		mes "Einbroch Blacksmith Guild?";
+		mes "Geffen Blacksmith Guild?";	//Changed to Geffen instead of einbroch
 		mes "Give this message to Geschupenschte!";
 		next;
 		cutin "Job_Black_hucke03",2;
@@ -1326,7 +1330,7 @@ hugel,168,183,1	script	Bismarc#BLS	2_M_THIEFMASTER,{
 		mes "your receipt.";
 		mes "T-take it...!";
 		mes "It's yours!";
-		mapannounce "hugel","Thanks, " +strcharinfo(0)+ ", for the delivery. You saved my life...",bc_map;
+		mapannounce "comodo","Thanks, " +strcharinfo(0)+ ", for the delivery. You saved my life...",bc_map;	// Changed to comodo instead of hugel
 		close;
 	}
 	else if (BSMITH_Q == 14) {
@@ -1381,7 +1385,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	4_F_JOB_BLACKSMITH,{
 			mes "Please listen";
 			mes "and answer carefully...";
 			next;
-			switch(rand(1,3)) {
+			switch(rand(1,2)) {	// Changed to random 1,2 insteand of 1,3
 			case 1:
 				mes "[Mitehmaeeuh]";
 				mes "1. What ability";
@@ -1564,7 +1568,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	4_F_JOB_BLACKSMITH,{
 		emotion e_hmm;
 		mes "[Mitehmaeeuh]";
 		mes "I had to deal with the heat when I was in Morroc,";
-		mes "and now I have to deal with the smog in this Einbroch!";
+		mes "and now I have to deal with the smog in this Geffen!";	// Changed to geffen instead of Einbroch
 		next;
 		mes "[Mitehmaeeuh]";
 		mes "But, I must admit that this is the perfect place for Blacksmiths because we have an abundance of crafting material supplies as well as highly developed equipment.";
@@ -1578,7 +1582,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	4_F_JOB_BLACKSMITH,{
 	}
 }
 
-geffen_in,109,170,3	script	Blacksmith Guildsman#gef	4_F_JOB_BLACKSMITH,{
+/*geffen_in,109,170,3	script	Blacksmith Guildsman#gef	4_F_JOB_BLACKSMITH,{
 	mes "[Blacksmith Guildsman]";
 	mes "Good day, are you here to visit Blacksmith Guild?";
 	next;
@@ -1625,3 +1629,4 @@ geffen_in,109,170,3	script	Blacksmith Guildsman#gef	4_F_JOB_BLACKSMITH,{
 		close;
 	}
 }
+*/

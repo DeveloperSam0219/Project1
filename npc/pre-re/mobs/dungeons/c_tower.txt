@@ -23,6 +23,7 @@ c_tower1,0,0,0,0	monster	Baphomet Jr.	1101,20,0,0,0
 // c_tower2 - Clock Tower F2
 // - Removed Rideword, Mimic and Elder
 // - Added 1 Deviruchi and 15 Archer Skeletons
+// - Added 1 Clock to spawn in the KS BOX every 10 seconds
 //==================================================
 c_tower2,0,0,0,0	monster	Punk	1199,40,0,0,0
 c_tower2,0,0,0,0	monster	Clock	1269,40,0,0,0
@@ -38,6 +39,7 @@ c_tower2,0,0,0,0	monster	Clock Tower Manager	1270,1,0,0,0
 //c_tower2,0,0,0,0	monster	Elder	1377,1,3600000,1800000,0
 c_tower2,0,0,0,0	monster	Deviruchi	1109,1,0,0,0
 c_tower2,0,0,0,0	monster	Archer Skeleton	1016,15,0,0,0
+c_tower2,99,238,10,10	monster	Clock	1269,1,10000,10000,0
 
 //==================================================
 // c_tower3 - Clock Tower F3
