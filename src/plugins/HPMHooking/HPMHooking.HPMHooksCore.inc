@@ -397,6 +397,10 @@ struct {
 	struct HPMHookPoint *HP_chrif_on_disconnect_post;
 	struct HPMHookPoint *HP_chrif_parse_pre;
 	struct HPMHookPoint *HP_chrif_parse_post;
+	struct HPMHookPoint *HP_chrif_save_scdata_single_pre;
+	struct HPMHookPoint *HP_chrif_save_scdata_single_post;
+	struct HPMHookPoint *HP_chrif_del_scdata_single_pre;
+	struct HPMHookPoint *HP_chrif_del_scdata_single_post;
 	struct HPMHookPoint *HP_clif_init_pre;
 	struct HPMHookPoint *HP_clif_init_post;
 	struct HPMHookPoint *HP_clif_final_pre;
@@ -2573,6 +2577,8 @@ struct {
 	struct HPMHookPoint *HP_itemdb_final_sub_post;
 	struct HPMHookPoint *HP_itemdb_clear_pre;
 	struct HPMHookPoint *HP_itemdb_clear_post;
+	struct HPMHookPoint *HP_itemdb_id2combo_pre;
+	struct HPMHookPoint *HP_itemdb_id2combo_post;
 	struct HPMHookPoint *HP_logs_pick_pc_pre;
 	struct HPMHookPoint *HP_logs_pick_pc_post;
 	struct HPMHookPoint *HP_logs_pick_mob_pre;
@@ -2893,6 +2899,8 @@ struct {
 	struct HPMHookPoint *HP_map_add_questinfo_post;
 	struct HPMHookPoint *HP_map_remove_questinfo_pre;
 	struct HPMHookPoint *HP_map_remove_questinfo_post;
+	struct HPMHookPoint *HP_map_merge_zone_pre;
+	struct HPMHookPoint *HP_map_merge_zone_post;
 	struct HPMHookPoint *HP_mapit_alloc_pre;
 	struct HPMHookPoint *HP_mapit_alloc_post;
 	struct HPMHookPoint *HP_mapit_free_pre;
@@ -3649,6 +3657,8 @@ struct {
 	struct HPMHookPoint *HP_pc_gets_status_point_post;
 	struct HPMHookPoint *HP_pc_need_status_point_pre;
 	struct HPMHookPoint *HP_pc_need_status_point_post;
+	struct HPMHookPoint *HP_pc_maxparameterincrease_pre;
+	struct HPMHookPoint *HP_pc_maxparameterincrease_post;
 	struct HPMHookPoint *HP_pc_statusup_pre;
 	struct HPMHookPoint *HP_pc_statusup_post;
 	struct HPMHookPoint *HP_pc_statusup2_pre;
@@ -5416,6 +5426,10 @@ struct {
 	int HP_chrif_on_disconnect_post;
 	int HP_chrif_parse_pre;
 	int HP_chrif_parse_post;
+	int HP_chrif_save_scdata_single_pre;
+	int HP_chrif_save_scdata_single_post;
+	int HP_chrif_del_scdata_single_pre;
+	int HP_chrif_del_scdata_single_post;
 	int HP_clif_init_pre;
 	int HP_clif_init_post;
 	int HP_clif_final_pre;
@@ -7592,6 +7606,8 @@ struct {
 	int HP_itemdb_final_sub_post;
 	int HP_itemdb_clear_pre;
 	int HP_itemdb_clear_post;
+	int HP_itemdb_id2combo_pre;
+	int HP_itemdb_id2combo_post;
 	int HP_logs_pick_pc_pre;
 	int HP_logs_pick_pc_post;
 	int HP_logs_pick_mob_pre;
@@ -7912,6 +7928,8 @@ struct {
 	int HP_map_add_questinfo_post;
 	int HP_map_remove_questinfo_pre;
 	int HP_map_remove_questinfo_post;
+	int HP_map_merge_zone_pre;
+	int HP_map_merge_zone_post;
 	int HP_mapit_alloc_pre;
 	int HP_mapit_alloc_post;
 	int HP_mapit_free_pre;
@@ -8668,6 +8686,8 @@ struct {
 	int HP_pc_gets_status_point_post;
 	int HP_pc_need_status_point_pre;
 	int HP_pc_need_status_point_post;
+	int HP_pc_maxparameterincrease_pre;
+	int HP_pc_maxparameterincrease_post;
 	int HP_pc_statusup_pre;
 	int HP_pc_statusup_post;
 	int HP_pc_statusup2_pre;

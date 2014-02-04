@@ -1,8 +1,9 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
-#ifndef _PC_H_
-#define _PC_H_
+
+#ifndef _MAP_PC_H_
+#define _MAP_PC_H_
 
 #include "../common/mmo.h" // JOB_*, MAX_FAME_LIST, struct fame_list, struct mmo_charstatus
 #include "../common/ers.h"
@@ -115,6 +116,12 @@ enum npc_timeout_type {
 	NPCT_MENU  = 1,
 	NPCT_WAIT  = 2,
 };
+
+struct pc_combos {
+	struct script_code *bonus;/* the script of the combo */
+	unsigned short id;/* this combo id */
+};
+
 struct map_session_data {
 	struct block_list bl;
 	struct unit_data ud;
@@ -467,12 +474,9 @@ struct map_session_data {
 	enum npc_timeout_type npc_idle_type;
 #endif
 
-	struct {
-		struct script_code **bonus;/* the script */
-		unsigned short *id;/* array of combo ids */
-		unsigned char count;
-	} combos;
-
+	struct pc_combos *combos;
+	unsigned char combo_count;
+	
 	/**
 	 * Guarantees your friend request is legit (for bugreport:4629)
 	 **/
@@ -884,7 +888,8 @@ struct pc_interface {
 	unsigned int (*thisjobexp) (struct map_session_data *sd);
 	int (*gets_status_point) (int level);
 	int (*need_status_point) (struct map_session_data *sd,int type,int val);
-	int (*statusup) (struct map_session_data *sd,int type);
+	int (*maxparameterincrease) (struct map_session_data* sd, int type);
+	bool (*statusup) (struct map_session_data *sd, int type, int increase);
 	int (*statusup2) (struct map_session_data *sd,int type,int val);
 	int (*skillup) (struct map_session_data *sd,uint16 skill_id);
 	int (*allskillup) (struct map_session_data *sd);
@@ -1044,4 +1049,4 @@ struct pc_interface *pc;
 
 void pc_defaults(void);
 
-#endif /* _PC_H_ */
+#endif /* _MAP_PC_H_ */

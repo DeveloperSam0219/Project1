@@ -2,12 +2,14 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#ifndef _CHRIF_H_
-#define _CHRIF_H_
+#ifndef _MAP_CHRIF_H_
+#define _MAP_CHRIF_H_
 
 #include "../common/cbasetypes.h"
 #include <time.h>
 #include "map.h" //TBL_stuff
+
+struct status_change_entry;
 
 /**
  * Defines
@@ -140,6 +142,8 @@ struct chrif_interface {
 	void (*on_ready) (void);
 	void (*on_disconnect) (void);
 	int (*parse) (int fd);
+	void (*save_scdata_single) (int account_id, int char_id, short type, struct status_change_entry *sce);
+	void (*del_scdata_single) (int account_id, int char_id, short type);
 };
 
 struct chrif_interface *chrif;
@@ -148,4 +152,4 @@ void chrif_defaults(void);
 // There's no need for another function when a simple macro can do exactly the same effect
 #define chrif_char_offline(x) chrif->char_offline_nsd((x)->status.account_id,(x)->status.char_id)
 
-#endif /* _CHRIF_H_ */
+#endif /* _MAP_CHRIF_H_ */

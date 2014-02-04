@@ -207,6 +207,8 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(chrif->on_ready, HP_chrif_on_ready) },
 	{ HP_POP(chrif->on_disconnect, HP_chrif_on_disconnect) },
 	{ HP_POP(chrif->parse, HP_chrif_parse) },
+	{ HP_POP(chrif->save_scdata_single, HP_chrif_save_scdata_single) },
+	{ HP_POP(chrif->del_scdata_single, HP_chrif_del_scdata_single) },
 /* clif */
 	{ HP_POP(clif->init, HP_clif_init) },
 	{ HP_POP(clif->final, HP_clif_final) },
@@ -1305,6 +1307,7 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(itemdb->destroy_item_data, HP_itemdb_destroy_item_data) },
 	{ HP_POP(itemdb->final_sub, HP_itemdb_final_sub) },
 	{ HP_POP(itemdb->clear, HP_itemdb_clear) },
+	{ HP_POP(itemdb->id2combo, HP_itemdb_id2combo) },
 /* logs */
 	{ HP_POP(logs->pick_pc, HP_logs_pick_pc) },
 	{ HP_POP(logs->pick_mob, HP_logs_pick_mob) },
@@ -1468,6 +1471,7 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(map->get_new_bonus_id, HP_map_get_new_bonus_id) },
 	{ HP_POP(map->add_questinfo, HP_map_add_questinfo) },
 	{ HP_POP(map->remove_questinfo, HP_map_remove_questinfo) },
+	{ HP_POP(map->merge_zone, HP_map_merge_zone) },
 /* mapit */
 	{ HP_POP(mapit->alloc, HP_mapit_alloc) },
 	{ HP_POP(mapit->free, HP_mapit_free) },
@@ -1855,6 +1859,7 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(pc->thisjobexp, HP_pc_thisjobexp) },
 	{ HP_POP(pc->gets_status_point, HP_pc_gets_status_point) },
 	{ HP_POP(pc->need_status_point, HP_pc_need_status_point) },
+	{ HP_POP(pc->maxparameterincrease, HP_pc_maxparameterincrease) },
 	{ HP_POP(pc->statusup, HP_pc_statusup) },
 	{ HP_POP(pc->statusup2, HP_pc_statusup2) },
 	{ HP_POP(pc->skillup, HP_pc_skillup) },

@@ -5,6 +5,15 @@
 #include "../common/malloc.h"
 #include "../common/showmsg.h"
 #include "../common/HPM.h"
+#include "../common/conf.h"
+#include "../common/db.h"
+#include "../common/des.h"
+#include "../common/ers.h"
+#include "../common/mapindex.h"
+#include "../common/mmo.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+
 
 #include "HPMmap.h"
 #include "pc.h"
@@ -12,27 +21,46 @@
 
 //
 #include "atcommand.h"
+#include "battle.h"
+#include "battleground.h"
 #include "chat.h"
 #include "chrif.h"
+#include "clif.h"
+#include "date.h"
 #include "duel.h"
 #include "elemental.h"
+#include "guild.h"
 #include "homunculus.h"
 #include "instance.h"
 #include "intif.h"
 #include "irc-bot.h"
+#include "itemdb.h"
+#include "log.h"
 #include "mail.h"
 #include "mapreg.h"
 #include "mercenary.h"
+#include "mob.h"
+#include "npc.h"
 #include "party.h"
+#include "path.h"
+#include "pc_groups.h"
 #include "pet.h"
 #include "quest.h"
+#include "script.h"
+#include "searchstore.h"
+#include "skill.h"
+#include "status.h"
 #include "storage.h"
 #include "trade.h"
+#include "unit.h"
+#include "vending.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include "../common/HPMDataCheck.h"
 
 struct HPM_atcommand_list {
 	//tracking currently not enabled
@@ -45,6 +73,11 @@ struct HPM_atcommand_list {
 
 struct HPM_atcommand_list *atcommand_list = NULL;
 unsigned int atcommand_list_items = 0;
+
+/**
+ * (char*) data name -> (unsigned int) HPMDataCheck[] index
+ **/
+DBMap *datacheck_db;
 
 bool HPM_map_grabHPData(struct HPDataOperationStorage *ret, enum HPluginDataTypes type, void *ptr) {
 	/* record address */
@@ -113,6 +146,56 @@ void HPM_map_atcommands(void) {
 	}
 }
 
+/**
+ * Called by HPM->DataCheck on a plugins incoming data, ensures data structs in use are matching!
+ **/
+bool HPM_map_DataCheck (struct s_HPMDataCheck *src, unsigned int size, char *name) {
+	unsigned int i, j;
+	
+	for(i = 0; i < size; i++) {
+		
+		if( !strdb_exists(datacheck_db, src[i].name) ) {
+			ShowError("HPMDataCheck:%s: '%s' was not found\n",name,src[i].name);
+			return false;
+		} else {
+			j = strdb_uiget(datacheck_db, src[i].name);/* not double lookup; exists sets cache to found data */
+			if( src[i].size != HPMDataCheck[j].size ) {
+				ShowWarning("HPMDataCheck:%s: '%s' size mismatch %u != %u\n",name,src[i].name,src[i].size,HPMDataCheck[j].size);
+				return false;
+			}
+		}
+	}
+	
+	return true;
+}
+
+/**
+ * Adds a new group permission to the HPM-provided list
+ **/
+void HPM_map_add_group_permission(unsigned int pluginID, char *name, unsigned int *mask) {
+	unsigned char index = pcg->HPMpermissions_count;
+	
+	RECREATE(pcg->HPMpermissions, struct pc_groups_new_permission, ++pcg->HPMpermissions_count);
+	
+	pcg->HPMpermissions[index].pID = pluginID;
+	pcg->HPMpermissions[index].name = aStrdup(name);
+	pcg->HPMpermissions[index].mask = mask;
+}
+
+void HPM_map_do_init(void) {
+	unsigned int i;
+	
+	/**
+	 * Populates datacheck_db for easy lookup later on
+	 **/
+	datacheck_db = strdb_alloc(DB_OPT_BASE,0);
+	
+	for(i = 0; i < HPMDataCheckLen; i++) {
+		strdb_uiput(datacheck_db, HPMDataCheck[i].name, i);
+	}
+	
+}
+
 void HPM_map_do_final(void) {
 	unsigned char i;
 	
@@ -127,17 +210,6 @@ void HPM_map_do_final(void) {
 	}
 	if( pcg->HPMpermissions )
 		aFree(pcg->HPMpermissions);
-}
-
-/**
- * Adds a new group permission to the HPM-provided list
- **/
-void HPM_map_add_group_permission(unsigned int pluginID, char *name, unsigned int *mask) {
-	unsigned char index = pcg->HPMpermissions_count;
 	
-	RECREATE(pcg->HPMpermissions, struct pc_groups_new_permission, ++pcg->HPMpermissions_count);
-	
-	pcg->HPMpermissions[index].pID = pluginID;
-	pcg->HPMpermissions[index].name = aStrdup(name);
-	pcg->HPMpermissions[index].mask = mask;
+	db_destroy(datacheck_db);
 }

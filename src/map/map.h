@@ -2,8 +2,8 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#ifndef _MAP_H_
-#define _MAP_H_
+#ifndef _MAP_MAP_H_
+#define _MAP_MAP_H_
 
 #include "../common/cbasetypes.h"
 #include "../common/core.h" // CORE_ST_LAST
@@ -531,7 +531,7 @@ struct map_zone_skill_damage_cap_entry {
 	enum map_zone_skill_subtype subtype;
 };
 
-#define MAP_ZONE_NAME_LENGTH 30
+#define MAP_ZONE_NAME_LENGTH 60
 #define MAP_ZONE_ALL_NAME "All"
 #define MAP_ZONE_NORMAL_NAME "Normal"
 #define MAP_ZONE_PVP_NAME "PvP"
@@ -552,6 +552,9 @@ struct map_zone_data {
 	int disabled_commands_count;
 	struct map_zone_skill_damage_cap_entry **capped_skills;
 	int capped_skills_count;
+	struct {
+		unsigned int special : 2;/* 1: whether this is a mergeable zone; 2: whether it is a merged zone */
+	} info;
 };
 
 struct map_drop_list {
@@ -1060,10 +1063,11 @@ struct map_interface {
 	int (*get_new_bonus_id) (void);
 	void (*add_questinfo) (int m, struct questinfo *qi);
 	bool (*remove_questinfo) (int m, struct npc_data *nd);
+	struct map_zone_data *(*merge_zone) (struct map_zone_data *main, struct map_zone_data *other);
 };
 
 struct map_interface *map;
 
 void map_defaults(void);
 
-#endif /* _MAP_H_ */
+#endif /* _MAP_MAP_H_ */
