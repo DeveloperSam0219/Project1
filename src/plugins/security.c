@@ -190,6 +190,7 @@ int my_guild_storage_additem(struct map_session_data* sd, struct guild_storage* 
 void my_trade_traderequest(struct map_session_data *sd, struct map_session_data *target_sd)
 {
 	struct security_data_struct *my = get_security_variable(sd);
+	struct security_data_struct *trial = get_security_variable(target_sd);
 
 	if( my->secure_items ) {
 		clif->message(sd->fd, "You can't trade. Blocked with @security");
@@ -198,7 +199,7 @@ void my_trade_traderequest(struct map_session_data *sd, struct map_session_data 
 		return;
 	}
 
-	if( target_sd-my->secure_items ) {
+	if( trial->secure_items ) {
 		clif->message(sd->fd, "Target can't trade. Blocked with @security");
 		target_sd->trade_partner = 1;
 		sd->trade_partner = 1;
