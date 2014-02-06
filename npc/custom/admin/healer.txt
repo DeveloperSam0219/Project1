@@ -104,8 +104,8 @@ prontera,164,96,4	script	Healer#Custom	402,{
 }
 
 /* Duplicates */
-alberta,25,240,6	duplicate(Healer#Custom)	Healer#alb	402
-oldaldebaran,135,118,6	duplicate(Healer#Custom)	Healer#alde	402
+oldalberta,25,240,6	duplicate(Healer#Custom)	Healer#alb	402
+aldebaran,135,118,6	duplicate(Healer#Custom)	Healer#alde	402
 amatsu,200,79,4	duplicate(Healer#Custom)	Healer#ama	402
 ayothaya,207,169,6	duplicate(Healer#Custom)	Healer#ayo	402
 comodo,184,158,6	duplicate(Healer#Custom)	Healer#com	402
