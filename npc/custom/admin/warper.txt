@@ -40,7 +40,7 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	
 	//Add Towns here
 	AddTown("Prontera", "prontera", 155, 183);
-	AddTown("Alberta", "alberta", 28, 234);
+	AddTown("Alberta", "oldalberta", 28, 234);
 	AddTown("Aldebaran", "aldebaran", 140, 131);
 	AddTown("Amatsu", "amatsu", 198, 84);
 	//AddTown("Ayothaya", "ayothaya", 150, 163);
@@ -50,16 +50,16 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	AddTown("Geffen", "geffen", 119, 59);
 	AddTown("Gonryun", "gonryun", 160, 121);
 	//AddTown("Hugel", "hugel", 96, 145);
-	AddTown("Izlude", "oldizlude", 146, 114);	// Changed to old Izlude
+	AddTown("Izlude", "oldizlude", 128, 111);	// Changed to old Izlude
 	AddTown("Jawaii", "jawaii", 213, 230);
 	//AddTown("Lighthalzen", "lighthalzen", 158, 92);
 	AddTown("Louyang", "louyang", 210, 108);
 	AddTown("Lutie", "xmas", 147, 134);
 	//AddTown("Moscovia", "moscovia", 214, 183);
-	AddTown("Morroc", "morocc", 156, 93);
+	AddTown("Morroc", "morocc_mem", 156, 93);
 	AddTown("Nameless Island", "nameless_n", 256, 215);
 	AddTown("Niflheim", "niflheim", 85, 154);
-	AddTown("Payon", "payon", 152, 75);
+	AddTown("Payon", "payon_mem", 90, 116);
 	//AddTown("Rachel", "rachel", 130, 137);
 	//AddTown("Thor Camp", "thor_camp", 254, 90);
 	//AddTown("Veins", "veins", 216, 123);
@@ -259,7 +259,7 @@ function LastWarp {
 //	Duplicates:
 // --------------------------------------------------
 alb2trea,57,70,6	duplicate(Warper)	Warper#tre	4_F_VALKYRIE
-alberta,28,240,4	duplicate(Warper)	Warper#alb	4_F_VALKYRIE
+oldalberta,28,240,4	duplicate(Warper)	Warper#alb	4_F_VALKYRIE
 aldebaran,145,118,4	duplicate(Warper)	Warper#alde	4_F_VALKYRIE
 amatsu,203,87,4	duplicate(Warper)	Warper#ama	4_F_VALKYRIE
 ayothaya,209,169,6	duplicate(Warper)	Warper#ayo	4_F_VALKYRIE
@@ -272,7 +272,7 @@ glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_F_VALKYRIE
 gonryun,162,122,4	duplicate(Warper)	Warper#gon	4_F_VALKYRIE
 hugel,101,151,4	duplicate(Warper)	Warper#hug	4_F_VALKYRIE
 izlu2dun,110,92,4	duplicate(Warper)	Warper#izd	4_F_VALKYRIE
-izlude,132,120,4	duplicate(Warper)	Warper#izl	4_F_VALKYRIE
+oldizlude,132,120,4	duplicate(Warper)	Warper#izl	4_F_VALKYRIE
 jawaii,253,138,4	duplicate(Warper)	Warper#jaw	4_F_VALKYRIE
 lighthalzen,162,102,4	duplicate(Warper)	Warper#lhz	4_F_VALKYRIE
 louyang,208,103,6	duplicate(Warper)	Warper#lou	4_F_VALKYRIE
@@ -280,12 +280,12 @@ manuk,274,146,6	duplicate(Warper)	Warper#man	4_F_VALKYRIE
 mid_camp,216,288,4	duplicate(Warper)	Warper#mid	4_F_VALKYRIE
 mjolnir_02,85,364,4	duplicate(Warper)	Warper#mjo	4_F_VALKYRIE
 moc_ruins,64,164,4	duplicate(Warper)	Warper#moc	4_F_VALKYRIE
-morocc,159,97,4	duplicate(Warper)	Warper#mor	4_F_VALKYRIE
+morocc_mem,159,97,4	duplicate(Warper)	Warper#mor	4_F_VALKYRIE
 moscovia,229,191,4	duplicate(Warper)	Warper#mos	4_F_VALKYRIE
 nameless_n,259,213,4	duplicate(Warper)	Warper#nam	4_F_VALKYRIE
 niflheim,205,179,4	duplicate(Warper)	Warper#nif	4_F_VALKYRIE
 pay_arche,42,134,4	duplicate(Warper)	Warper#arc	4_F_VALKYRIE
-payon,182,108,4	duplicate(Warper)	Warper#pay	4_F_VALKYRIE
+payon_mem,94,118,4	duplicate(Warper)	Warper#pay	4_F_VALKYRIE
 prontera,159,192,4	duplicate(Warper)	Warper#prt	4_F_VALKYRIE
 prt_fild05,279,223,6	duplicate(Warper)	Warper#cul	4_F_VALKYRIE
 rachel,135,116,4	duplicate(Warper)	Warper#rac	4_F_VALKYRIE

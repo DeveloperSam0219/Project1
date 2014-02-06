@@ -105,7 +105,7 @@ prontera,164,96,4	script	Healer#Custom	402,{
 
 /* Duplicates */
 alberta,25,240,6	duplicate(Healer#Custom)	Healer#alb	402
-aldebaran,135,118,6	duplicate(Healer#Custom)	Healer#alde	402
+oldaldebaran,135,118,6	duplicate(Healer#Custom)	Healer#alde	402
 amatsu,200,79,4	duplicate(Healer#Custom)	Healer#ama	402
 ayothaya,207,169,6	duplicate(Healer#Custom)	Healer#ayo	402
 comodo,184,158,6	duplicate(Healer#Custom)	Healer#com	402
@@ -114,17 +114,17 @@ einbroch,57,202,6	duplicate(Healer#Custom)	Healer#einbr	402
 geffen,115,72,6	duplicate(Healer#Custom)	Healer#gef	402
 gonryun,156,122,6	duplicate(Healer#Custom)	Healer#gon	402
 hugel,89,150,6	duplicate(Healer#Custom)	Healer#hug	402
-izlude,125,118,5	duplicate(Healer#Custom)	Healer#izl	402
+oldizlude,125,118,5	duplicate(Healer#Custom)	Healer#izl	402
 jawaii,250,139,4	duplicate(Healer#Custom)	Healer#jaw	402
 lighthalzen,152,100,6	duplicate(Healer#Custom)	Healer#lhz	402
 louyang,226,103,4	duplicate(Healer#Custom)	Healer#lou	402
 manuk,272,144,6	duplicate(Healer#Custom)	Healer#man	402
 mid_camp,203,289,6	duplicate(Healer#Custom)	Healer#mid	402
 moc_ruins,72,164,4	duplicate(Healer#Custom)	Healer#moc	402
-morocc,153,97,6	duplicate(Healer#Custom)	Healer#mor	402
+morocc_mem,153,97,6	duplicate(Healer#Custom)	Healer#mor	402
 moscovia,220,191,4	duplicate(Healer#Custom)	Healer#mos	402
 niflheim,212,182,5	duplicate(Healer#Custom)	Healer#nif	402
-payon,179,106,4	duplicate(Healer#Custom)	Healer#pay	402
+payon_mem,94,123,4	duplicate(Healer#Custom)	Healer#pay	402
 //prontera,162,193,4	duplicate(Healer#Custom)	Healer#prt	402
 rachel,125,116,6	duplicate(Healer#Custom)	Healer#rac	402
 splendide,201,153,4	duplicate(Healer#Custom)	Healer#spl	402
