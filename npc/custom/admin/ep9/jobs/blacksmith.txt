@@ -6,3 +6,7 @@ alberta_in.gat,174,22,3	duplicate(Guildsman#alberta)	Guildsman#oldalb	4_M_JOB_BL
 izlude.gat,69,181,4	duplicate(Krongast#BLS)	Krongast#oldBLS	4_M_JOB_KNIGHT2
 comodo.gat,158,342,4	duplicate(Bismarc#BLS)	Bismarc#oldBLS	2_M_THIEFMASTER
 morocc.gat,95,133,4	duplicate(Blacksmith Guildsman#moc)	Blacksmith Guildsman#old	4_F_JOB_BLACKSMITH
+
+/* Merchant Skills Quest */
+oldalberta,83,96,5	duplicate(Necko)	Necko#old	4W_M_02
+oldalberta,119,221,6	duplicate(Charlron)	Charlron#old	1_M_PAY_ELDER

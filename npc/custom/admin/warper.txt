@@ -80,7 +80,7 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	//AddDungeon("Einbroch Dungeon", "ein_dun01", 22, 14, 11, 20000);
 	AddDungeon("Gefenia", "gefenia01", 40, 103, 12, 20000);
 	AddDungeon("Geffen Dungeon", "gef_dun00", 104, 99, 13, 20000);
-	AddDungeon("Glast Heim", "glast_01", 375, 304, 14, 20000);
+	AddDungeon("Glast Heim", "glast_01", 370, 304, 14, 20000);
 	AddDungeon("Gonryun Dungeon", "gon_dun01", 153, 53, 15, 20000);
 	AddDungeon("Hidden Dungeon", "prt_maze01", 176, 7, 16, 20000);
 	AddDungeon("Ice Dungeon", "ice_dun01", 157, 14, 17, 20000);
@@ -89,7 +89,7 @@ prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
 	//AddDungeon("Lighthalzen Dungeon", "lhz_dun01", 150, 288, 20, 20000);
 	AddDungeon("The Royal Tomb", "lou_dun01", 218, 196, 21, 20000);
 	AddDungeon("Magma Dungeon", "mag_dun01", 126, 68, 22, 20000);
-	//AddDungeon("Les Forest", "mosk_dun01", 132, 124, 23, 20000);
+	//AddDungeon("Les Forest", "mosk_dun01", 189, 48, 23, 20000);
 	AddDungeon("Orc Dungeon", "orcsdun01", 32, 170, 24, 20000);
 	AddDungeon("Payon Dungeon", "pay_dun00", 21, 183, 25, 20000);
 	AddDungeon("Pyramids", "moc_pryd01", 192, 9, 26, 20000);
@@ -268,7 +268,7 @@ einbech,59,38,6	duplicate(Warper)	Warper#einbe	4_F_VALKYRIE
 einbroch,69,202,4	duplicate(Warper)	Warper#einbr	4_F_VALKYRIE
 gef_fild10,71,339,4	duplicate(Warper)	Warper#orc	4_F_VALKYRIE
 geffen,124,72,4	duplicate(Warper)	Warper#gef	4_F_VALKYRIE
-glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_F_VALKYRIE
+//glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_F_VALKYRIE
 gonryun,162,122,4	duplicate(Warper)	Warper#gon	4_F_VALKYRIE
 hugel,101,151,4	duplicate(Warper)	Warper#hug	4_F_VALKYRIE
 izlu2dun,110,92,4	duplicate(Warper)	Warper#izd	4_F_VALKYRIE
@@ -432,13 +432,37 @@ setarray .dungeons$[1],"abbey01","abyss_01","ama_dun01","anthell01","ayo_dun01",
 end;
 }
 
-abbey01,56,12,4	duplicate(Sister)	Dungeon Keeper#2	8W_SOLDIER
-abyss_01,264,268,4	duplicate(Sister)	Dungeon Keeper#3	8W_SOLDIER
-ama_dun01,233,11,4	duplicate(Sister)	Dungeon Keeper#4	8W_SOLDIER
-anthell01,32,258,4	duplicate(Sister)	Dungeon Keeper#5	8W_SOLDIER
-ayo_dun01,280,21,4	duplicate(Sister)	Dungeon Keeper#6	8W_SOLDIER
-beach_dun,268,71,4	duplicate(Sister)	Dungeon Keeper#7	8W_SOLDIER
-iz_dun00,163,169,4	duplicate(Sister)	Dungeon Keeper#8	8W_SOLDIER
-c_tower1,203,163,4	duplicate(Sister)	Dungeon Keeper#9	8W_SOLDIER
-mjo_dun01,49,24,4	duplicate(Sister)	Dungeon Keeper#10	8W_SOLDIER
+abbey01,56,12,4	duplicate(Sister)	Dungeon Keeper#1	8W_SOLDIER
+abyss_01,264,268,4	duplicate(Sister)	Dungeon Keeper#2	8W_SOLDIER
+ama_dun01,233,11,4	duplicate(Sister)	Dungeon Keeper#3	8W_SOLDIER
+anthell01,32,258,4	duplicate(Sister)	Dungeon Keeper#4	8W_SOLDIER
+ayo_dun01,280,21,4	duplicate(Sister)	Dungeon Keeper#5	8W_SOLDIER
+beach_dun,268,71,4	duplicate(Sister)	Dungeon Keeper#6	8W_SOLDIER
+iz_dun00,163,169,4	duplicate(Sister)	Dungeon Keeper#7	8W_SOLDIER
+c_tower1,203,163,4	duplicate(Sister)	Dungeon Keeper#8	8W_SOLDIER
+mjo_dun01,49,24,4	duplicate(Sister)	Dungeon Keeper#9	8W_SOLDIER
+prt_sewb1,129,254,4	duplicate(Sister)	Dungeon Keeper#10	8W_SOLDIER
+ein_dun01,24,19,4	duplicate(Sister)	Dungeon Keeper#11	8W_SOLDIER
+gefenia01,46,106,4	duplicate(Sister)	Dungeon Keeper#12	8W_SOLDIER
+gef_dun00,99,101,4	duplicate(Sister)	Dungeon Keeper#13	8W_SOLDIER
+glast_01,367,308,4	duplicate(Sister)	Dungeon Keeper#14	8W_SOLDIER
+gon_dun01,158,51,4	duplicate(Sister)	Dungeon Keeper#15	8W_SOLDIER
+prt_maze01,172,10,4	duplicate(Sister)	Dungeon Keeper#16	8W_SOLDIER
+ice_dun01,154,24,4	duplicate(Sister)	Dungeon Keeper#17	8W_SOLDIER
+juperos_01,49,243,4	duplicate(Sister)	Dungeon Keeper#18	8W_SOLDIER
+kh_dun01,22,229,4	duplicate(Sister)	Dungeon Keeper#19	8W_SOLDIER
+lhz_dun01,143,285,4	duplicate(Sister)	Dungeon Keeper#20	8W_SOLDIER
+lou_dun01,211,196,4	duplicate(Sister)	Dungeon Keeper#21	8W_SOLDIER
+mag_dun01,131,77,4	duplicate(Sister)	Dungeon Keeper#22	8W_SOLDIER
+mosk_dun01,183,49,4	duplicate(Sister)	Dungeon Keeper#23	8W_SOLDIER
+orcsdun01,36,166,4	duplicate(Sister)	Dungeon Keeper#24	8W_SOLDIER
 pay_dun00,19,183,0	duplicate(Sister)	Nina	123
+moc_pryd01,186,13,4	duplicate(Sister)	Dungeon Keeper#26	8W_SOLDIER
+ra_san01,135,17,4	duplicate(Sister)	Dungeon Keeper#27	8W_SOLDIER
+in_sphinx1,284,17,4	duplicate(Sister)	Dungeon Keeper#28	8W_SOLDIER
+treasure01,64,32,4	duplicate(Sister)	Dungeon Keeper#29	8W_SOLDIER
+tha_t01,144,41,4	duplicate(Sister)	Dungeon Keeper#30	8W_SOLDIER
+thor_v01,17,235,4	duplicate(Sister)	Dungeon Keeper#31	8W_SOLDIER
+xmas_dun01,200,21,4	duplicate(Sister)	Dungeon Keeper#32	8W_SOLDIER
+tur_dun01,148,58,4	duplicate(Sister)	Dungeon Keeper#33	8W_SOLDIER
+um_dun01,37,36,4	duplicate(Sister)	Dungeon Keeper#34	8W_SOLDIER
