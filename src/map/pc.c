@@ -3957,12 +3957,13 @@ int pc_additem(struct map_session_data *sd,struct item *item_data,int amount,e_l
 	
 	i = MAX_INVENTORY;
 
-	if( itemdb->isstackable2(data) && item_data->expire_time == 0 )
-	{ // Stackable | Non Rental
-		for( i = 0; i < MAX_INVENTORY; i++ )
-		{
-			if( sd->status.inventory[i].nameid == item_data->nameid && sd->status.inventory[i].bound == item_data->bound && memcmp(&sd->status.inventory[i].card, &item_data->card, sizeof(item_data->card)) == 0 )
-			{
+	// Stackable | Non Rental
+	if( itemdb->isstackable2(data) && item_data->expire_time == 0 ) {
+		for( i = 0; i < MAX_INVENTORY; i++ ) {
+			if( sd->status.inventory[i].nameid == item_data->nameid &&
+			    sd->status.inventory[i].bound == item_data->bound &&
+			    sd->status.inventory[i].expire_time == 0 &&
+			    memcmp(&sd->status.inventory[i].card, &item_data->card, sizeof(item_data->card)) == 0 ) {
 				if( amount > MAX_AMOUNT - sd->status.inventory[i].amount || ( data->stack.inventory && amount > data->stack.amount - sd->status.inventory[i].amount ) )
 					return 5;
 				sd->status.inventory[i].amount += amount;
@@ -10391,15 +10392,20 @@ void pc_autotrade_update(struct map_session_data *sd, enum e_pc_autotrade_update
 			if (SQL_ERROR == SQL->Query(map->mysql_handle, "DELETE FROM `%s` WHERE `char_id` = '%d' LIMIT 1",map->autotrade_merchants_db,sd->status.char_id))
 				Sql_ShowDebug(map->mysql_handle);
 			break;
-		case PAUC_START:
+		case PAUC_START: {
+			char title[MESSAGE_SIZE*2+1];
+			
+			SQL->EscapeStringLen(map->mysql_handle, title, sd->message, strnlen(sd->message, MESSAGE_SIZE));
+
 			if (SQL_ERROR == SQL->Query(map->mysql_handle, "INSERT INTO `%s` (`account_id`,`char_id`,`sex`,`title`) VALUES ('%d','%d','%d','%s')",
 										map->autotrade_merchants_db,
 										sd->status.account_id,
 										sd->status.char_id,
 										sd->status.sex,
-										sd->message
+										title
 										))
 				Sql_ShowDebug(map->mysql_handle);
+		}
 			/* yes we want it to fall */
 		case PAUC_REFRESH:
 			for( i = 0; i < sd->vend_num; i++ ) {
