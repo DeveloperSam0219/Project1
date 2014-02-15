@@ -11,6 +11,7 @@
 //===== Additional Comments: =================================  
 // 1.0.0 Release
 // 1.1.0 Added support for Hercules 2014 Megapatch
+// 1.2.0 Added support for HPMDataCheck
 //============================================================
 
 #include <stdio.h>
@@ -27,6 +28,8 @@
 #include "../map/npc.h"
 #include "../map/pc.h"
 #include "../map/script.h"
+
+#include "../common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
 
 HPExport struct hplugin_info pinfo = {
 	"security",		// Plugin name
@@ -101,6 +104,7 @@ bool my_buyingstore_setup(struct map_session_data* sd, unsigned char slots) {
 	{
 		clif->message(sd->fd, "You can't open Buying. Blocked with @security");
 	}
+	hookStop();
 	return false;
 }
 
@@ -112,8 +116,8 @@ void pre_clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
 	if( my->secure_items ){
 		clif->message(sd->fd, "You can't buy. Blocked with @security");
 		result = 1;
-		sd->npc_shopid = 0; //Clear shop data.
 	}
+	hookStop();
 }
 
 void my_clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
@@ -125,8 +129,8 @@ void my_clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
 	{
 		clif->message(sd->fd, "You can't sell. Blocked with @security");
 		fail = 1;
-		sd->npc_shopid = 0; //Clear shop data.
 	}
+	hookStop();
 }
 
 void my_clif_parse_OpenVending(int fd, struct map_session_data* sd)
@@ -147,8 +151,8 @@ int my_pc_dropitem(struct map_session_data *sd,int n,int *amount)
 
 	if( my->secure_items ) {
 		clif->message(sd->fd, "You can't drop. Blocked with @security");
-		*amount = 0;
 	}
+	hookStop();
 	return 1;
 }
 
@@ -168,7 +172,6 @@ int my_pc_reg_received(struct map_session_data *sd)
 	}
 	else
 		clif->message(sd->fd, "Item Security System DISABLE : Use @security for more options.");
-	
 	return 1;
 }
 
@@ -179,8 +182,8 @@ int my_guild_storage_additem(struct map_session_data* sd, struct guild_storage* 
 	if( my->secure_items )
 	{
 		clif->message(sd->fd, "You can't store items on Guild Storage. Blocked with @security");
-		*amount = 0;
 	}
+	hookStop();
 	return 1;
 }
 
@@ -194,19 +197,18 @@ void my_trade_traderequest(struct map_session_data *sd, struct map_session_data 
 
 	if( my->secure_items ) {
 		clif->message(sd->fd, "You can't trade. Blocked with @security");
-		target_sd->trade_partner = 1;
-		sd->trade_partner = 1;
+		hookStop();
 		return;
 	}
 
 	if( trial->secure_items ) {
 		clif->message(sd->fd, "Target can't trade. Blocked with @security");
-		target_sd->trade_partner = 1;
-		sd->trade_partner = 1;
+		hookStop();
 		return;
 	}
 
 }
+
 
 HPExport void plugin_init (void) {
 	iMalloc = GET_SYMBOL("iMalloc");

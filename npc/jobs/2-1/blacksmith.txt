@@ -1068,7 +1068,7 @@ morocc,27,112,4	script	Wickebine#BLS	4_F_JOB_ASSASSIN,{
 		mes "Here's the receipt.";
 		mes "I think you did";
 		mes "a good job.";
-		mapannounce "morocc","Thanks for delivering, " + strcharinfo(0) + "~!",bc_map;
+		mapannounce "morocc_mem","Thanks for delivering, " + strcharinfo(0) + "~!",bc_map;	// Changed to old morocc
 		close2;
 		cutin "Job_Black_hucke02",255;
 		end;
