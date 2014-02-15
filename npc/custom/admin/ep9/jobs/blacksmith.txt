@@ -7,7 +7,7 @@ oldizlude.gat,69,181,4	duplicate(Krongast#BLS)	Krongast#oldBLS	4_M_JOB_KNIGHT2
 comodo.gat,158,342,4	duplicate(Bismarc#BLS)	Bismarc#oldBLS	2_M_THIEFMASTER
 morocc_mem,95,133,4	duplicate(Blacksmith Guildsman#moc)	Blacksmith Guildsman#old	4_F_JOB_BLACKSMITH
 
-morocc_mem,27,112,4	(duplicate(Wickebine#BLS)	Wickebine#old	4_F_JOB_ASSASSIN
+morocc_mem,27,112,4	duplicate(Wickebine#BLS)	Wickebine#old	4_F_JOB_ASSASSIN
 
 /* Merchant Skills Quest */
 oldalberta,83,96,5	duplicate(Necko)	Necko#old	4W_M_02
