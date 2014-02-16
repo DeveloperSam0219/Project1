@@ -1,15 +1,16 @@
-morocc,100,100,0	script	Old Lady	78,{
+morocc,100,100,0	script	Old Lady#sam	575,{
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	
 	if ( #old_done ) {
 		mes .npc$;
 		mes "Please give my message to my grand children";
+		mes "My grandson is in prontera 146,95";
 		close;
 	}
-	
+
 	mes .npc$;
-	mes "Hey " +.@name$+ " my feeling is not well right now and i want to see my grand children before i die.";
+	mes "Hey " +.@name$+ " my feeling is not well right now and i want to see my grandchildren before I die.";
 	next;
 	mes .npc$;
 	mes "Can you deliver my message to them?";
@@ -17,93 +18,67 @@ morocc,100,100,0	script	Old Lady	78,{
 	if (select("Yes:No") - 1) close;
 	mes .npc$;
 	mes "Thank you very much " +.@name$;
+	mes "My grandson is in prontera 146,95";
 	#old_done = 1;
 	close;
+	
+	if (#nina && #mother && #quest && #old_done) {
+		mes "You have really helped avert a crisis in our family.";
+		mes "I will reward you with a power which every one wishes to have. Go to my Grand-Daughter again, I will inform her about it.";
+		close;
+	}
 }
 
-prontera,146,95,4	script	Warper	4_F_VALKYRIE,{
+prontera,146,95,4	script	Warper	4_M_DEWBOY,{
 	function AddTown;function AddDungeon;function AddField;function LastWarp;
-	getmapxy(@mapname$,@mapx,@mapy,1);
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	.@e_id = 7227;
-
-	//Activate|Deactivate menu here
-	set .lastwarp, 1;
-	set .towns, 1;
-	set .dungeons, 1;
-	set .fields, 0;
-
-	//Checks if maps are loaded, (prevents out of index)
+	
 	if(.mapsloaded==1) goto L_warpmenu;
-	set .mapsloaded, 1;
 	
-	//Add Towns here
-	AddTown("Prontera", "prontera", 155, 183);
-	AddTown("Alberta", "oldalberta", 28, 234);
-	AddTown("Aldebaran", "aldebaran", 140, 131);
-	AddTown("Amatsu", "amatsu", 198, 84);
-	//AddTown("Ayothaya", "ayothaya", 150, 163);
-	AddTown("Comodo", "comodo", 209, 143);
-	//AddTown("Einbech (Mining Village);", "einbech", 70, 95);
-	//AddTown("Einbroch", "einbroch", 64, 200);
-	AddTown("Geffen", "geffen", 119, 59);
-	AddTown("Gonryun", "gonryun", 160, 121);
-	//AddTown("Hugel", "hugel", 96, 145);
-	AddTown("Izlude", "oldizlude", 128, 111);	// Changed to old Izlude
-	AddTown("Jawaii", "jawaii", 213, 230);
-	//AddTown("Lighthalzen", "lighthalzen", 158, 92);
-	AddTown("Louyang", "louyang", 210, 108);
-	AddTown("Lutie", "xmas", 147, 134);
-	//AddTown("Moscovia", "moscovia", 214, 183);
-	AddTown("Morroc", "morocc_mem", 156, 93);
-	AddTown("Nameless Island", "nameless_n", 256, 215);
-	AddTown("Niflheim", "niflheim", 85, 154);
-	AddTown("Payon", "payon_mem", 90, 116);
-	//AddTown("Rachel", "rachel", 130, 137);
-	//AddTown("Thor Camp", "thor_camp", 254, 90);
-	//AddTown("Veins", "veins", 216, 123);
-	AddTown("Yuno", "yuno", 157, 51);
-	//AddTown("Umbala", "umbala", 145, 155);
-	
-	//Add Dungeons here
-	AddDungeon("Abbey, Cursed Monastery", "abbey01", 51, 14, 1, 20000);
-	AddDungeon("Abyss Lakes", "abyss_01", 261, 272, 2, 20000);
-	AddDungeon("Amatsu Dungeon", "ama_dun01", 228, 11, 3, 20000);
-	AddDungeon("Anthell", "anthell01", 35, 262, 4, 20000);
-	//AddDungeon("Ayothaya Dungeon", "ayo_dun01", 275, 19, 5, 20000);
-	AddDungeon("Beach Dungeon", "beach_dun", 266, 67, 6, 20000);
-	AddDungeon("Byalan Dungeon", "iz_dun00", 168, 168, 7, 20000);
-	AddDungeon("Clock Tower", "c_tower1", 199, 159, 8, 20000);
-	AddDungeon("Coal Mines", "mjo_dun01", 52, 17, 9, 20000);
-	AddDungeon("Culverts", "prt_sewb1", 131, 247, 10, 20000);
-	//AddDungeon("Einbroch Dungeon", "ein_dun01", 22, 14, 11, 20000);
-	AddDungeon("Gefenia", "gefenia01", 40, 103, 12, 20000);
-	AddDungeon("Geffen Dungeon", "gef_dun00", 104, 99, 13, 20000);
-	AddDungeon("Glast Heim", "glast_01", 370, 304, 14, 20000);
-	AddDungeon("Gonryun Dungeon", "gon_dun01", 153, 53, 15, 20000);
-	AddDungeon("Hidden Dungeon", "prt_maze01", 176, 7, 16, 20000);
-	AddDungeon("Ice Dungeon", "ice_dun01", 157, 14, 17, 20000);
-	//AddDungeon("Juperos Dungeon", "juperos_01", 53, 247, 18, 20000);
-	//AddDungeon("Kiel Dungeon", "kh_dun01", 28, 226, 19, 20000);
-	//AddDungeon("Lighthalzen Dungeon", "lhz_dun01", 150, 288, 20, 20000);
-	AddDungeon("The Royal Tomb", "lou_dun01", 218, 196, 21, 20000);
-	AddDungeon("Magma Dungeon", "mag_dun01", 126, 68, 22, 20000);
-	//AddDungeon("Les Forest", "mosk_dun01", 189, 48, 23, 20000);
-	AddDungeon("Orc Dungeon", "orcsdun01", 32, 170, 24, 20000);
-	AddDungeon("Payon Dungeon", "pay_dun00", 21, 183, 25, 20000);
-	AddDungeon("Pyramids", "moc_pryd01", 192, 9, 26, 20000);
-	//AddDungeon("Rachel Sanctuary", "ra_san01", 140, 11, 27, 20000);
-	AddDungeon("Sphinx", "in_sphinx1", 288, 9, 28, 20000);
-	AddDungeon("Sunken Ship", "treasure01", 69, 24, 29, 20000);
-	//AddDungeon("Thanatos Tower", "tha_t01", 150, 39, 30, 20000);
-	//AddDungeon("Thor Volcano", "thor_v01", 21, 228, 31, 20000);
-	AddDungeon("Toy Factory", "xmas_dun01", 205, 15, 32, 20000);
-	AddDungeon("Turtle Dungeon", "tur_dun01", 154, 49, 33, 20000);
-	AddDungeon("Umbala Dungeon", "um_dun01", 42, 31, 34, 20000);
-	
-	//Add Fields here
-	//AddField("<Map Menu Name>", <"map name">, <x>, <y>);
+	if ( @mapname$ == "prontera" && #old_done && #quest && #nina && #nina1 && #mother ) {
+		mes .npc$;
+		mes "I got the message from my sister about you. I hope you keep our secret intact";
+		#quest_done = 1;
+		close;
+	}
+	if ( @mapname$ == "prontera" && !#old_done ) {
+		mes .npc$;
+		mes "Oh, have you seen my grandmother in morocc?";
+		mes "She's at morocc,100,100";
+		close;
+	}
+	if ( @mapname$ == "prontera" && #old_done && #quest ) {
+		mes .npc$;
+		mes "Please give my message to our other family members";
+		mes "My mother is in aldebaran 203,201";
+		close;
+	}
+	if (@mapname$ == "prontera") {
+	mes .npc$;
+	mes "What happened?";
+	next;
+	if (select("Nothing:I have message from your grand mother") - 1) {
+		mes .npc$;
+		mes "What!! ohh my god! i should hurry up to my grandmother";
+		next;
+		mes .npc$;
+		mes "Can you inform our other family members too?";
+		next;
+		if (select("Yes:No") - 1) close;
+		mes .npc$;
+		mes "Please go to aldebaran and see my mother there. Here is the envelope. I want you to give this to her.";
+		mes "She's at aldebaran 203,201";
+		getitem .@e_id, 1;
+		#quest = 1;
+		close;
+	}
+	close;
+	}
+	mes .npc$;
+	mes "A quest is required to enable me...";
+	close;
 	
 L_warpmenu:
 	if ( #quest_done ) {
@@ -171,46 +146,6 @@ L_warpmenu:
 				}
 	}
 	
-	if ( @mapname$ == "prontera" && #old_done && #quest && #nina && #nina1 && #mother ) {
-		mes .npc$;
-		mes "I got the message from my sister about you. I hope you keep our secret intact";
-		#quest_done = 1;
-		close;
-	}
-	if ( @mapname$ == "prontera" && !#old_done ) {
-		mes .npc$;
-		mes "Oh, have you seen my grandmother in morocc?";
-		close;
-	}
-	if ( @mapname$ == "prontera" && #old_done && #quest ) {
-		mes .npc$;
-		mes "Please give my message to our other family members";
-		close;
-	}
-	if (@mapname$ == "prontera") {
-	mes .npc$;
-	mes "What happened?";
-	next;
-	if (select("Nothing:I have message from your grand mother") - 1) {
-		mes .npc$;
-		mes "What!! ohh my god! i should hurry up to my grandmother";
-		next;
-		mes .npc$;
-		mes "Can you inform our other family members too?";
-		next;
-		if (select("Yes:No") - 1) close;
-		mes .npc$;
-		mes "Please go to aldebaran and see my mother there. Here is the envelope. I want you to give this to her.";
-		getitem .@e_id, 1;
-		#quest = 1;
-		close;
-	}
-	close;
-	}
-	mes .npc$;
-	mes "A quest is required to enable me...";
-	close;
-	
 function AddTown {
 	if(getmapusers(getarg(1)) >= 0) {
 		set .townname$[getarraysize(.townname$)], getarg(0);
@@ -228,8 +163,6 @@ function AddDungeon {
 		set .dungeonmap$[getarraysize(.dungeonmap$)], getarg(1);
 		set .dungeonx[getarraysize(.dungeonx)], getarg(2);
 		set .dungeony[getarraysize(.dungeony)], getarg(3);
-		set @dungeonlock[getarraysize(@dungeonlock)], getarg(4);
-		set .dungeonrequirement[getarraysize(.dungeonrequirement)], getarg(5);
 		return;
 	}
 	return;
@@ -253,61 +186,143 @@ function LastWarp {
 	set lastwarpy, getarg(3);
 	return;
 }
+OnInit:
+	defpattern 1,"warp me","L_warpmenu";
+	activatepset 1;
+	
+		//Activate|Deactivate menu here
+	set .lastwarp, 1;
+	set .towns, 1;
+	set .dungeons, 1;
+	set .fields, 0;
+
+	//Checks if maps are loaded, (prevents out of index)
+	set .mapsloaded, 1;
+	
+	//Add Towns here
+	AddTown("Prontera", "prontera", 155, 183);
+	AddTown("Alberta", "oldalberta", 28, 234);
+	AddTown("Aldebaran", "aldebaran", 140, 131);
+	AddTown("Amatsu", "amatsu", 198, 84);
+	//AddTown("Ayothaya", "ayothaya", 150, 163);
+	AddTown("Comodo", "comodo", 209, 143);
+	//AddTown("Einbech (Mining Village);", "einbech", 70, 95);
+	//AddTown("Einbroch", "einbroch", 64, 200);
+	AddTown("Geffen", "geffen", 119, 59);
+	AddTown("Gonryun", "gonryun", 160, 121);
+	//AddTown("Hugel", "hugel", 96, 145);
+	AddTown("Izlude", "oldizlude", 128, 111);	// Changed to old Izlude
+	AddTown("Jawaii", "jawaii", 213, 230);
+	//AddTown("Lighthalzen", "lighthalzen", 158, 92);
+	AddTown("Louyang", "louyang", 210, 108);
+	AddTown("Lutie", "xmas", 147, 134);
+	//AddTown("Moscovia", "moscovia", 214, 183);
+	AddTown("Morroc", "morocc_mem", 156, 93);
+	AddTown("Nameless Island", "nameless_n", 256, 215);
+	AddTown("Niflheim", "niflheim", 85, 154);
+	AddTown("Payon", "payon_mem", 90, 116);
+	//AddTown("Rachel", "rachel", 130, 137);
+	//AddTown("Thor Camp", "thor_camp", 254, 90);
+	//AddTown("Veins", "veins", 216, 123);
+	AddTown("Yuno", "yuno", 157, 51);
+	//AddTown("Umbala", "umbala", 145, 155);
+	
+	//Add Dungeons here
+	AddDungeon("Abbey, Cursed Monastery", "abbey01", 51, 14, 1, 20000);
+	AddDungeon("Abyss Lakes", "abyss_01", 261, 272, 2, 20000);
+	AddDungeon("Amatsu Dungeon", "ama_dun01", 228, 11, 3, 20000);
+	AddDungeon("Anthell", "anthell01", 35, 262, 4, 20000);
+	AddDungeon("Ayothaya Dungeon", "ayo_dun01", 275, 19, 5, 20000);
+	AddDungeon("Beach Dungeon", "beach_dun", 266, 67, 6, 20000);
+	AddDungeon("Byalan Dungeon", "iz_dun00", 168, 168, 7, 20000);
+	AddDungeon("Clock Tower", "c_tower1", 199, 159, 8, 20000);
+	AddDungeon("Coal Mines", "mjo_dun01", 52, 17, 9, 20000);
+	AddDungeon("Culverts", "prt_sewb1", 131, 247, 10, 20000);
+	AddDungeon("Einbroch Dungeon", "ein_dun01", 22, 14, 11, 20000);
+	AddDungeon("Gefenia", "gefenia01", 40, 103, 12, 20000);
+	AddDungeon("Geffen Dungeon", "gef_dun00", 104, 99, 13, 20000);
+	AddDungeon("Glast Heim", "glast_01", 370, 304, 14, 20000);
+	AddDungeon("Gonryun Dungeon", "gon_dun01", 153, 53, 15, 20000);
+	AddDungeon("Hidden Dungeon", "prt_maze01", 176, 7, 16, 20000);
+	AddDungeon("Ice Dungeon", "ice_dun01", 157, 14, 17, 20000);
+	AddDungeon("Juperos Dungeon", "juperos_01", 53, 247, 18, 20000);
+	AddDungeon("Kiel Dungeon", "kh_dun01", 28, 226, 19, 20000);
+	AddDungeon("Lighthalzen Dungeon", "lhz_dun01", 150, 288, 20, 20000);
+	AddDungeon("The Royal Tomb", "lou_dun01", 218, 196, 21, 20000);
+	AddDungeon("Magma Dungeon", "mag_dun01", 126, 68, 22, 20000);
+	AddDungeon("Les Forest", "mosk_dun01", 189, 48, 23, 20000);
+	AddDungeon("Orc Dungeon", "orcsdun01", 32, 170, 24, 20000);
+	AddDungeon("Payon Dungeon", "pay_dun00", 21, 183, 25, 20000);
+	AddDungeon("Pyramids", "moc_pryd01", 192, 9, 26, 20000);
+	AddDungeon("Rachel Sanctuary", "ra_san01", 140, 11, 27, 20000);
+	AddDungeon("Sphinx", "in_sphinx1", 288, 9, 28, 20000);
+	AddDungeon("Sunken Ship", "treasure01", 69, 24, 29, 20000);
+	AddDungeon("Thanatos Tower", "tha_t01", 150, 39, 30, 20000);
+	AddDungeon("Thor Volcano", "thor_v01", 21, 228, 31, 20000);
+	AddDungeon("Toy Factory", "xmas_dun01", 205, 15, 32, 20000);
+	AddDungeon("Turtle Dungeon", "tur_dun01", 154, 49, 33, 20000);
+	AddDungeon("Umbala Dungeon", "um_dun01", 42, 31, 34, 20000);
+	
+	//Add Fields here
+	//AddField("<Map Menu Name>", <"map name">, <x>, <y>);
+	
+	end;
+
 }
 
 // --------------------------------------------------
 //	Duplicates:
 // --------------------------------------------------
-alb2trea,57,70,6	duplicate(Warper)	Warper#tre	4_F_VALKYRIE
-oldalberta,28,240,4	duplicate(Warper)	Warper#alb	4_F_VALKYRIE
-aldebaran,145,118,4	duplicate(Warper)	Warper#alde	4_F_VALKYRIE
-amatsu,203,87,4	duplicate(Warper)	Warper#ama	4_F_VALKYRIE
-ayothaya,209,169,6	duplicate(Warper)	Warper#ayo	4_F_VALKYRIE
-comodo,194,158,4	duplicate(Warper)	Warper#com	4_F_VALKYRIE
-einbech,59,38,6	duplicate(Warper)	Warper#einbe	4_F_VALKYRIE
-einbroch,69,202,4	duplicate(Warper)	Warper#einbr	4_F_VALKYRIE
-gef_fild10,71,339,4	duplicate(Warper)	Warper#orc	4_F_VALKYRIE
-geffen,124,72,4	duplicate(Warper)	Warper#gef	4_F_VALKYRIE
-//glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_F_VALKYRIE
-gonryun,162,122,4	duplicate(Warper)	Warper#gon	4_F_VALKYRIE
-hugel,101,151,4	duplicate(Warper)	Warper#hug	4_F_VALKYRIE
-izlu2dun,110,92,4	duplicate(Warper)	Warper#izd	4_F_VALKYRIE
-oldizlude,132,120,4	duplicate(Warper)	Warper#izl	4_F_VALKYRIE
-jawaii,253,138,4	duplicate(Warper)	Warper#jaw	4_F_VALKYRIE
-lighthalzen,162,102,4	duplicate(Warper)	Warper#lhz	4_F_VALKYRIE
-louyang,208,103,6	duplicate(Warper)	Warper#lou	4_F_VALKYRIE
-manuk,274,146,6	duplicate(Warper)	Warper#man	4_F_VALKYRIE
-mid_camp,216,288,4	duplicate(Warper)	Warper#mid	4_F_VALKYRIE
-mjolnir_02,85,364,4	duplicate(Warper)	Warper#mjo	4_F_VALKYRIE
-moc_ruins,64,164,4	duplicate(Warper)	Warper#moc	4_F_VALKYRIE
-morocc_mem,159,97,4	duplicate(Warper)	Warper#mor	4_F_VALKYRIE
-moscovia,229,191,4	duplicate(Warper)	Warper#mos	4_F_VALKYRIE
-nameless_n,259,213,4	duplicate(Warper)	Warper#nam	4_F_VALKYRIE
-niflheim,205,179,4	duplicate(Warper)	Warper#nif	4_F_VALKYRIE
-pay_arche,42,134,4	duplicate(Warper)	Warper#arc	4_F_VALKYRIE
-payon_mem,94,118,4	duplicate(Warper)	Warper#pay	4_F_VALKYRIE
-prontera,159,192,4	duplicate(Warper)	Warper#prt	4_F_VALKYRIE
-prt_fild05,279,223,6	duplicate(Warper)	Warper#cul	4_F_VALKYRIE
-rachel,135,116,4	duplicate(Warper)	Warper#rac	4_F_VALKYRIE
-splendide,205,153,4	duplicate(Warper)	Warper#spl	4_F_VALKYRIE
-thor_camp,249,76,4	duplicate(Warper)	Warper#thor	4_F_VALKYRIE
-umbala,106,150,3	duplicate(Warper)	Warper#umb	4_F_VALKYRIE
-veins,214,123,4	duplicate(Warper)	Warper#ve	4_F_VALKYRIE
-xmas,150,136,6	duplicate(Warper)	Warper#xmas	4_F_VALKYRIE
-yuno,162,47,4	duplicate(Warper)	Warper#yuno	4_F_VALKYRIE
+alb2trea,57,70,6	duplicate(Warper)	Warper#tre	4_M_DEWBOY
+oldalberta,28,240,4	duplicate(Warper)	Warper#alb	4_M_DEWBOY
+aldebaran,145,118,4	duplicate(Warper)	Warper#alde	4_M_DEWBOY
+amatsu,203,87,4	duplicate(Warper)	Warper#ama	4_M_DEWBOY
+ayothaya,209,169,6	duplicate(Warper)	Warper#ayo	4_M_DEWBOY
+comodo,194,158,4	duplicate(Warper)	Warper#com	4_M_DEWBOY
+einbech,59,38,6	duplicate(Warper)	Warper#einbe	4_M_DEWBOY
+einbroch,69,202,4	duplicate(Warper)	Warper#einbr	4_M_DEWBOY
+gef_fild10,71,339,4	duplicate(Warper)	Warper#orc	4_M_DEWBOY
+geffen,124,72,4	duplicate(Warper)	Warper#gef	4_M_DEWBOY
+//glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_M_DEWBOY
+gonryun,162,122,4	duplicate(Warper)	Warper#gon	4_M_DEWBOY
+hugel,101,151,4	duplicate(Warper)	Warper#hug	4_M_DEWBOY
+izlu2dun,110,92,4	duplicate(Warper)	Warper#izd	4_M_DEWBOY
+oldizlude,132,120,4	duplicate(Warper)	Warper#izl	4_M_DEWBOY
+jawaii,253,138,4	duplicate(Warper)	Warper#jaw	4_M_DEWBOY
+lighthalzen,162,102,4	duplicate(Warper)	Warper#lhz	4_M_DEWBOY
+louyang,208,103,6	duplicate(Warper)	Warper#lou	4_M_DEWBOY
+manuk,274,146,6	duplicate(Warper)	Warper#man	4_M_DEWBOY
+mid_camp,216,288,4	duplicate(Warper)	Warper#mid	4_M_DEWBOY
+mjolnir_02,85,364,4	duplicate(Warper)	Warper#mjo	4_M_DEWBOY
+moc_ruins,64,164,4	duplicate(Warper)	Warper#moc	4_M_DEWBOY
+morocc_mem,159,97,4	duplicate(Warper)	Warper#mor	4_M_DEWBOY
+moscovia,229,191,4	duplicate(Warper)	Warper#mos	4_M_DEWBOY
+nameless_n,259,213,4	duplicate(Warper)	Warper#nam	4_M_DEWBOY
+niflheim,205,179,4	duplicate(Warper)	Warper#nif	4_M_DEWBOY
+pay_arche,42,134,4	duplicate(Warper)	Warper#arc	4_M_DEWBOY
+payon_mem,94,118,4	duplicate(Warper)	Warper#pay	4_M_DEWBOY
+//prontera,159,192,4	duplicate(Warper)	Warper#prt	4_M_DEWBOY
+prt_fild05,279,223,6	duplicate(Warper)	Warper#cul	4_M_DEWBOY
+rachel,135,116,4	duplicate(Warper)	Warper#rac	4_M_DEWBOY
+splendide,205,153,4	duplicate(Warper)	Warper#spl	4_M_DEWBOY
+thor_camp,249,76,4	duplicate(Warper)	Warper#thor	4_M_DEWBOY
+umbala,106,150,3	duplicate(Warper)	Warper#umb	4_M_DEWBOY
+veins,214,123,4	duplicate(Warper)	Warper#ve	4_M_DEWBOY
+xmas,150,136,6	duplicate(Warper)	Warper#xmas	4_M_DEWBOY
+yuno,162,47,4	duplicate(Warper)	Warper#yuno	4_M_DEWBOY
 
 // --------------------------------------------------
 //	Duplicates (Renewal):
 // --------------------------------------------------
-brasilis,201,222,4	duplicate(Warper)	Warper#bra	4_F_VALKYRIE
-dewata,204,186,6	duplicate(Warper)	Warper#dew	4_F_VALKYRIE
-dicastes01,194,194,6	duplicate(Warper)	Warper#dic	4_F_VALKYRIE
-ecl_in01,51,60,4	duplicate(Warper)	Warper#ecl	4_F_VALKYRIE
-malangdo,134,117,6	duplicate(Warper)	Warper#mal	4_F_VALKYRIE
-malaya,210,205,4	duplicate(Warper)	Warper#ma	4_F_VALKYRIE
-mora,57,152,4	duplicate(Warper)	Warper#mora	4_F_VALKYRIE
+brasilis,201,222,4	duplicate(Warper)	Warper#bra	4_M_DEWBOY
+dewata,204,186,6	duplicate(Warper)	Warper#dew	4_M_DEWBOY
+dicastes01,194,194,6	duplicate(Warper)	Warper#dic	4_M_DEWBOY
+ecl_in01,51,60,4	duplicate(Warper)	Warper#ecl	4_M_DEWBOY
+malangdo,134,117,6	duplicate(Warper)	Warper#mal	4_M_DEWBOY
+malaya,210,205,4	duplicate(Warper)	Warper#ma	4_M_DEWBOY
+mora,57,152,4	duplicate(Warper)	Warper#mora	4_M_DEWBOY
 
-aldebaran,203,201,0	script	Mother	123,{
+aldebaran,203,201,0	script	Mother	581,{
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	.@e_id = 7227;
@@ -321,6 +336,7 @@ aldebaran,203,201,0	script	Mother	123,{
 	if ( #old_done && #quest && #mother ) {
 		mes .npc$;
 		mes "Please look for brian's sister";
+		mes "She's at pay_dun00 19,183";
 		close;
 	}
 	
@@ -348,11 +364,12 @@ aldebaran,203,201,0	script	Mother	123,{
 	if ( !.@s1 ) close;
 	mes .npc$;
 	mes "Thank you " +.@name$;
+	mes "She's at pay_dun00 19,183";
 	#mother = 1;
 	close;
 }
 
--	script	Nina::Sister	123,{
+-	script	Nina::Sister	4_F_BRZ_WOMAN,{
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	getmapxy(@mapname$,@mapx,@mapy,1);
@@ -369,6 +386,7 @@ aldebaran,203,201,0	script	Mother	123,{
 			next;
 			switch (select("Yes:No")) {
 			case 1:
+				if (Zeny >= 20000) {
 				for (set .@k,0; .@k < getarraysize(.dungeons$); set .@k,.@k+1) {
 					if (@mapname$ == .dungeons$[.@k]) {
 						setarray dungeonlock$[.@k],"yes";
@@ -378,6 +396,12 @@ aldebaran,203,201,0	script	Mother	123,{
 				mes .npc$;
 				mes "You have unlocked this dungeon.";
 				close;
+				}
+				else {
+				mes .npc$;
+				mes "You don't have enough zeny to unlock this dungeon.";
+				close;
+				}
 			default:
 				close;
 			}
@@ -398,30 +422,30 @@ aldebaran,203,201,0	script	Mother	123,{
 		mes "Thanks a lot for informing me about this family emergency. Thank god my grand mother is alright now.";
 		next;
 		mes .npc$;
-		mes "Whats your name Tranveller?";
+		mes "Whats your name Traveller?";
 		next;
 		.@s = select("My name is " +strcharinfo(0));
 		if ( !.@s ) close;
 		mes .npc$;
 		mes "Thanks a lot " +strcharinfo(0);
-		mes "I will give u a reward for this. me and my bother have a special power to transporting people where ever they want. we can do that for you exclusively but u will be charged zeny for this. dont tell anyone about this. This is a secret between me and my brother only.";
+		mes "I will give you a reward for this. Me and my bother have a special power to transporting people where ever they want. We can do that for you exclusively but you will be charged zeny for this and the price I will charge you will be as per my need. Dont tell anyone about this. This is a family secret.";
 		next;
 		mes .npc$;
-		mes "Go to prontera and talk to my brother. promise him that you will not reveal the secret to anyone.";
+		mes "Go to Prontera and talk to my brother. Promise him that you will not reveal the secret to anyone.";
 		#nina1 = 1;
 		close;
 	}
 	if ( @mapname$ == "pay_dun00" ) {
 	mes .npc$;
-	mes "Oh i see";
+	mes "Oh I see";
 	next;
 	mes .npc$;
-	mes "Oh no !! my granny is sick! i ll rush off to her immediately!";
+	mes "Oh no !! my granny is sick! I'll rush off to her immediately!";
 	#nina = 1;
 	close;
 	}
 	mes .npc$;
-	mes "Not now traveller, i am busy with my research";
+	mes "Don't mind me traveler...";
 	close;
 
 OnInit:
