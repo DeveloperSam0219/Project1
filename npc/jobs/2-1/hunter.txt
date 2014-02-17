@@ -457,7 +457,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 		mes "Hmm, I think you're supposed to visit someone else, not me. Like our Guildmaster who's out for business, you know?";
 		next;
 		mes "[Hunter Sherin]";
-		if (checkre(0) {
+		if (checkre(0)) {
 			mes "I heard he's at the Payon Central Palace... Or in the Archer Village, one of those two places. Try visiting those places and find him, okay?";
 		}
 		else {
