@@ -30,7 +30,7 @@ morocc,100,100,0	script	Old Lady#sam	575,{
 }
 
 prontera,146,95,4	script	Warper	4_M_DEWBOY,{
-	
+	getmapxy(@mapname$,@mapx,@mapy,1);
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	.@e_id = 7227;
