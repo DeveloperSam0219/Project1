@@ -35,6 +35,7 @@ prontera,146,95,4	script	Warper	4_M_DEWBOY,{
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	.@e_id = 7227;
 	
+	if ( @mapname$ == "prontera" && #quest_done) goto L_warpmenu;
 	if ( @mapname$ == "prontera" && #old_done && #quest && #nina && #nina1 && #mother ) {
 		mes .npc$;
 		mes "I got the message from my sister about you. I hope you keep our secret intact";
@@ -74,7 +75,6 @@ prontera,146,95,4	script	Warper	4_M_DEWBOY,{
 	}
 	close;
 	}
-	if (@mapname$ == "prontera" && #quest_done) goto L_warpmenu;
 	
 L_warpmenu:
 	function LastWarp;
