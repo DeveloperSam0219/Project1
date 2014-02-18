@@ -1,4 +1,4 @@
-morocc,100,100,0	script	Old Lady#sam	575,{
+morocc_mem,100,100,0	script	Old Lady#sam	575,{
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	
