@@ -645,11 +645,14 @@ int pc_equippoint(struct map_session_data *sd,int n)
 	if(sd->inventory_data[n]->look == W_DAGGER	||
 		sd->inventory_data[n]->look == W_1HSWORD ||
 		sd->inventory_data[n]->look == W_1HAXE) {
-		if(ep == EQP_HAND_R && (pc->checkskill(sd,AS_LEFT) > 0 || (sd->class_&MAPID_UPPERMASK) == MAPID_ASSASSIN ||
-			(sd->class_&MAPID_UPPERMASK) == MAPID_KAGEROUOBORO))//Kagerou and Oboro can dual wield daggers. [Rytech]
-			return EQP_ARMS;
-		if( ep == EQP_SHADOW_SHIELD )/* are there conditions for those? */
-			return EQP_SHADOW_WEAPON|EQP_SHADOW_SHIELD;
+		if(  (pc->checkskill(sd,AS_LEFT) > 0 ||
+			 (sd->class_&MAPID_UPPERMASK) == MAPID_ASSASSIN ||
+			 (sd->class_&MAPID_UPPERMASK) == MAPID_KAGEROUOBORO) ) { //Kagerou and Oboro can dual wield daggers. [Rytech]
+			if( ep == EQP_HAND_R )
+				return EQP_ARMS;
+			if( ep == EQP_SHADOW_WEAPON )
+				return EQP_SHADOW_ARMS;
+		}
 	}
 	return ep;
 }
@@ -1447,7 +1450,6 @@ int pc_calc_skilltree(struct map_session_data *sd)
 				case WL_SUMMON_ATK_GROUND:
 				case LG_OVERBRAND_BRANDISH:
 				case LG_OVERBRAND_PLUSATK:
-				case WM_SEVERE_RAINSTORM_MELEE:
 					continue;
 				default:
 					break;
@@ -1717,9 +1719,9 @@ int pc_updateweightstatus(struct map_session_data *sd)
 
 	// start new status change
 	if( new_overweight == 1 )
-		sc_start(&sd->bl, SC_WEIGHTOVER50, 100, 0, 0);
+		sc_start(NULL,&sd->bl, SC_WEIGHTOVER50, 100, 0, 0);
 	else if( new_overweight == 2 )
-		sc_start(&sd->bl, SC_WEIGHTOVER90, 100, 0, 0);
+		sc_start(NULL,&sd->bl, SC_WEIGHTOVER90, 100, 0, 0);
 
 	// update overweight status
 	sd->regen.state.overweight = new_overweight;
@@ -4262,7 +4264,7 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 		case ITEMID_M_BERSERK_POTION:
 			if( sd->md == NULL || sd->md->db == NULL )
 				return 0;
-			if (sd->md->sc.data[SC_BERSERK] || sd->md->sc.data[SC_SATURDAY_NIGHT_FEVER])
+			if (sd->md->sc.data[SC_BERSERK])
 				return 0;
 			if( nameid == ITEMID_M_AWAKENING_POTION && sd->md->db->lv < 40 )
 				return 0;
@@ -4386,9 +4388,12 @@ int pc_useitem(struct map_session_data *sd,int n) {
 		sd->sc.data[SC_TRICKDEAD] ||
 		sd->sc.data[SC_HIDING] ||
 		sd->sc.data[SC__SHADOWFORM] ||
+		sd->sc.data[SC__INVISIBILITY] ||
 		sd->sc.data[SC__MANHOLE] ||
 		sd->sc.data[SC_KG_KAGEHUMI] ||
 		sd->sc.data[SC_WHITEIMPRISON] ||
+		sd->sc.data[SC_DEEP_SLEEP] ||
+		sd->sc.data[SC_SATURDAY_NIGHT_FEVER] ||
 		(sd->sc.data[SC_NOCHAT] && sd->sc.data[SC_NOCHAT]->val1&MANNER_NOITEM)
 	    ))
 		return 0;
@@ -4942,6 +4947,10 @@ int pc_setpos(struct map_session_data* sd, unsigned short map_index, int x, int 
 			status_change_end(&sd->bl, SC_MOON_COMFORT, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_STAR_COMFORT, INVALID_TIMER);
 			status_change_end(&sd->bl, SC_MIRACLE, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_NEUTRALBARRIER_MASTER, INVALID_TIMER);//Will later check if this is needed. [Rytech]
+			status_change_end(&sd->bl, SC_NEUTRALBARRIER, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STEALTHFIELD_MASTER, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STEALTHFIELD, INVALID_TIMER);
 			if (sd->sc.data[SC_KNOWLEDGE]) {
 				struct status_change_entry *sce = sd->sc.data[SC_KNOWLEDGE];
 				if (sce->timer != INVALID_TIMER)
@@ -5206,7 +5215,8 @@ int pc_checkallowskill(struct map_session_data *sd)
 		SC_LKCONCENTRATION,
 		SC_EDP,
 #endif
-		SC_FEARBREEZE
+		SC_FEARBREEZE,
+		SC_EXEEDBREAK,
 	};
 	const enum sc_type scs_list[] = {
 		SC_AUTOGUARD,
@@ -5858,16 +5868,16 @@ int pc_checkbaselevelup(struct map_session_data *sd) {
 	status_percent_heal(&sd->bl,100,100);
 
 	if((sd->class_&MAPID_UPPERMASK) == MAPID_SUPER_NOVICE) {
-		sc_start(&sd->bl,status->skill2sc(PR_KYRIE),100,1,skill->get_time(PR_KYRIE,1));
-		sc_start(&sd->bl,status->skill2sc(PR_IMPOSITIO),100,1,skill->get_time(PR_IMPOSITIO,1));
-		sc_start(&sd->bl,status->skill2sc(PR_MAGNIFICAT),100,1,skill->get_time(PR_MAGNIFICAT,1));
-		sc_start(&sd->bl,status->skill2sc(PR_GLORIA),100,1,skill->get_time(PR_GLORIA,1));
-		sc_start(&sd->bl,status->skill2sc(PR_SUFFRAGIUM),100,1,skill->get_time(PR_SUFFRAGIUM,1));
+		sc_start(NULL,&sd->bl,status->skill2sc(PR_KYRIE),100,1,skill->get_time(PR_KYRIE,1));
+		sc_start(NULL,&sd->bl,status->skill2sc(PR_IMPOSITIO),100,1,skill->get_time(PR_IMPOSITIO,1));
+		sc_start(NULL,&sd->bl,status->skill2sc(PR_MAGNIFICAT),100,1,skill->get_time(PR_MAGNIFICAT,1));
+		sc_start(NULL,&sd->bl,status->skill2sc(PR_GLORIA),100,1,skill->get_time(PR_GLORIA,1));
+		sc_start(NULL,&sd->bl,status->skill2sc(PR_SUFFRAGIUM),100,1,skill->get_time(PR_SUFFRAGIUM,1));
 		if (sd->state.snovice_dead_flag)
 			sd->state.snovice_dead_flag = 0; //Reenable steelbody resurrection on dead.
 	} else if( (sd->class_&MAPID_BASEMASK) == MAPID_TAEKWON ) {
-		sc_start(&sd->bl,status->skill2sc(AL_INCAGI),100,10,600000);
-		sc_start(&sd->bl,status->skill2sc(AL_BLESSING),100,10,600000);
+		sc_start(NULL,&sd->bl,status->skill2sc(AL_INCAGI),100,10,600000);
+		sc_start(NULL,&sd->bl,status->skill2sc(AL_BLESSING),100,10,600000);
 	}
 	clif->misceffect(&sd->bl,0);
 	npc->script_event(sd, NPCE_BASELVUP); //LORDALFA - LVLUPEVENT
@@ -6949,7 +6959,7 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 		if (battle_config.pk_mode&2) {
 			ssd->status.manner -= 5;
 			if(ssd->status.manner < 0)
-				sc_start(src,SC_NOCHAT,100,0,0);
+				sc_start(NULL,src,SC_NOCHAT,100,0,0);
 #if 0
 			// PK/Karma system code (not enabled yet) [celest]
 			// originally from Kade Online, so i don't know if any of these is correct ^^;
@@ -7001,7 +7011,7 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 			clif->resurrection(&sd->bl, 1);
 			if(battle_config.pc_invincible_time)
 				pc->setinvincibletimer(sd, battle_config.pc_invincible_time);
-			sc_start(&sd->bl,status->skill2sc(MO_STEELBODY),100,1,skill->get_time(MO_STEELBODY,1));
+			sc_start(NULL,&sd->bl,status->skill2sc(MO_STEELBODY),100,1,skill->get_time(MO_STEELBODY,1));
 			if(map_flag_gvg2(sd->bl.m))
 				pc->respawn_timer(INVALID_TIMER, timer->gettick(), sd->bl.id, 0);
 			return 0;
@@ -7545,6 +7555,11 @@ int pc_itemheal(struct map_session_data *sd,int itemid, int hp,int sp)
 			sp -= sp * sd->sc.data[SC_CRITICALWOUND]->val2 / 100;
 		}
 
+		if( sd->sc.data[SC_VITALITYACTIVATION] ){
+			hp += hp / 2; // 1.5 times
+			sp -= sp / 2;
+		}
+
 		if ( sd->sc.data[SC_DEATHHURT] ) {
 			hp -= hp * 20 / 100;
 			sp -= sp * 20 / 100;
@@ -8013,7 +8028,7 @@ int pc_setcart(struct map_session_data *sd,int type) {
 			if( !sd->sc.data[SC_PUSH_CART] ) /* first time, so fill cart data */
 				clif->cartlist(sd);
 			clif->updatestatus(sd, SP_CARTINFO);
-			sc_start(&sd->bl, SC_PUSH_CART, 100, type, 0);
+			sc_start(NULL,&sd->bl, SC_PUSH_CART, 100, type, 0);
 			clif->sc_load(&sd->bl, sd->bl.id, AREA, SI_ON_PUSH_CART, type, 0, 0);
 			if( sd->sc.data[SC_PUSH_CART] )/* forcefully update */
 				sd->sc.data[SC_PUSH_CART]->val1 = type;
@@ -8519,6 +8534,7 @@ int pc_checkcombo(struct map_session_data *sd, struct item_data *data ) {
 		
 		success++;
 	}
+	
 	return success;
 }
 
@@ -8535,7 +8551,7 @@ int pc_removecombo(struct map_session_data *sd, struct item_data *data ) {
 		
 		ARR_FIND( 0, sd->combo_count, x, sd->combos[x].id == data->combos[i]->id );
 		/* no match, skip this combo */
-		if( !(x < sd->combo_count) )
+		if( x == sd->combo_count )
 			continue;
 
 		sd->combos[x].bonus = NULL;
@@ -8555,19 +8571,16 @@ int pc_removecombo(struct map_session_data *sd, struct item_data *data ) {
 			cursor++;
 		}
 		
-		/* check if combo requirements still fit */
-		if( pc->checkcombo( sd, data ) )
-			continue;
-
 		/* it's empty, we can clear all the memory */
 		if( (sd->combo_count = cursor) == 0 ) {
 			aFree(sd->combos);
 			sd->combos = NULL;
-			
-			return retval; /* we also can return at this point for we have no more combos to check */
+			break;
 		}
-
 	}
+	
+	/* check if combo requirements still fit -- don't touch retval! */
+	pc->checkcombo( sd, data );
 
 	return retval;
 }
@@ -8627,7 +8640,7 @@ int pc_equipitem(struct map_session_data *sd,int n,int req_pos)
 		return 0;
 	}
 
-	if (sd->sc.data[SC_BERSERK] || sd->sc.data[SC_SATURDAY_NIGHT_FEVER])
+	if (sd->sc.data[SC_BERSERK])
 	{
 		clif->equipitemack(sd,n,0,EIA_FAIL);	// fail
 		return 0;
@@ -8643,13 +8656,18 @@ int pc_equipitem(struct map_session_data *sd,int n,int req_pos)
 		pos = req_pos&EQP_ACC;
 		if (pos == EQP_ACC) //User specified both slots..
 			pos = sd->equip_index[EQI_ACC_R] >= 0 ? EQP_ACC_L : EQP_ACC_R;
-	}
-
-	if(pos == EQP_ARMS && id->equip == EQP_HAND_R)
-	{	//Dual wield capable weapon.
+	} else if(pos == EQP_ARMS && id->equip == EQP_HAND_R) { //Dual wield capable weapon.
 	  	pos = (req_pos&EQP_ARMS);
 		if (pos == EQP_ARMS) //User specified both slots, pick one for them.
 			pos = sd->equip_index[EQI_HAND_R] >= 0 ? EQP_HAND_L : EQP_HAND_R;
+	} else if(pos == EQP_SHADOW_ACC) { //Accesories should only go in one of the two,
+		pos = req_pos&EQP_SHADOW_ACC;
+		if (pos == EQP_SHADOW_ACC) //User specified both slots..
+			pos = sd->equip_index[EQI_SHADOW_ACC_R] >= 0 ? EQP_SHADOW_ACC_L : EQP_SHADOW_ACC_R;
+	} else if( pos == EQP_SHADOW_ARMS && id->equip == EQP_SHADOW_WEAPON) { //Dual wield capable weapon.
+	  	pos = (req_pos&EQP_SHADOW_ARMS);
+		if (pos == EQP_SHADOW_ARMS) //User specified both slots, pick one for them.
+			pos = sd->equip_index[EQI_SHADOW_WEAPON] >= 0 ? EQP_SHADOW_SHIELD : EQP_SHADOW_WEAPON;
 	}
 
 	if (pos&EQP_HAND_R && battle_config.use_weapon_skill_range&BL_PC)
@@ -8679,7 +8697,7 @@ int pc_equipitem(struct map_session_data *sd,int n,int req_pos)
 
 	sd->status.inventory[n].equip=pos;
 
-	if(pos & EQP_HAND_R) {
+	if(pos & (EQP_HAND_R|EQP_SHADOW_WEAPON)) {
 		if(id)
 			sd->weapontype1 = id->look;
 		else
@@ -8687,19 +8705,16 @@ int pc_equipitem(struct map_session_data *sd,int n,int req_pos)
 		pc->calcweapontype(sd);
 		clif->changelook(&sd->bl,LOOK_WEAPON,sd->status.weapon);
 	}
-	if(pos & EQP_HAND_L) {
+	if(pos & (EQP_HAND_L|EQP_SHADOW_SHIELD)) {
 		if(id) {
 			if(id->type == IT_WEAPON) {
 				sd->status.shield = 0;
 				sd->weapontype2 = id->look;
-			}
-			else
-			if(id->type == IT_ARMOR) {
+			} else if(id->type == IT_ARMOR) {
 				sd->status.shield = id->look;
 				sd->weapontype2 = 0;
 			}
-		}
-		else
+		} else
 			sd->status.shield = sd->weapontype2 = 0;
 		pc->calcweapontype(sd);
 		clif->changelook(&sd->bl,LOOK_SHIELD,sd->status.shield);
@@ -8829,7 +8844,7 @@ int pc_unequipitem(struct map_session_data *sd,int n,int flag) {
 	}
 
 	// if player is berserk then cannot unequip
-	if (!(flag & 2) && sd->sc.count && (sd->sc.data[SC_BERSERK] || sd->sc.data[SC_SATURDAY_NIGHT_FEVER]))
+	if (!(flag & 2) && sd->sc.count && (sd->sc.data[SC_BERSERK]))
 	{
 		clif->unequipitemack(sd,n,0,UIA_FAIL);
 		return 0;
@@ -9427,9 +9442,9 @@ void pc_overheat(struct map_session_data *sd, int val) {
 
 	heat = max(0,heat); // Avoid negative HEAT
 	if( heat >= limit[skill_lv] )
-		sc_start(&sd->bl,SC_OVERHEAT,100,0,1000);
+		sc_start(NULL,&sd->bl,SC_OVERHEAT,100,0,1000);
 	else
-		sc_start(&sd->bl,SC_OVERHEAT_LIMITPOINT,100,heat,30000);
+		sc_start(NULL,&sd->bl,SC_OVERHEAT_LIMITPOINT,100,heat,30000);
 
 	return;
 }

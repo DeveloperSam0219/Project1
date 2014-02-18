@@ -137,7 +137,7 @@ int max_connect_user = -1;
 int gm_allow_group = -1;
 int autosave_interval = DEFAULT_AUTOSAVE_INTERVAL;
 int start_zeny = 0;
-int start_items[MAX_START_ITEMS*2];
+int start_items[MAX_START_ITEMS*3];
 int guild_exp_rate = 100;
 
 //Custom limits for the fame lists. [Skotlex]
@@ -1579,7 +1579,7 @@ int make_new_char_sql(struct char_session_data* sd, char* name_, int str, int ag
 
 	char name[NAME_LENGTH];
 	char esc_name[NAME_LENGTH*2+1];
-	int char_id, flag, k;
+	int char_id, flag, k, l;
 
 	safestrncpy(name, name_, NAME_LENGTH);
 	normalize_name(name,TRIM_CHARS);
@@ -1642,11 +1642,29 @@ int make_new_char_sql(struct char_session_data* sd, char* name_, int str, int ag
 #endif
 	//Retrieve the newly auto-generated char id
 	char_id = (int)SQL->LastInsertId(sql_handle);
+
 	//Give the char the default items
-	
-	for (k = 0; k < ARRAYLENGTH(start_items) && start_items[k] != 0; k += 2) {
-		if( SQL_ERROR == SQL->Query(sql_handle, "INSERT INTO `%s` (`char_id`,`nameid`, `amount`, `identify`) VALUES ('%d', '%d', '%d', '%d')", inventory_db, char_id, start_items[k], start_items[k + 1], 1) )
-				Sql_ShowDebug(sql_handle);
+	for (k = 0; k < ARRAYLENGTH(start_items) && start_items[k] != 0; k += 3) {
+		// FIXME: How to define if an item is stackable without having to lookup itemdb? [panikon]
+		if( start_items[k+2] == 1 )
+		{
+			if( SQL_ERROR == SQL->Query(sql_handle,
+				"INSERT INTO `%s` (`char_id`,`nameid`, `amount`, `identify`) VALUES ('%d', '%d', '%d', '%d')",
+				inventory_db, char_id, start_items[k], start_items[k + 1], 1) )
+					Sql_ShowDebug(sql_handle);
+		}
+		else if( start_items[k+2] == 0 )
+		{
+			// Non-stackable items should have their own entries (issue: 7279)
+			for( l = 0; l < start_items[k+1]; l++ )
+			{
+				if( SQL_ERROR == SQL->Query(sql_handle,
+					"INSERT INTO `%s` (`char_id`,`nameid`, `amount`, `identify`) VALUES ('%d', '%d', '%d', '%d')",
+					inventory_db, char_id, start_items[k], 1, 1) 
+					)
+					Sql_ShowDebug(sql_handle);
+			}
+		}
 	}
 
 	ShowInfo("Created char: account: %d, char: %d, slot: %d, name: %s\n", sd->account_id, char_id, slot, name);
@@ -2558,6 +2576,26 @@ int parse_fromlogin(int fd) {
 			}
 			break;
 
+			case 0x2736: // Failed accinfo lookup to forward to mapserver
+				if (RFIFOREST(fd) < 18)
+					return 0;
+
+				mapif_parse_accinfo2(false, RFIFOL(fd,2), RFIFOL(fd,6), RFIFOL(fd,10), RFIFOL(fd,14),
+				                     NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, 0, 0);
+				RFIFOSKIP(fd,18);
+			break;
+
+			case 0x2737: // Successful accinfo lookup to forward to mapserver
+				if (RFIFOREST(fd) < 183)
+					return 0;
+
+				mapif_parse_accinfo2(true, RFIFOL(fd,167), RFIFOL(fd,171), RFIFOL(fd,175), RFIFOL(fd,179),
+				                     (char*)RFIFOP(fd,2), (char*)RFIFOP(fd,26), (char*)RFIFOP(fd,59),
+				                     (char*)RFIFOP(fd,99), (char*)RFIFOP(fd,119), (char*)RFIFOP(fd,151),
+				                     (char*)RFIFOP(fd,156), RFIFOL(fd,115), RFIFOL(fd,143), RFIFOL(fd,147));
+				RFIFOSKIP(fd,183);
+			break;
+
 			default:
 				ShowError("Unknown packet 0x%04x received from login-server, disconnecting.\n", command);
 				set_eof(fd);
@@ -2852,6 +2890,16 @@ void mapif_on_disconnect(int id)
 	mapif_server_reset(id);
 }
 
+void mapif_on_parse_accinfo(int account_id, int u_fd, int u_aid, int u_group, int map_fd) {
+	WFIFOHEAD(login_fd,22);
+	WFIFOW(login_fd,0) = 0x2740;
+	WFIFOL(login_fd,2) = account_id;
+	WFIFOL(login_fd,6) = u_fd;
+	WFIFOL(login_fd,10) = u_aid;
+	WFIFOL(login_fd,14) = u_group;
+	WFIFOL(login_fd,18) = map_fd;
+	WFIFOSET(login_fd,22);
+}
 
 int parse_frommap(int fd)
 {
@@ -5165,18 +5213,25 @@ int char_config_read(const char* cfgName)
 
 			i = 0;
 			split = strtok(w2, ",");
-			while (split != NULL && i < MAX_START_ITEMS*2) {
+			while (split != NULL && i < MAX_START_ITEMS*3) {
 				split2 = split;
 				split = strtok(NULL, ",");
 				start_items[i] = atoi(split2);
+
 				if (start_items[i] < 0)
 					start_items[i] = 0;
+
 				++i;
 			}
 
-			if (i%2) { //we know it must be a even number
-				ShowError("Specified 'start_items' is missing a parameter. Removing '%d'.\n", start_items[i - 1]);
-				start_items[i - 1] = 0;
+			// Format is: id1,quantity1,stackable1,idN,quantityN,stackableN
+			if( i%3 )
+			{
+				ShowWarning("char_config_read: There are not enough parameters in start_items, ignoring last item...\n");
+				if( i%3 == 1 )
+					start_items[i-1] = 0;
+				else
+					start_items[i-2] = 0;
 			}
 		} else if (strcmpi(w1, "start_zeny") == 0) {
 			start_zeny = atoi(w2);

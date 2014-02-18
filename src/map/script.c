@@ -2275,7 +2275,10 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 		for(i=0; i<size; i++)
 			linkdb_final(&script->syntax.curly[i].case_label);
 #ifdef ENABLE_CASE_CHECK
-	script->local_casecheck.clear();
+		script->local_casecheck.clear();
+		script->parser_current_src = NULL;
+		script->parser_current_file = NULL;
+		script->parser_current_line = 0;
 #endif // ENABLE_CASE_CHECK
 		return NULL;
 	}
@@ -2292,7 +2295,10 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 			script->size = 0;
 			script->buf  = NULL;
 #ifdef ENABLE_CASE_CHECK
-	script->local_casecheck.clear();
+			script->local_casecheck.clear();
+			script->parser_current_src = NULL;
+			script->parser_current_file = NULL;
+			script->parser_current_line = 0;
 #endif // ENABLE_CASE_CHECK
 			return NULL;
 		}
@@ -2310,7 +2316,10 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 			script->size = 0;
 			script->buf  = NULL;
 #ifdef ENABLE_CASE_CHECK
-	script->local_casecheck.clear();
+			script->local_casecheck.clear();
+			script->parser_current_src = NULL;
+			script->parser_current_file = NULL;
+			script->parser_current_line = 0;
 #endif // ENABLE_CASE_CHECK
 			return NULL;
 		}
@@ -2428,6 +2437,9 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 	code->script_vars = NULL;
 #ifdef ENABLE_CASE_CHECK
 	script->local_casecheck.clear();
+	script->parser_current_src = NULL;
+	script->parser_current_file = NULL;
+	script->parser_current_line = 0;
 #endif // ENABLE_CASE_CHECK
 	return code;
 }
@@ -2597,7 +2609,7 @@ void* get_val2(struct script_state* st, int64 uid, struct DBMap** ref) {
  **/
 void script_array_ensure_zero(struct script_state *st, struct map_session_data *sd, int64 uid, struct DBMap** ref) {
 	const char *name = script->get_str(script_getvarid(uid));
-	struct DBMap *src = script->array_src(st, sd ? sd : st->rid ? map->id2sd(st->rid) : NULL, name);\
+	struct DBMap *src = script->array_src(st, sd ? sd : st->rid ? map->id2sd(st->rid) : NULL, name, ref);\
 	struct script_array *sa = NULL;
 	bool insert = false;
 	
@@ -2637,9 +2649,9 @@ void script_array_ensure_zero(struct script_state *st, struct map_session_data *
 /**
  * Returns array size by ID
  **/
-unsigned int script_array_size(struct script_state *st, struct map_session_data *sd, const char *name) {
+unsigned int script_array_size(struct script_state *st, struct map_session_data *sd, const char *name, struct DBMap **ref) {
 	struct script_array *sa = NULL;
-	struct DBMap *src = script->array_src(st, sd, name);
+	struct DBMap *src = script->array_src(st, sd, name, ref);
 	
 	if( src )
 		sa = idb_get(src, script->search_str(name));
@@ -2649,15 +2661,15 @@ unsigned int script_array_size(struct script_state *st, struct map_session_data 
 /**
  * Returns array's highest key (for that awful getarraysize implementation that doesn't really gets the array size)
  **/
-unsigned int script_array_highest_key(struct script_state *st, struct map_session_data *sd, const char *name) {
+unsigned int script_array_highest_key(struct script_state *st, struct map_session_data *sd, const char *name, struct DBMap **ref) {
 	struct script_array *sa = NULL;
-	struct DBMap *src = script->array_src(st, sd, name);
+	struct DBMap *src = script->array_src(st, sd, name, ref);
 	
 	
 	if( src ) {
 		int key = script->add_word(name);
 		
-		script->array_ensure_zero(st,sd,reference_uid(key, 0),NULL);
+		script->array_ensure_zero(st,sd,reference_uid(key, 0),ref);
 		
 		if( ( sa = idb_get(src, key) ) ) {
 			unsigned int i, highest_key = 0;
@@ -2729,7 +2741,7 @@ void script_array_add_member(struct script_array *sa, unsigned int idx) {
  * Obtains the source of the array database for this type and scenario
  * Initializes such database when not yet initialised.
  **/
-struct DBMap *script_array_src(struct script_state *st, struct map_session_data *sd, const char *name) {
+struct DBMap *script_array_src(struct script_state *st, struct map_session_data *sd, const char *name, struct DBMap **ref) {
 	struct DBMap **src = NULL;
 	
 	switch( name[0] ) {
@@ -2743,7 +2755,10 @@ struct DBMap *script_array_src(struct script_state *st, struct map_session_data 
 			src = &mapreg->array_db;
 			break;
 		case '.':/* npc/script */
-			src = (name[1] == '@') ? &st->stack->array_function_db : &st->script->script_arrays_db;
+			if( ref )
+				src = (struct DBMap **)((char *)ref + sizeof(struct DBMap *));
+			else
+				src = (name[1] == '@') ? &st->stack->array_function_db : &st->script->script_arrays_db;
 			break;
 		case '\'':/* instance */
 			if( st->instance_id >= 0 ) {
@@ -4067,7 +4082,7 @@ void script_cleararray_pc(struct map_session_data* sd, const char* varname, void
 
 	key = script->add_str(varname);
 	
-	if( !(src = script->array_src(NULL,sd,varname) ) )
+	if( !(src = script->array_src(NULL,sd,varname,NULL) ) )
 		return;
 	
 	if( value )
@@ -5779,7 +5794,7 @@ BUILDIN(getarraysize)
 		return false;// not a variable
 	}
 
-	script_pushint(st, script->array_highest_key(st,st->rid ? script->rid2sd(st) : NULL,reference_getname(data)));
+	script_pushint(st, script->array_highest_key(st,st->rid ? script->rid2sd(st) : NULL,reference_getname(data),reference_getref(data)));
 	return true;
 }
 int script_array_index_cmp(const void *a, const void *b) {
@@ -5822,7 +5837,7 @@ BUILDIN(deletearray)
 			return true;// no player attached
 	}
 
-	if( !(src = script->array_src(st,sd,name) ) ) {
+	if( !(src = script->array_src(st,sd,name, reference_getref(data)) ) ) {
 		ShowError("script:deletearray: not a array\n");
 		script->reportdata(data);
 		st->state = END;
@@ -5835,7 +5850,7 @@ BUILDIN(deletearray)
 		return true;// not a variable
 	}
 
-	end = script->array_highest_key(st,sd,name);
+	end = script->array_highest_key(st,sd,name,reference_getref(data));
 	
 	if( start >= end )
 		return true;// nothing to free
@@ -6235,8 +6250,8 @@ BUILDIN(checkweight2)
 		script_pushint(st,0);
 		return false;// not supported
 	}
-	nb_it = script->array_highest_key(st,sd,reference_getname(data_it));
-	nb_nb = script->array_highest_key(st,sd,reference_getname(data_nb));
+	nb_it = script->array_highest_key(st,sd,reference_getname(data_it),reference_getref(data_it));
+	nb_nb = script->array_highest_key(st,sd,reference_getname(data_nb),reference_getref(data_nb));
 	if(nb_it != nb_nb) {
 		ShowError("Size mistmatch: nb_it=%d, nb_nb=%d\n",nb_it,nb_nb);
 		fail = 1;
@@ -7654,9 +7669,8 @@ BUILDIN(getequippercentrefinery) {
 /*==========================================
  * Refine +1 item at pos and log and display refine
  *------------------------------------------*/
-BUILDIN(successrefitem)
-{
-	int i=-1,num,ep;
+BUILDIN(successrefitem) {
+	int i = -1 , num, ep, up = 1;
 	TBL_PC *sd;
 
 	num = script_getnum(st,2);
@@ -7664,6 +7678,9 @@ BUILDIN(successrefitem)
 	if( sd == NULL )
 		return true;
 
+	if( script_hasdata(st, 3) )
+		up = script_getnum(st, 3);
+	
 	if (num > 0 && num <= ARRAYLENGTH(script->equip))
 		i=pc->checkequip(sd,script->equip[num-1]);
 	if(i >= 0) {
@@ -7675,7 +7692,8 @@ BUILDIN(successrefitem)
 		if (sd->status.inventory[i].refine >= MAX_REFINE)
 			return true;
 
-		sd->status.inventory[i].refine++;
+		sd->status.inventory[i].refine += up;
+		sd->status.inventory[i].refine = cap_value( sd->status.inventory[i].refine, 0, MAX_REFINE);
 		pc->unequipitem(sd,i,2); // status calc will happen in pc->equipitem() below
 
 		clif->refine(sd->fd,0,i,sd->status.inventory[i].refine);
@@ -9850,7 +9868,7 @@ BUILDIN(sc_start) {
 	}
 
 	if( bl )
-		status->change_start(bl, type, 10000, val1, 0, 0, val4, tick, 2);
+		status->change_start(NULL, bl, type, 10000, val1, 0, 0, val4, tick, 2);
 
 	return true;
 }
@@ -9888,7 +9906,7 @@ BUILDIN(sc_start2) {
 	}
 
 	if( bl )
-		status->change_start(bl, type, rate, val1, 0, 0, val4, tick, 2);
+		status->change_start(NULL, bl, type, rate, val1, 0, 0, val4, tick, 2);
 
 	return true;
 }
@@ -9928,7 +9946,7 @@ BUILDIN(sc_start4) {
 	}
 
 	if( bl )
-		status->change_start(bl, type, 10000, val1, val2, val3, val4, tick, 2);
+		status->change_start(NULL, bl, type, 10000, val1, val2, val3, val4, tick, 2);
 
 	return true;
 }
@@ -9995,7 +10013,7 @@ BUILDIN(getscrate) {
 		bl = map->id2bl(st->rid);
 
 	if (bl)
-		rate = status->get_sc_def(bl, (sc_type)type, 10000, 10000, 0);
+		rate = status->get_sc_def(bl, bl, (sc_type)type, 10000, 10000, 0);
 
 	script_pushint(st,rate);
 	return true;
@@ -13241,7 +13259,7 @@ BUILDIN(summon)
 		md->deletetimer = timer->add(tick+(timeout>0?timeout*1000:60000),mob->timer_delete,md->bl.id,0);
 		mob->spawn (md); //Now it is ready for spawning.
 		clif->specialeffect(&md->bl,344,AREA);
-		sc_start4(&md->bl, SC_MODECHANGE, 100, 1, 0, MD_AGGRESSIVE, 0, 60000);
+		sc_start4(NULL, &md->bl, SC_MODECHANGE, 100, 1, 0, MD_AGGRESSIVE, 0, 60000);
 	}
 	return true;
 }
@@ -13860,7 +13878,7 @@ BUILDIN(implode)
 	}
 
 	//count chars
-	array_size = script->array_highest_key(st,sd,name) - 1;
+	array_size = script->array_highest_key(st,sd,name,reference_getref(data)) - 1;
 
 	if(array_size == -1) {
 		//empty array check (AmsTaff)
@@ -15794,7 +15812,7 @@ BUILDIN(mercenary_sc_start) {
 	tick = script_getnum(st,3);
 	val1 = script_getnum(st,4);
 
-	status->change_start(&sd->md->bl, type, 10000, val1, 0, 0, 0, tick, 2);
+	status->change_start(NULL, &sd->md->bl, type, 10000, val1, 0, 0, 0, tick, 2);
 	return true;
 }
 
@@ -17026,7 +17044,7 @@ BUILDIN(setmounting) {
 		if( sd->sc.data[SC_ALL_RIDING] )
 			status_change_end(&sd->bl, SC_ALL_RIDING, INVALID_TIMER);
 		else
-			sc_start(&sd->bl, SC_ALL_RIDING, 100, 0, -1);
+			sc_start(NULL,&sd->bl, SC_ALL_RIDING, 100, 0, -1);
 		script_pushint(st,1);//in both cases, return 1.
 	}
 	return true;
@@ -17577,8 +17595,8 @@ BUILDIN(montransform) {
 		sprintf(msg, msg_txt(1485), monster->name); // Traaaansformation-!! %s form!!
 		clif->ShowScript(&sd->bl, msg);
 		status_change_end(bl, SC_MONSTER_TRANSFORM, INVALID_TIMER); // Clear previous
-		sc_start2(bl, SC_MONSTER_TRANSFORM, 100, mob_id, type, tick);
-		sc_start4(bl, type, 100, val1, val2, val3, val4, tick);
+		sc_start2(NULL, bl, SC_MONSTER_TRANSFORM, 100, mob_id, type, tick);
+		sc_start4(NULL, bl, type, 100, val1, val2, val3, val4, tick);
 	}
 	return true;
 }
@@ -18568,7 +18586,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(getequiprefinerycnt,"i"),
 		BUILDIN_DEF(getequipweaponlv,"i"),
 		BUILDIN_DEF(getequippercentrefinery,"i"),
-		BUILDIN_DEF(successrefitem,"i"),
+		BUILDIN_DEF(successrefitem,"i?"),
 		BUILDIN_DEF(failedrefitem,"i"),
 		BUILDIN_DEF(downrefitem,"i?"),
 		BUILDIN_DEF(statusup,"i"),
