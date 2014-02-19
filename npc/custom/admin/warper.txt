@@ -25,11 +25,12 @@ morocc_mem,100,100,0	script	Old Lady#sam	575,{
 	if (#nina && #mother && #quest && #old_done) {
 		mes "You have really helped avert a crisis in our family.";
 		mes "I will reward you with a power which every one wishes to have. Go to my Grand-Daughter again, I will inform her about it.";
+		#nina2 = 1;
 		close;
 	}
 }
 
-prontera,146,95,4	script	Warper	4_M_DEWBOY,{
+prontera,146,95,6	script	Brian	4_M_DEWBOY,{
 	getmapxy(@mapname$,@mapx,@mapy,1);
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
@@ -279,54 +280,54 @@ function LastWarp {
 // --------------------------------------------------
 //	Duplicates:
 // --------------------------------------------------
-alb2trea,57,70,6	duplicate(Warper)	Warper#tre	4_M_DEWBOY
-oldalberta,28,240,4	duplicate(Warper)	Warper#alb	4_M_DEWBOY
-aldebaran,145,118,4	duplicate(Warper)	Warper#alde	4_M_DEWBOY
-amatsu,203,87,4	duplicate(Warper)	Warper#ama	4_M_DEWBOY
-ayothaya,209,169,6	duplicate(Warper)	Warper#ayo	4_M_DEWBOY
-comodo,194,158,4	duplicate(Warper)	Warper#com	4_M_DEWBOY
-einbech,59,38,6	duplicate(Warper)	Warper#einbe	4_M_DEWBOY
-einbroch,69,202,4	duplicate(Warper)	Warper#einbr	4_M_DEWBOY
-gef_fild10,71,339,4	duplicate(Warper)	Warper#orc	4_M_DEWBOY
-geffen,124,72,4	duplicate(Warper)	Warper#gef	4_M_DEWBOY
-//glast_01,372,308,4	duplicate(Warper)	Warper#glh	4_M_DEWBOY
-gonryun,162,122,4	duplicate(Warper)	Warper#gon	4_M_DEWBOY
-hugel,101,151,4	duplicate(Warper)	Warper#hug	4_M_DEWBOY
-izlu2dun,110,92,4	duplicate(Warper)	Warper#izd	4_M_DEWBOY
-oldizlude,132,120,4	duplicate(Warper)	Warper#izl	4_M_DEWBOY
-jawaii,253,138,4	duplicate(Warper)	Warper#jaw	4_M_DEWBOY
-lighthalzen,162,102,4	duplicate(Warper)	Warper#lhz	4_M_DEWBOY
-louyang,208,103,6	duplicate(Warper)	Warper#lou	4_M_DEWBOY
-manuk,274,146,6	duplicate(Warper)	Warper#man	4_M_DEWBOY
-mid_camp,216,288,4	duplicate(Warper)	Warper#mid	4_M_DEWBOY
-mjolnir_02,85,364,4	duplicate(Warper)	Warper#mjo	4_M_DEWBOY
-moc_ruins,64,164,4	duplicate(Warper)	Warper#moc	4_M_DEWBOY
-morocc_mem,159,97,4	duplicate(Warper)	Warper#mor	4_M_DEWBOY
-moscovia,229,191,4	duplicate(Warper)	Warper#mos	4_M_DEWBOY
-nameless_n,259,213,4	duplicate(Warper)	Warper#nam	4_M_DEWBOY
-niflheim,205,179,4	duplicate(Warper)	Warper#nif	4_M_DEWBOY
-pay_arche,42,134,4	duplicate(Warper)	Warper#arc	4_M_DEWBOY
-payon_mem,94,118,4	duplicate(Warper)	Warper#pay	4_M_DEWBOY
-//prontera,159,192,4	duplicate(Warper)	Warper#prt	4_M_DEWBOY
-prt_fild05,279,223,6	duplicate(Warper)	Warper#cul	4_M_DEWBOY
-rachel,135,116,4	duplicate(Warper)	Warper#rac	4_M_DEWBOY
-splendide,205,153,4	duplicate(Warper)	Warper#spl	4_M_DEWBOY
-thor_camp,249,76,4	duplicate(Warper)	Warper#thor	4_M_DEWBOY
-umbala,106,150,3	duplicate(Warper)	Warper#umb	4_M_DEWBOY
-veins,214,123,4	duplicate(Warper)	Warper#ve	4_M_DEWBOY
-xmas,150,136,6	duplicate(Warper)	Warper#xmas	4_M_DEWBOY
-yuno,162,47,4	duplicate(Warper)	Warper#yuno	4_M_DEWBOY
+alb2trea,57,70,6	duplicate(Brian)	Warper#tre	4_M_DEWBOY
+oldalberta,28,240,4	duplicate(Brian)	Warper#alb	4_M_DEWBOY
+aldebaran,145,118,4	duplicate(Brian)	Warper#alde	4_M_DEWBOY
+amatsu,203,87,4	duplicate(Brian)	Warper#ama	4_M_DEWBOY
+ayothaya,209,169,6	duplicate(Brian)	Warper#ayo	4_M_DEWBOY
+comodo,194,158,4	duplicate(Brian)	Warper#com	4_M_DEWBOY
+einbech,59,38,6	duplicate(Brian)	Warper#einbe	4_M_DEWBOY
+einbroch,69,202,4	duplicate(Brian)	Warper#einbr	4_M_DEWBOY
+gef_fild10,71,339,4	duplicate(Brian)	Warper#orc	4_M_DEWBOY
+geffen,124,72,4	duplicate(Brian)	Warper#gef	4_M_DEWBOY
+//glast_01,372,308,4	duplicate(Brian)	Warper#glh	4_M_DEWBOY
+gonryun,162,122,4	duplicate(Brian)	Warper#gon	4_M_DEWBOY
+hugel,101,151,4	duplicate(Brian)	Warper#hug	4_M_DEWBOY
+izlu2dun,110,92,4	duplicate(Brian)	Warper#izd	4_M_DEWBOY
+oldizlude,132,120,4	duplicate(Brian)	Warper#izl	4_M_DEWBOY
+jawaii,253,138,4	duplicate(Brian)	Warper#jaw	4_M_DEWBOY
+lighthalzen,162,102,4	duplicate(Brian)	Warper#lhz	4_M_DEWBOY
+louyang,208,103,6	duplicate(Brian)	Warper#lou	4_M_DEWBOY
+manuk,274,146,6	duplicate(Brian)	Warper#man	4_M_DEWBOY
+mid_camp,216,288,4	duplicate(Brian)	Warper#mid	4_M_DEWBOY
+mjolnir_02,85,364,4	duplicate(Brian)	Warper#mjo	4_M_DEWBOY
+moc_ruins,64,164,4	duplicate(Brian)	Warper#moc	4_M_DEWBOY
+morocc_mem,159,97,4	duplicate(Brian)	Warper#mor	4_M_DEWBOY
+moscovia,229,191,4	duplicate(Brian)	Warper#mos	4_M_DEWBOY
+nameless_n,259,213,4	duplicate(Brian)	Warper#nam	4_M_DEWBOY
+niflheim,205,179,4	duplicate(Brian)	Warper#nif	4_M_DEWBOY
+pay_arche,42,134,4	duplicate(Brian)	Warper#arc	4_M_DEWBOY
+payon_mem,94,118,4	duplicate(Brian)	Warper#pay	4_M_DEWBOY
+//prontera,159,192,4	duplicate(Brian)	Warper#prt	4_M_DEWBOY
+prt_fild05,279,223,6	duplicate(Brian)	Warper#cul	4_M_DEWBOY
+rachel,135,116,4	duplicate(Brian)	Warper#rac	4_M_DEWBOY
+splendide,205,153,4	duplicate(Brian)	Warper#spl	4_M_DEWBOY
+thor_camp,249,76,4	duplicate(Brian)	Warper#thor	4_M_DEWBOY
+umbala,106,150,3	duplicate(Brian)	Warper#umb	4_M_DEWBOY
+veins,214,123,4	duplicate(Brian)	Warper#ve	4_M_DEWBOY
+xmas,150,136,6	duplicate(Brian)	Warper#xmas	4_M_DEWBOY
+yuno,162,47,4	duplicate(Brian)	Warper#yuno	4_M_DEWBOY
 
 // --------------------------------------------------
 //	Duplicates (Renewal):
 // --------------------------------------------------
-brasilis,201,222,4	duplicate(Warper)	Warper#bra	4_M_DEWBOY
-dewata,204,186,6	duplicate(Warper)	Warper#dew	4_M_DEWBOY
-dicastes01,194,194,6	duplicate(Warper)	Warper#dic	4_M_DEWBOY
-ecl_in01,51,60,4	duplicate(Warper)	Warper#ecl	4_M_DEWBOY
-malangdo,134,117,6	duplicate(Warper)	Warper#mal	4_M_DEWBOY
-malaya,210,205,4	duplicate(Warper)	Warper#ma	4_M_DEWBOY
-mora,57,152,4	duplicate(Warper)	Warper#mora	4_M_DEWBOY
+brasilis,201,222,4	duplicate(Brian)	Warper#bra	4_M_DEWBOY
+dewata,204,186,6	duplicate(Brian)	Warper#dew	4_M_DEWBOY
+dicastes01,194,194,6	duplicate(Brian)	Warper#dic	4_M_DEWBOY
+ecl_in01,51,60,4	duplicate(Brian)	Warper#ecl	4_M_DEWBOY
+malangdo,134,117,6	duplicate(Brian)	Warper#mal	4_M_DEWBOY
+malaya,210,205,4	duplicate(Brian)	Warper#ma	4_M_DEWBOY
+mora,57,152,4	duplicate(Brian)	Warper#mora	4_M_DEWBOY
 
 aldebaran,203,201,0	script	Mother	581,{
 	.@name$ = strtolower(strcharinfo(0));
@@ -423,7 +424,42 @@ aldebaran,203,201,0	script	Mother	581,{
 		mes "Not now traveller, i am busy with my research";
 		close;
 	}
-	if ( @mapname$ == "pay_dun00" && #nina && #mother && #quest && #old_done ) {
+	if ( @mapname$ == "pay_dun00" && !#nina) {
+	mes .npc$;
+	mes "Hey!! Don't disturb me!!";
+	.@b = select ("I got a message for you from your Mother.");
+	if ( !.@b) close;
+	next;
+	mes .npc$;
+	mes "Oh!! I am so sorry, what is it?";
+	.@c= select ("Here is the letter");
+	if ( !.@c) close;
+	next;
+	mes .npc$;
+	mes "Oh! Thanks you let me read it.";
+	sleep2 500;
+	mes "...";
+	sleep2 500;
+	mes "......";
+	sleep2 500;
+	mes "................";
+	sleep2 500;
+	mes ".............................";
+	next;
+	mes .npc$;
+	mes "Oh no !! my granny is sick! I'll rush off to her immediately!";
+	#nina = 1;
+	next;
+	mes .npc$;
+	mes "Please go to my granny too at morocc 100 100..";
+	close;
+	}
+	if ( @mapname$ == "pay_dun00" && #nina) {
+	mes .npc$;
+	mes "Please go to my granny too at morocc 100 100..";
+	close;
+	}
+	if ( @mapname$ == "pay_dun00" && #nina && #mother && #quest && #old_done && #nina2 ) {
 		mes .npc$;
 		mes "Thanks a lot for informing me about this family emergency. Thank god my grand mother is alright now.";
 		next;
@@ -440,15 +476,6 @@ aldebaran,203,201,0	script	Mother	581,{
 		mes "Go to Prontera and talk to my brother. Promise him that you will not reveal the secret to anyone.";
 		#nina1 = 1;
 		close;
-	}
-	if ( @mapname$ == "pay_dun00" ) {
-	mes .npc$;
-	mes "Oh I see";
-	next;
-	mes .npc$;
-	mes "Oh no !! my granny is sick! I'll rush off to her immediately!";
-	#nina = 1;
-	close;
 	}
 	mes .npc$;
 	mes "Don't mind me traveler...";
