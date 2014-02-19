@@ -2,13 +2,20 @@ morocc_mem,100,100,0	script	Old Lady#sam	575,{
 	.@name$ = strtolower(strcharinfo(0));
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	
+	if (#nina && #mother && #quest && #old_done) {
+		mes "You have really helped avert a crisis in our family.";
+		mes "I will reward you with a power which every one wishes to have. Go to my Grand-Daughter again, I will inform her about it.";
+		#nina2 = 1;
+		close;
+	}
+	
 	if ( #old_done ) {
 		mes .npc$;
 		mes "Please give my message to my grand children";
 		mes "My grandson is in prontera 146,95";
 		close;
 	}
-
+	
 	mes .npc$;
 	mes "Hey " +.@name$+ " my feeling is not well right now and i want to see my grandchildren before I die.";
 	next;
@@ -21,13 +28,6 @@ morocc_mem,100,100,0	script	Old Lady#sam	575,{
 	mes "My grandson is in prontera 146,95";
 	#old_done = 1;
 	close;
-	
-	if (#nina && #mother && #quest && #old_done) {
-		mes "You have really helped avert a crisis in our family.";
-		mes "I will reward you with a power which every one wishes to have. Go to my Grand-Daughter again, I will inform her about it.";
-		#nina2 = 1;
-		close;
-	}
 }
 
 prontera,146,95,6	script	Brian	4_M_DEWBOY,{
