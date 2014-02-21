@@ -21,14 +21,12 @@ prontera,164,96,4	script	Healer#Custom	402,{
 				specialeffect2 EF_HEAL2; percentheal 100,100;
 				close;
 				}
-				else {
 				delitem .quest_items[.@i],.quest_items[.@i+1];
 				Zeny -= 5000;
 				specialeffect2 EF_HEAL2; percentheal 100,100;
 				specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
 				specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
 				close;
-				}
 			}
 		default:
 			close;
@@ -51,11 +49,12 @@ prontera,164,96,4	script	Healer#Custom	402,{
                     mes "You don't complete my requirements";
                     close;
                 }
-            }
+            delitem .quest_items[.@i],.quest_items[.@i+1];
             mes .npc$;
             mes "Splendid!!! Mind Blowing Traveller!! you made my work easier!!! I was lazy to go out and hunt you know, so i thought i ll make you do it for me!!! Anyways, as promised, from now i give you agi buff too!!";
             #done3 = 1;
             close;
+			}
         }
         if ( Zeny < 5000 ) {
             mes .npc$;
