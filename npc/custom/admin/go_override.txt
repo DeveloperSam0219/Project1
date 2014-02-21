@@ -86,3 +86,10 @@ end;
 		warp .@mapname$,.@x,.@y;
 		end;
 }
+
+-	script	Channeljoin	-1,{
+
+OnPCLoginEvent:
+	atcommand "@join #main";
+	end;
+}
