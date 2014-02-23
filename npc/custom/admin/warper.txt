@@ -87,6 +87,7 @@ L_warpmenu:
 					  ((.towns)?"Towns":""),
 					  ((.dungeons)?"Dungeons":""),
 					  ((.fields)?"Fields":""),
+					  ((.special)?"Special Areas":""),
 					  "Exit")) {
 		
 			case 1:
@@ -137,6 +138,16 @@ L_warpmenu:
 				break;
 				
 			case 5:
+				set .@specialmenu$,"";
+				for (set .@k,0; .@k < getarraysize(.specialname$); set .@k,.@k+1) {
+					if (.@k) set .@specialmenu$,.@specialmenu$+":";
+						set .@specialmenu$,.@specialmenu$+.specialname$[.@k];
+				}
+				set .@selection4,select(.@specialmenu$)-1;
+				warp .specialmap$[.@selection4],.specialx[.@selection4],.specialy[.@selection4];
+				LastWarp(.specialname$[.@selection4], .specialmap$[.@selection4], .specialx[.@selection4], .specialy[.@selection4]);
+				break;
+			default:
 				next;
 				mes "[^FF7700Warper^000000]";
 				mes "Bye!";
@@ -159,7 +170,7 @@ OnInit:
 	set .dungeons, 1;
 	set .fields, 0;
 	
-	function AddTown;function AddDungeon;function AddField;
+	function AddTown;function AddDungeon;function AddField; function AddSpecial;
 	
 	if(.mapsloaded==1) end;
 	//Checks if maps are loaded, (prevents out of index)
@@ -232,6 +243,9 @@ OnInit:
 	//Add Fields here
 	//AddField("<Map Menu Name>", <"map name">, <x>, <y>);
 	
+	//Add Special here
+	AddSpecial("Market Place","market",100,110);
+	
 	end;
 
 function AddTown {
@@ -262,6 +276,17 @@ function AddField {
 		set .fieldmap$[getarraysize(.fieldmap$)], getarg(1);
 		set .fieldx[getarraysize(.fieldx)], getarg(2);
 		set .fieldy[getarraysize(.fieldy)], getarg(3);
+		return;
+	}
+	return;
+}
+
+function AddSpecial {
+	if(getmapusers(getarg(1)) >= 0) {
+		set .specialname$[getarraysize(.specialname$)], getarg(0);
+		set .specialmap$[getarraysize(.specialmap$)], getarg(1);
+		set .specialx[getarraysize(.specialx)], getarg(2);
+		set .specialy[getarraysize(.specialy)], getarg(3);
 		return;
 	}
 	return;
