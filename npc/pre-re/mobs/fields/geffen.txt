@@ -174,12 +174,13 @@ gef_fild09,277,201,5,5	monster	Blue Plant	1079,3,900000,450000,1
 
 //==================================================
 // gef_fild10 - Geffen Field
+// - Removed Orc Baby
 //==================================================
 //gef_fild10,0,0,0,0	boss_monster	Orc Lord	1190,1,7200000,600000,0
 gef_fild10,0,0,0,0	monster	Orc Warrior	1023,20,0,0,0
 gef_fild10,0,0,0,0	monster	Orc Lady	1273,70,0,0,0
 gef_fild10,0,0,0,0	monster	Poporing	1031,15,0,0,0
-//gef_fild10,0,0,0,0	monster	Orc Baby	1686,5,0,0,0	//Per Request
+//gef_fild10,0,0,0,0	monster	Orc Baby	1686,5,0,0,0
 gef_fild10,46,350,5,5	monster	Blue Plant	1079,3,900000,450000,1
 gef_fild10,287,61,5,5	monster	Blue Plant	1079,3,900000,450000,1
 gef_fild10,300,253,5,5	monster	Green Plant	1080,3,360000,180000,1
@@ -223,9 +224,10 @@ gef_fild13,0,0,0,0	monster	Ambernite	1094,30,0,0,0
 
 //==================================================
 // gef_fild14 - West Orc Village
+// - Reduced High Orc Spawn to 50 from 70
 //==================================================
 gef_fild14,0,0,0,0	monster	Orc Lady	1273,20,0,0,0
 gef_fild14,0,0,0,0	boss_monster	Orc Hero	1087,1,3600000,600000,1
 gef_fild14,0,0,0,0	monster	Orc Warrior	1023,10,0,0,0
 gef_fild14,0,0,0,0	monster	Orc Archer	1189,30,0,0,0
-gef_fild14,0,0,0,0	monster	High Orc	1213,50,0,0,0	// Per Request (Reduced spawn to 50 from 70
+gef_fild14,0,0,0,0	monster	High Orc	1213,50,0,0,0

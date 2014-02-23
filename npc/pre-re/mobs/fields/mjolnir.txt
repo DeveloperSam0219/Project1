@@ -123,7 +123,7 @@ mjolnir_04,205,33,0,0	monster	Green Plant	1080,1,180000,90000,1
 // - Removed Mantis
 // - Increased spawn of Argiope from 70 to 100
 //==================================================
-//mjolnir_05,0,0,0,0	monster	Mantis	1139,40,0,0,0	// Per request to be removed
+//mjolnir_05,0,0,0,0	monster	Mantis	1139,40,0,0,0
 mjolnir_05,0,0,0,0	monster	Poporing	1031,10,0,0,0
 mjolnir_05,0,0,0,0	monster	Flora	1118,20,0,0,0
 mjolnir_05,0,0,0,0	monster	Argiope	1099,100,0,0,0
