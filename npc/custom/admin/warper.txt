@@ -169,6 +169,7 @@ OnInit:
 	set .towns, 1;
 	set .dungeons, 1;
 	set .fields, 0;
+	set .special, 1;
 	
 	function AddTown;function AddDungeon;function AddField; function AddSpecial;
 	
