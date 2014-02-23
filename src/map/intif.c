@@ -273,7 +273,7 @@ int intif_saveregistry(struct map_session_data *sd) {
 	int plen = 0;
 	size_t len;
 
-	if (intif->CheckForCharServer())
+	if (intif->CheckForCharServer() || !sd->var_db)
 		return -1;
 	
 	WFIFOHEAD(inter_fd, 60000 + 300);
@@ -1559,7 +1559,7 @@ void intif_parse_MailInboxReceived(int fd) {
 	else if( battle_config.mail_show_status && ( battle_config.mail_show_status == 1 || sd->mail.inbox.unread ) ) {
 		char output[128];
 		sprintf(output, msg_txt(510), sd->mail.inbox.unchecked, sd->mail.inbox.unread + sd->mail.inbox.unchecked);
-		clif->disp_onlyself(sd, output, strlen(output));
+		clif_disp_onlyself(sd, output, strlen(output));
 	}
 }
 /*------------------------------------------

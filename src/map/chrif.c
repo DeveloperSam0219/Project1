@@ -126,8 +126,16 @@ bool chrif_auth_delete(int account_id, int char_id, enum sd_state state) {
 		if ( session[fd] && session[fd]->session_data == node->sd )
 			session[fd]->session_data = NULL;
 		
-		if ( node->sd )
+		if ( node->sd ) {
+			
+			if( node->sd->var_db )
+				node->sd->var_db->destroy(node->sd->var_db,script->reg_destroy);
+			
+			if( node->sd->array_db )
+				node->sd->array_db->destroy(node->sd->array_db,script->array_free_db);
+			
 			aFree(node->sd);
+		}
 		
 		ers_free(chrif->auth_db_ers, node);
 		idb_remove(chrif->auth_db,account_id);
@@ -457,7 +465,6 @@ int chrif_reconnect(DBKey key, DBData *data, va_list ap) {
 				chrif->changemapserver(sd, ip, port);
 			else //too much lag/timeout is the closest explanation for this error.
 				clif->authfail_fd(sd->fd, 3);
-			
 			break;
 			}
 	}
@@ -1565,7 +1572,7 @@ void chrif_send_report(char* buf, int len) {
  **/
 void chrif_save_scdata_single(int account_id, int char_id, short type, struct status_change_entry *sce) {
 	
-	if( !chrif->fd )
+	if( !chrif->isconnected() )
 		return;
 	
 	WFIFOHEAD(chrif->fd, 28);
@@ -1587,7 +1594,7 @@ void chrif_save_scdata_single(int account_id, int char_id, short type, struct st
  **/
 void chrif_del_scdata_single(int account_id, int char_id, short type) {
 	
-	if( !chrif->fd ) {
+	if( !chrif->isconnected() ) {
 		ShowError("MAYDAY! failed to delete status %d from CID:%d/AID:%d\n",type,char_id,account_id);
 		return;
 	}
@@ -1610,9 +1617,16 @@ void chrif_del_scdata_single(int account_id, int char_id, short type) {
 int auth_db_final(DBKey key, DBData *data, va_list ap) {
 	struct auth_node *node = DB->data2ptr(data);
 	
-	if (node->sd)
+	if (node->sd) {
+		
+		if( node->sd->var_db )
+			node->sd->var_db->destroy(node->sd->var_db,script->reg_destroy);
+		
+		if( node->sd->array_db )
+			node->sd->array_db->destroy(node->sd->array_db,script->array_free_db);
+		
 		aFree(node->sd);
-	
+	}
 	ers_free(chrif->auth_db_ers, node);
 
 	return 0;
