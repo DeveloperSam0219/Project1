@@ -18,9 +18,21 @@
 
 prontera,156,222,4	script	Cluckers	800,{
 
-	set .@GMAccess,80;	// GM level required to access NPC
+	set .@GMAccess,1;	// GM level required to access NPC
 
 	if (.startcluck) {
+		if (getgmlevel() >= .@GMAccess) {
+			mes "What do you want " + strcharinfo(0) + "?";
+			switch(select("Stop the Event:Nothing")) {
+				case 1:
+					announce strcharinfo(0)+" disabled the Cluckers!",bc_blue;
+					set .startcluck,0;
+					mes "It's been disabled now..";
+					close;
+				default:
+					close;
+			}
+		}
 		specialeffect2 2;
 		switch(rand(15)) {
 			case 0: npctalk "CLUUUUUUCK!!!"; unitkill getcharid(3); emotion 23; break;
