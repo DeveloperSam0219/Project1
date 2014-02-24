@@ -42,7 +42,7 @@ prontera,146,95,6	script	Brian	4_M_DEWBOY,{
 	.npc$ = "[ " +strnpcinfo(1)+ " ]";
 	.@e_id = 7227;
 	
-	if ( @mapname$ == "prontera" && #warperquest >= 7) goto L_warpmenu;
+	if ( #warperquest >= 7) goto L_warpmenu;
 	
 	if ( @mapname$ == "prontera" && #warperquest == 6) {
 		mes .npc$;
@@ -89,81 +89,80 @@ prontera,146,95,6	script	Brian	4_M_DEWBOY,{
 	
 L_warpmenu:
 	function LastWarp;
-	if ( #quest_done ) {
-		mes "[^FF7700Warper^000000]";
-		mes "Welcome!";
-		
-		switch(select(((.lastwarp)?"Last Warp [^0000FF"+((lastwarpname$)?lastwarpname$:"^0000FF-empty-^000000")+"^000000]":""),
-					  ((.towns)?"Towns":""),
-					  ((.dungeons)?"Dungeons":""),
-					  ((.fields)?"Fields":""),
-					  ((.special)?"Special Areas":""),
-					  "Exit")) {
-		
-			case 1:
-				if (lastwarpname$=="") close;
-				warp lastwarpmap$, lastwarpx, lastwarpy;
-				break;
-				
-			case 2:
-				set .@townmenu$,"";
-				for (set .@i,0; .@i < getarraysize(.townname$); set .@i,.@i+1) {
-					if (.@i) set .@townmenu$,.@townmenu$+":";
-						set .@townmenu$,.@townmenu$+.townname$[.@i];
-				}
-				set .@selection,select(.@townmenu$)-1;
-				warp .townmap$[.@selection],.townx[.@selection],.towny[.@selection];
-				LastWarp(.townname$[.@selection], .townmap$[.@selection], .townx[.@selection], .towny[.@selection]);
-				break;
-				
-			case 3:
-				set .@dungeonmenu$,"";
-				for (set .@j,0; .@j < getarraysize(.dungeonname$); set .@j,.@j+1) {
-					if (.@j) set .@dungeonmenu$,.@dungeonmenu$+":";
-						set .@dungeonmenu$,.@dungeonmenu$+((dungeonlock$[.@j+1] == "yes")?"[^0000FFunlocked^000000]":"[^FF0000locked^000000]")+.dungeonname$[.@j];
-				}
-				set .@selection2,select(.@dungeonmenu$)-1;
-				if (dungeonlock$[.@selection2+1] == "yes") {
-					warp .dungeonmap$[.@selection2],.dungeonx[.@selection2],.dungeony[.@selection2];
-				}
-				else {
-					next;
-					mes "[^FF7700Warper^000000]";
-					mes "You haven't unlocked this dungeon yet.";
-					mes "To unlock this dungeon, visit the dungeon first and pay the required zeny..";
-					close;
-				}
-				LastWarp(.dungeonname$[.@selection2], .dungeonmap$[.@selection2], .dungeonx[.@selection2], .dungeony[.@selection2]);
-				break;
-				
-			case 4:
-				set .@fieldmenu$,"";
-				for (set .@k,0; .@k < getarraysize(.fieldname$); set .@k,.@k+1) {
-					if (.@k) set .@fieldmenu$,.@fieldmenu$+":";
-						set .@fieldmenu$,.@fieldmenu$+.fieldname$[.@k];
-				}
-				set .@selection3,select(.@fieldmenu$)-1;
-				warp .fieldmap$[.@selection3],.fieldx[.@selection3],.fieldy[.@selection3];
-				LastWarp(.fieldname$[.@selection3], .fieldmap$[.@selection3], .fieldx[.@selection3], .fieldy[.@selection3]);
-				break;
-				
-			case 5:
-				set .@specialmenu$,"";
-				for (set .@k,0; .@k < getarraysize(.specialname$); set .@k,.@k+1) {
-					if (.@k) set .@specialmenu$,.@specialmenu$+":";
-						set .@specialmenu$,.@specialmenu$+.specialname$[.@k];
-				}
-				set .@selection4,select(.@specialmenu$)-1;
-				warp .specialmap$[.@selection4],.specialx[.@selection4],.specialy[.@selection4];
-				LastWarp(.specialname$[.@selection4], .specialmap$[.@selection4], .specialx[.@selection4], .specialy[.@selection4]);
-				break;
-			default:
+	mes "[^FF7700Warper^000000]";
+	mes "Welcome!";
+
+	switch(select(((.lastwarp)?"Last Warp [^0000FF"+((lastwarpname$)?lastwarpname$:"^0000FF-empty-^000000")+"^000000]":""),
+			  ((.towns)?"Towns":""),
+			  ((.dungeons)?"Dungeons":""),
+			  ((.fields)?"Fields":""),
+			  ((.special)?"Special Areas":""),
+			  "Exit")) {
+
+		case 1:
+			if (lastwarpname$=="") close;
+			warp lastwarpmap$, lastwarpx, lastwarpy;
+			break;
+			
+		case 2:
+			set .@townmenu$,"";
+			for (set .@i,0; .@i < getarraysize(.townname$); set .@i,.@i+1) {
+				if (.@i) set .@townmenu$,.@townmenu$+":";
+					set .@townmenu$,.@townmenu$+.townname$[.@i];
+			}
+			set .@selection,select(.@townmenu$)-1;
+			warp .townmap$[.@selection],.townx[.@selection],.towny[.@selection];
+			LastWarp(.townname$[.@selection], .townmap$[.@selection], .townx[.@selection], .towny[.@selection]);
+			break;
+			
+		case 3:
+			set .@dungeonmenu$,"";
+			for (set .@j,0; .@j < getarraysize(.dungeonname$); set .@j,.@j+1) {
+				if (.@j) set .@dungeonmenu$,.@dungeonmenu$+":";
+					set .@dungeonmenu$,.@dungeonmenu$+((dungeonlock$[.@j+1] == "yes")?"[^0000FFunlocked^000000]":"[^FF0000locked^000000]")+.dungeonname$[.@j];
+			}
+			set .@selection2,select(.@dungeonmenu$)-1;
+			if (dungeonlock$[.@selection2+1] == "yes") {
+				warp .dungeonmap$[.@selection2],.dungeonx[.@selection2],.dungeony[.@selection2];
+			}
+			else {
 				next;
 				mes "[^FF7700Warper^000000]";
-				mes "Bye!";
+				mes "You haven't unlocked this dungeon yet.";
+				mes "To unlock this dungeon, visit the dungeon first and pay the required zeny..";
 				close;
-				}
-	}
+			}
+			LastWarp(.dungeonname$[.@selection2], .dungeonmap$[.@selection2], .dungeonx[.@selection2], .dungeony[.@selection2]);
+			break;
+			
+		case 4:
+			set .@fieldmenu$,"";
+			for (set .@k,0; .@k < getarraysize(.fieldname$); set .@k,.@k+1) {
+				if (.@k) set .@fieldmenu$,.@fieldmenu$+":";
+					set .@fieldmenu$,.@fieldmenu$+.fieldname$[.@k];
+			}
+			set .@selection3,select(.@fieldmenu$)-1;
+			warp .fieldmap$[.@selection3],.fieldx[.@selection3],.fieldy[.@selection3];
+			LastWarp(.fieldname$[.@selection3], .fieldmap$[.@selection3], .fieldx[.@selection3], .fieldy[.@selection3]);
+			break;
+			
+		case 5:
+			set .@specialmenu$,"";
+			for (set .@k,0; .@k < getarraysize(.specialname$); set .@k,.@k+1) {
+				if (.@k) set .@specialmenu$,.@specialmenu$+":";
+					set .@specialmenu$,.@specialmenu$+.specialname$[.@k];
+			}
+			set .@selection4,select(.@specialmenu$)-1;
+			warp .specialmap$[.@selection4],.specialx[.@selection4],.specialy[.@selection4];
+			LastWarp(.specialname$[.@selection4], .specialmap$[.@selection4], .specialx[.@selection4], .specialy[.@selection4]);
+			break;
+		default:
+			next;
+			mes "[^FF7700Warper^000000]";
+			mes "Bye!";
+			close;
+		}
+	end;
 
 	// Default message when quest is not done
 	mes .npc$;

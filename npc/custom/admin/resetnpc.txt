@@ -1,0 +1,69 @@
+//===== Hercules Script ======================================
+//= Reset NPC
+//===== By: ==================================================
+//= Samuel
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Resets skills, stats, or both.
+//= Can be set to be free for a certain level and below
+//===== Additional Comments: =================================
+//= 1.0 Initial Version
+//============================================================
+
+prontera,146,99,6	script	Reset Girl	4_F_TELEPORTER,{
+
+	mes "[Reset Girl]";
+	mes "I am the Reset Girl.";
+	if (BaseLevel > .@FreeLevel) {
+	mes "Reset Stats: "+ .@ResetStat +"z";
+	mes "Reset Skills: "+ .@ResetSkill +"z";
+	mes "Reset Both: "+ .@ResetBoth +"z";
+	}
+	mes "Please select the service you want:";
+	next;
+	switch(select("^FF3355Reset Skills:Reset Stats:Reset Both^000000:Cancel")) {
+	case 1:
+		mes "[Reset Girl]";
+		if ( BaseLevel > .@FreeLevel && Zeny < .@ResetSkill) {
+			mes "Sorry, you don't have enough Zeny.";
+			close;
+		}
+		if (BaseLevel > .@FreeLevel ){ Zeny -= .@ResetSkill; }
+		sc_end SC_ALL;
+		resetskill;
+		mes "There you go!";
+		close;
+	case 2:
+		mes "[Reset Girl]";
+		if ( BaseLevel > .@FreeLevel && Zeny < .@ResetStat) {
+			mes "Sorry, you don't have enough Zeny.";
+			close;
+		}
+		if (BaseLevel > .@FreeLevel) { Zeny -= .@ResetStat; }
+		resetstatus;
+		mes "There you go!";
+		close;
+	case 3:
+		mes "[Reset Girl]";
+		if ( BaseLevel > .@FreeLevel && Zeny < .@ResetBoth) {
+			mes "Sorry, you don't have enough Zeny.";
+			close;
+		}
+		if (BaseLevel > .@FreeLevel ) { Zeny -= .@ResetBoth; }
+		sc_end SC_ALL;
+		resetskill;
+		resetstatus;
+		mes "There you go!";
+		close;
+	case 4:
+		close;
+	}
+
+OnInit:
+	set .@ResetStat,5000;	// Zeny for stat reset
+	set .@ResetSkill,5000;	// Zeny for skill reset
+	set .@ResetBoth,9000;	// Zeny for resetting both together
+	
+	set .@FreeLevel,45;	// Free until this level
+}
