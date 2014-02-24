@@ -75,7 +75,7 @@ poring_w01,100,127,4	script	Poring Catcher#evnt2	715,{
 //--------------------------------------------------
 
 	mes "[Poring Catcher]";
-	if(PORING == 1) goto L_PORING;
+	if(WINNER == 1) goto L_PORING;
 	mes "Please tell me your name";
 	next;
 	input .@name$;
@@ -108,7 +108,7 @@ L_PORING:
 	/* Item Prize*/
 	getitem getvariableofnpc(.eventprize,"Event Manager"),getvariableofnpc(.poringcatcher,"Event Manager");
 
-	set PORING,0;
+	set WINNER,0;
 	warp "prontera",116,79;
 	hideonnpc "Poring Catcher#evnt2";
 	end;
@@ -162,7 +162,7 @@ L_Start:
 
 OnMobKilled:
 	dispbottom "Poring : Congratulations. You've got me.";
-	set PORING,1;
+	set WINNER,1;
 	atcommand "@doommap";
 	killmonster "poring_w01","All";
 	mapannounce "poring_w01","Poring Catcher : Come to me and tell me your name.",0;
