@@ -187,7 +187,7 @@ OnInit:
 	set .mapsloaded, 1;
 	
 	//Add Towns here
-	AddTown("Prontera", "prontera", 155, 183);
+	AddTown("Prontera", "prontera", 116, 79);
 	AddTown("Alberta", "oldalberta", 28, 234);
 	AddTown("Aldebaran", "aldebaran", 140, 131);
 	AddTown("Amatsu", "amatsu", 198, 84);

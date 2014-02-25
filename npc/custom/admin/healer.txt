@@ -11,23 +11,12 @@ prontera,164,96,4	script	Healer#Custom	402,{
 		mes "Do you want to be healed?";
 		switch(select("Yes:No")) {
         case 1:
-			for ( .@i = 0; .@i < getarraysize(.quest_items); .@i+=2 ) {
-                if ( countitem(.quest_items[.@i]) < .quest_items[.@i+1] ) {
-				next;
-				mes .npc$;
-				mes "You don't have the item requirements";
-				mes "I will just heal you..";
-				Zeny -= 5000;
-				specialeffect2 EF_HEAL2; percentheal 100,100;
-				close;
-				}
-				delitem .quest_items[.@i],.quest_items[.@i+1];
-				Zeny -= 5000;
-				specialeffect2 EF_HEAL2; percentheal 100,100;
-				specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
-				specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
-				close;
-			}
+			Zeny -= 5000;
+			specialeffect2 EF_HEAL2; percentheal 100,100;
+			specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI,240000,10;
+			specialeffect2 EF_BLESSING; sc_start SC_BLESSING,240000,10;
+			close;
+		}
 		default:
 			close;
 		}
