@@ -58,11 +58,13 @@ prontera,34,212,0	duplicate(MailBox)	Mailbox#3prt	2_POSTBOX
 // Izlude
 //============================================================
 izlude,136,94,0	duplicate(MailBox)	Mailbox#iz	2_POSTBOX
+oldizlude,136,94,0	duplicate(MailBox)	Mailbox#oldiz	2_POSTBOX	// Added Old Izlude
 
 // Morroc
 //============================================================
 moc_ruins,72,166,0	duplicate(MailBox)	Mailbox#1moc	2_POSTBOX
 moc_ruins,156,52,0	duplicate(MailBox)	Mailbox#2moc	2_POSTBOX
+morocc_mem,150,107,0	duplicate(MailBox)	Mailbox#oldmoc	2_POSTBOX	// Added Old Morocc
 
 // Geffen
 //============================================================
@@ -74,11 +76,14 @@ geffen,199,125,0	duplicate(MailBox)	Mailbox#2gef	2_POSTBOX
 payon,191,104,0	duplicate(MailBox)	Mailbox#pay	2_POSTBOX
 payon,171,226,0	duplicate(MailBox)	Mailbox#2pay	2_POSTBOX
 pay_arche,55,127,0	duplicate(MailBox)	Mailbox#3pay	2_POSTBOX
+payon_mem,99,121,0	duplicate(MailBox)	Mailbox#2oldpay	2_POSTBOX	// Added Old Payon
 
 // Alberta
 //============================================================
 alberta,90,60,0	duplicate(MailBox)	Mailbox#alb	2_POSTBOX
 alberta,30,240,0	duplicate(MailBox)	Mailbox#2alb	2_POSTBOX
+oldalberta,90,60,0	duplicate(MailBox)	Mailbox#oldalb	2_POSTBOX	// Added Old Alberta
+oldalberta,30,240,0	duplicate(MailBox)	Mailbox#2oldalb	2_POSTBOX	// Added Old Alberta
 
 // Al De Baran
 //============================================================

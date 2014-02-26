@@ -2,17 +2,19 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Chrysalis)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
-gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	2_F_MAGICMASTER,{
+gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	123,{
 	if (checkquest(60110) != -1) {
 		if (checkquest(60110,HUNTING) != 2 ) {
 			mes "[Halgus]";
@@ -49,7 +51,7 @@ gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	2_F_MAGICMASTER,{
 			mes "[Halgus]";
 			mes "Oh thank you so much.";
 			mes "I know that I could've probably done this myself but it's not easy to be standing here all of the time.";
-			getexp 385,30;
+			getexp 770,60;
 			erasequest 60110;
 			close;
 		}
@@ -90,8 +92,8 @@ gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	2_F_MAGICMASTER,{
 			mes "[Halgus]";
 			mes "Oh thank you so much.";
 			mes "I know that I could've probably done this myself but it's not easy to be standing here all of the time.";
-			getexp 385,30;
-			getexp 385,30;
+			getexp 770,60;
+			getexp 770,60;
 			erasequest 60111;
 			close;
 		}
@@ -132,9 +134,9 @@ gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	2_F_MAGICMASTER,{
 			mes "[Halgus]";
 			mes "Oh thank you so much.";
 			mes "I know that I could've probably done this myself but it's not easy to be standing here all of the time.";
-			getexp 385,30;
-			getexp 385,30;
-			getexp 385,30;
+			getexp 770,60;
+			getexp 770,60;
+			getexp 770,60;
 			erasequest 60112;
 			close;
 		}
@@ -170,7 +172,7 @@ gef_fild04,191,54,3	script	Halgus#Pupa_Hunt	2_F_MAGICMASTER,{
 							mes "Amazing you found so many that fast.";
 							mes "Like I promised, give me the Chrysalis and I will reward you with my wisdom.";
 							delitem 915,25; //Chrysalis
-							getexp 385,30;
+							getexp 481,38;
 							close;
 						}
 						else {

@@ -2,17 +2,19 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Acorns)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
-mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
+mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	779,{
 	if (checkquest(60113) != -1) {
 		if (checkquest(60113,HUNTING) != 2 ) {
 			mes "[Nutters]";
@@ -48,7 +50,7 @@ mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
 		else {
 			mes "[Nutters]";
 			mes "Amazing, you did that with speed.";
-			getexp 3600,3905;
+			getexp 7200,7810;
 			erasequest 60113;
 			close;
 		}
@@ -56,7 +58,7 @@ mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
 	if (checkquest(60114) != -1) {
 		if (checkquest(60114,HUNTING) != 2 ) {
 			mes "[Nutters]";
-			mes "Have you finished hunting the 50 Cocos?";
+			mes "Have you finished hunting the 100 Cocos?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
 		else {
 			mes "[Nutters]";
 			mes "Amazing, you did that with speed.";
-			getexp 3600,3905;
-			getexp 3600,3905;
+			getexp 7200,7810;
+			getexp 7200,7810;
 			erasequest 60114;
 			close;
 		}
@@ -129,9 +131,9 @@ mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
 		else {
 			mes "[Nutters]";
 			mes "Amazing, you did that with speed.";
-			getexp 3600,3905;
-			getexp 3600,3905;
-			getexp 3600,3905;
+			getexp 7200,7810;
+			getexp 7200,7810;
+			getexp 7200,7810;
 			erasequest 60115;
 			close;
 		}
@@ -177,7 +179,7 @@ mjolnir_01,293,20,3	script	Nutters#Coco_Hunt	4_M_YOYOROGUE,{
 							mes "Oh that's right, sorry I just love roasting Acorns. Mmm.";
 							mes "Here is what I promised you.";
 							delitem 1026,25; //Acorn
-							getexp 3600,3905;
+							getexp 7200,7810;
 							//getitem 502,5; //Orange_Potion
 							close;
 						}

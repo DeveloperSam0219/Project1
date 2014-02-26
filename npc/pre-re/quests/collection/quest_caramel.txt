@@ -2,14 +2,16 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Porcupine Quills)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
 mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
@@ -48,7 +50,7 @@ mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
 		else {
 			mes "[Yullo]";
 			mes "Amazing, you did that with speed.";
-			getexp 10425,6272;
+			getexp 20850,12544;
 			erasequest 60116;
 			close;
 		}
@@ -56,7 +58,7 @@ mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
 	if (checkquest(60117) != -1) {
 		if (checkquest(60117,HUNTING) != 2 ) {
 			mes "[Yullo]";
-			mes "Have you finished hunting the 50 Caramels?";
+			mes "Have you finished hunting the 100 Caramels?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
 		else {
 			mes "[Yullo]";
 			mes "Amazing, you did that with speed.";
-			getexp 10425,6272;
-			getexp 10425,6272;
+			getexp 20850,12544;
+			getexp 20850,12544;
 			erasequest 60117;
 			close;
 		}
@@ -129,9 +131,9 @@ mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
 		else {
 			mes "[Yullo]";
 			mes "Amazing, you did that with speed.";
-			getexp 10425,6272;
-			getexp 10425,6272;
-			getexp 10425,6272;
+			getexp 20850,12544;
+			getexp 20850,12544;
+			getexp 20850,12544;
 			erasequest 60118;
 			close;
 		}
@@ -175,7 +177,7 @@ mjolnir_01,296,29,6	script	Yullo#Caramel_Hunt	4_F_SISTER,{
 							mes "Great, you have enough!";
 							mes "Just like I promised a little reward.";
 							delitem 1027,25; //Porcupine_Spike
-							getexp 10425,6272;
+							getexp 13031,7840;
 							//getitem 501,10; //Red_Potion
 							close;
 						}

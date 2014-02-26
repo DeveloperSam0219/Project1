@@ -2,14 +2,17 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.2
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Antelope Horns)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
+//= 1.2 Disabled Item Turn in for Possible Exploit
 //============================================================
 
 ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
@@ -151,7 +154,8 @@ ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
 				mes "These Goats keep eating my vegetables.";
 				mes "Can you do what you can to help me?";
 				next;
-				switch(select("Gather Items:Hunt Goats:Cancel")) {
+				switch(select(/*"Gather Items:*/"Hunt Goats:Cancel")) {
+				/*
 				case 1:
 					// Item turn in
 					mes "[Vegetable Farmer]";
@@ -159,7 +163,6 @@ ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
 					next;
 					switch(select("I have Antelope Horns:What did you need?")) {
 					case 1:
-						/*
 						if (checkweight(504,10) == 0) {
 							mes "[Vegetable Farmer]";
 							mes "Hey, it looks like that the weight on";
@@ -167,7 +170,6 @@ ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
 							mes "after you have lost some weight.";
 							close;
 						}
-						*/
 						if (countitem(7106) > 49) {
 							mes "[Vegetable Farmer]";
 							mes "Amazing, you did that with speed.";
@@ -190,7 +192,8 @@ ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
 						mes "I need to see that you have gathered ^FF000050 Antelope Horns^000000, and then I can reward you.";
 						close;
 					}
-				case 2:
+				*/
+				case 1:
 					// Kill Count Quest
 					mes "[Vegetable Farmer]";
 					mes "Thank you.";
@@ -213,12 +216,12 @@ ein_fild06,82,171,0	script	Vegetable Farmer#Goat	4_F_SHABBY,{
 						setquest 60139;
 						close;
 					}
-				case 3:
+				default:
 					mes "[Vegetable Farmer]";
 					mes "If you change your mind, please come back.";
 					close;
 				}
-			case 2:
+			default:
 				mes "[Vegetable Farmer]";
 				mes "If you change your mind, please come back.";
 				close;

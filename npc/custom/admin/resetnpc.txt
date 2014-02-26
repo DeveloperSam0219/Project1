@@ -16,9 +16,9 @@ prontera,146,99,6	script	Reset Girl	4_F_TELEPORTER,{
 	mes "[Reset Girl]";
 	mes "I am the Reset Girl.";
 	if (BaseLevel > .FreeLevel) {
-	mes "Reset Stats: "+ .ResetStat +"z";
-	mes "Reset Skills: "+ .ResetSkill +"z";
-	mes "Reset Both: "+ .ResetBoth +"z";
+	mes "Reset Stats: "+ .Reset$[0] +"z";
+	mes "Reset Skills: "+ .Reset$[0] +"z";
+	mes "Reset Both: "+ .Reset$[1] +"z";
 	}
 	mes "Please select the service you want:";
 	next;
@@ -61,9 +61,10 @@ prontera,146,99,6	script	Reset Girl	4_F_TELEPORTER,{
 	}
 
 OnInit:
-	set .ResetStat,5000;	// Zeny for stat reset
-	set .ResetSkill,5000;	// Zeny for skill reset
-	set .ResetBoth,9000;	// Zeny for resetting both together
+	set .ResetStat,4000000;	// Zeny for stat reset
+	set .ResetSkill,4000000;	// Zeny for skill reset
+	set .ResetBoth,7000000;	// Zeny for resetting both together
+	setarray .Reset$[0],"4,000,000","7,000,000";	// Strings
 	
 	set .FreeLevel,45;	// Free until this level
 }

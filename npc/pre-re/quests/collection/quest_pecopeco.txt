@@ -2,17 +2,20 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.2
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Bill of Birds)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
+//= 1.2 Disabled Item Turn in for Possible Exploit
 //============================================================
 
-moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
+moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	97,{
 	if (checkquest(60101) != -1) {
 		if (checkquest(60101,HUNTING) != 2 ) {
 			mes "[Gregor]";
@@ -49,7 +52,7 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 			mes "[Gregor]";
 			mes "Oh thank you so much!";
 			mes "I think that I can rest easily now.";
-			getexp 4000,2000;
+			getexp 8000,4000;
 			erasequest 60101;
 			close;
 		}
@@ -57,7 +60,7 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 	if (checkquest(60102) != -1) {
 		if (checkquest(60102,HUNTING) != 2 ) {
 			mes "[Gregor]";
-			mes "Have you finished hunting the 50 Peco Pecos?";
+			mes "Have you finished hunting the 100 Peco Pecos?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -90,8 +93,8 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 			mes "[Gregor]";
 			mes "Oh thank you so much!";
 			mes "I think that I can rest easily now.";
-			getexp 4000,2000;
-			getexp 4000,2000;
+			getexp 8000,4000;
+			getexp 8000,4000;
 			erasequest 60102;
 			close;
 		}
@@ -132,9 +135,9 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 			mes "[Gregor]";
 			mes "Oh thank you so much!";
 			mes "I think that I can rest easily now.";
-			getexp 4000,2000;
-			getexp 4000,2000;
-			getexp 4000,2000;
+			getexp 8000,4000;
+			getexp 8000,4000;
+			getexp 8000,4000;
 			erasequest 60103;
 			close;
 		}
@@ -167,7 +170,8 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 				mes "I think I'll feel safer...";
 				mes "Please...";
 				next;
-				switch(select("Gather Items:Hunt Peco Pecos:Cancel")) {
+				switch(select(/*"Gather Items:*/"Hunt Peco Pecos:Cancel")) {
+				/* Disabled Item Turn in
 				case 1:
 					// Item turn in
 					mes "[Gregor]";
@@ -179,7 +183,7 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 							mes "[Gregor]";
 							mes "Thank you so much.";
 							delitem 925,25; //Bill_Of_Birds
-							getexp 4000,2000;
+							getexp 3688,1406;
 							next;
 							mes "[Gregor]";
 							mes "This is gonna be delicious!";
@@ -198,7 +202,8 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 						mes "Can you help me out and bring me ^FF000025 Bill of Birds^000000?";
 						close;
 					}
-				case 2:
+				*/
+				case 1:
 					// Kill Count Quest
 					mes "[Gregor]";
 					mes "Ah, ok I think you can help me out by hunting some Peco Pecos.";
@@ -221,12 +226,12 @@ moc_fild02,74,329,3	script	Gregor#PecoPeco_Hunt	4W_M_01,{
 						setquest 60103;
 						close;
 					}
-				case 3:
+				default:
 					mes "[Gregor]";
 					mes "If you change your mind, please come back.";
 					close;
 				}
-			case 2:
+			default:
 				mes "[Gregor]";
 				mes "If you change your mind, please come back.";
 				close;

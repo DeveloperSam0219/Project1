@@ -2,14 +2,16 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Huge Leaves)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
 ayo_fild01,44,241,5	script	Lella#LeafCat_Hunt	4_F_YUNYANG,{
@@ -174,7 +176,7 @@ ayo_fild01,44,241,5	script	Lella#LeafCat_Hunt	4_F_YUNYANG,{
 							mes "[Lella]";
 							mes "The more leafs I collect the quieter it seems around here.";
 							delitem 7198,50; //Great_Leaf
-							getexp 25740,31512;
+							getexp 32175,39390;
 							//getitem 503,10; //Yellow_Potion
 							close;
 						}

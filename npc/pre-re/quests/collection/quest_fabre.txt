@@ -2,17 +2,19 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Fluffs)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
-gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
+gef_fild07,321,193,4	script	Langry#Fabre_Hunt	754,{
 	if (checkquest(60107) != -1) {
 		if (checkquest(60107,HUNTING) != 2 ) {
 			mes "[Langry]";
@@ -48,7 +50,7 @@ gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
 		else {
 			mes "[Langry]";
 			mes "Amazing, you did that with speed.";
-			getexp 385,30;
+			getexp 770,60;
 			erasequest 60107;
 			close;
 		}
@@ -56,7 +58,7 @@ gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
 	if (checkquest(60108) != -1) {
 		if (checkquest(60108,HUNTING) != 2 ) {
 			mes "[Langry]";
-			mes "Have you finished hunting the 50 Fabres?";
+			mes "Have you finished hunting the 100 Fabres?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
 		else {
 			mes "[Langry]";
 			mes "Amazing, you did that with speed.";
-			getexp 385,30;
-			getexp 385,30;
+			getexp 770,60;
+			getexp 770,60;
 			erasequest 60108;
 			close;
 		}
@@ -129,9 +131,9 @@ gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
 		else {
 			mes "[Langry]";
 			mes "Amazing, you did that with speed.";
-			getexp 385,30;
-			getexp 385,30;
-			getexp 385,30;
+			getexp 770,60;
+			getexp 770,60;
+			getexp 770,60;
 			erasequest 60109;
 			close;
 		}
@@ -165,7 +167,7 @@ gef_fild07,321,193,4	script	Langry#Fabre_Hunt	4_M_SAGE_A,{
 							mes "Thank you for the Fluff. This helps me out greatly.";
 							mes "Oh and here you go, this should help you get stronger, faster!";
 							delitem 914,25; //Fluff
-							getexp 385,30;
+							getexp 481,38;
 							close;
 						}
 						else {

@@ -2,14 +2,16 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Bacillus)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
 ein_fild01,43,249,0	script	Local Villager#hunt	4_M_HUMAN_01,{
@@ -56,7 +58,7 @@ ein_fild01,43,249,0	script	Local Villager#hunt	4_M_HUMAN_01,{
 	if (checkquest(60126) != -1) {
 		if (checkquest(60126,HUNTING) != 2 ) {
 			mes "[Local Villager]";
-			mes "Have you finished hunting the 50 Demon Pungus?";
+			mes "Have you finished hunting the 100 Demon Pungus?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -171,7 +173,7 @@ ein_fild01,43,249,0	script	Local Villager#hunt	4_M_HUMAN_01,{
 							mes "[Local Villager]";
 							mes "I had my doubts, but you have proven me wrong.";
 							delitem 7119,50; //Spawns
-							getexp 250266,144452;
+							getexp 312833,180565;
 							//getitem 504,10; //White_Potion
 							close;
 						}

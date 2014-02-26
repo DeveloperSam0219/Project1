@@ -2,14 +2,16 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Sharp Leaves)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
 um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
@@ -48,7 +50,7 @@ um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
 		else {
 			mes "[Lilla]";
 			mes "Amazing, you did that with speed.";
-			getexp 262485,141835;
+			getexp 234855,126905;
 			erasequest 60131;
 			close;
 		}
@@ -56,7 +58,7 @@ um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
 	if (checkquest(60132) != -1) {
 		if (checkquest(60132,HUNTING) != 2 ) {
 			mes "[Lilla]";
-			mes "Have you finished hunting the 50 Dryads?";
+			mes "Have you finished hunting the 100 Dryads?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
 		else {
 			mes "[Lilla]";
 			mes "Amazing, you did that with speed.";
-			getexp 262485,141835;
-			getexp 262485,141835;
+			getexp 234855,126905;
+			getexp 234855,126905;
 			erasequest 60132;
 			close;
 		}
@@ -129,9 +131,9 @@ um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
 		else {
 			mes "[Lilla]";
 			mes "Amazing, you did that with speed.";
-			getexp 262485,141835;
-			getexp 262485,141835;
-			getexp 262485,141835;
+			getexp 234855,126905;
+			getexp 234855,126905;
+			getexp 234855,126905;
 			erasequest 60133;
 			close;
 		}
@@ -177,7 +179,7 @@ um_fild01,34,281,5	script	Lilla#Dryad_Hunt	4_F_07,{
 							mes "Oh, I almost forgot. I have something for you ^_^";
 							mes "Thank you so much again for your help.";
 							delitem 7100,50; //Sharp_Leaf
-							getexp 262485,141835;
+							getexp 293569,158631;
 							//getitem 504,10; //White_Potion
 							close;
 						}

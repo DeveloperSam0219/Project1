@@ -2,14 +2,16 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests.
 //= Repeatable EXP Quest (Frills)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
 moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
@@ -48,7 +50,7 @@ moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
 		else {
 			mes "[Lemly]";
 			mes "Amazing, you did that with speed.";
-			getexp 30000,23000;
+			getexp 60000,46000;
 			erasequest 60134;
 			close;
 		}
@@ -56,7 +58,7 @@ moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
 	if (checkquest(60135) != -1) {
 		if (checkquest(60135,HUNTING) != 2 ) {
 			mes "[Lemly]";
-			mes "Have you finished hunting the 50 Frilldora?";
+			mes "Have you finished hunting the 100 Frilldora?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
 		else {
 			mes "[Lemly]";
 			mes "Amazing, you did that with speed.";
-			getexp 30000,23000;
-			getexp 30000,23000;
+			getexp 60000,46000;
+			getexp 60000,46000;
 			erasequest 60135;
 			close;
 		}
@@ -129,9 +131,9 @@ moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
 		else {
 			mes "[Lemly]";
 			mes "Amazing, you did that with speed.";
-			getexp 30000,23000;
-			getexp 30000,23000;
-			getexp 30000,23000;
+			getexp 60000,46000;
+			getexp 60000,46000;
+			getexp 60000,46000;
 			erasequest 60136;
 			close;
 		}
@@ -164,7 +166,7 @@ moc_fild17,66,273,5	script	Lemly#Frilldora_Hunt	4_F_JOB_ASSASSIN,{
 							mes "Hey, thank you.";
 							mes "These are pretty icky though.";
 							delitem 1012,25; //Lizard_Scruff
-							getexp 30000,23000;
+							getexp 37500,28750;
 							close;
 						}
 						else {

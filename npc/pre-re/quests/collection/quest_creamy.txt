@@ -2,17 +2,19 @@
 //= iRO Repeatable EXP Quests.
 //===== By: ==================================================
 //= L0ne_W0lf
+//= Samuel
 //===== Current Version: =====================================
-//= 1.0
+//= 1.1
 //===== Description: =========================================
 //= [Official Conversion]
 //= Added Monster Killing quests. (Dialog is semi-custom)
 //= Repeatable EXP Quest (Powder of Butterfly)
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Fixed some typos and the EXP given
 //============================================================
 
-prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
+prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	798,{
 	if (checkquest(60122) != -1) {
 		if (checkquest(60122,HUNTING) != 2 ) {
 			mes "[Laertes]";
@@ -48,7 +50,7 @@ prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
 		else {
 			mes "[Laertes]";
 			mes "Amazing, you did that with speed.";
-			getexp 2950,1125;
+			getexp 5900,2250;
 			erasequest 60122;
 			close;
 		}
@@ -56,7 +58,7 @@ prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
 	if (checkquest(60123) != -1) {
 		if (checkquest(60123,HUNTING) != 2 ) {
 			mes "[Laertes]";
-			mes "Have you finished hunting the 50 Creamys?";
+			mes "Have you finished hunting the 100 Creamys?";
 			next;
 			switch(select("Yes:No:I want to quit")) {
 			case 1:
@@ -88,8 +90,8 @@ prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
 		else {
 			mes "[Laertes]";
 			mes "Amazing, you did that with speed.";
-			getexp 2950,1125;
-			getexp 2950,1125;
+			getexp 5900,2250;
+			getexp 5900,2250;
 			erasequest 60123;
 			close;
 		}
@@ -129,9 +131,9 @@ prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
 		else {
 			mes "[Laertes]";
 			mes "Amazing, you did that with speed.";
-			getexp 2950,1125;
-			getexp 2950,1125;
-			getexp 2950,1125;
+			getexp 5900,2250;
+			getexp 5900,2250;
+			getexp 5900,2250;
 			erasequest 60124;
 			close;
 		}
@@ -172,7 +174,7 @@ prt_fild04,356,148,3	script	Laertes#Creamy_Hunt	4_M_NFMAN,{
 							mes "Hey, thank you again.";
 							mes "Here you go, as promised.";
 							delitem 924,25; //Powder_Of_Butterfly
-							getexp 2950,1125;
+							getexp 3688,1406;
 							//getitem 502,5; //Orange_Potion
 							close;
 						}
