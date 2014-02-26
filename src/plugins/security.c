@@ -61,7 +61,6 @@ struct security_data_struct *get_security_variable(struct map_session_data *sd) 
  *-----------------------------------------*/
 ACMD(security)
 {
-	struct security_data_struct *my = get_security_variable(sd);
 	if (!sd) return false;
 
 	if( sd->npc_id || sd->vender_id || sd->buyer_id || sd->state.trading || sd->state.storage_flag )
@@ -116,8 +115,9 @@ void pre_clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
 	if( my->secure_items ){
 		clif->message(sd->fd, "You can't buy. Blocked with @security");
 		result = 1;
+		hookStop();
 	}
-	hookStop();
+	return;
 }
 
 void my_clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
@@ -129,8 +129,9 @@ void my_clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
 	{
 		clif->message(sd->fd, "You can't sell. Blocked with @security");
 		fail = 1;
+		hookStop();
 	}
-	hookStop();
+	return;
 }
 
 void my_clif_parse_OpenVending(int fd, struct map_session_data* sd)
@@ -151,8 +152,8 @@ int my_pc_dropitem(struct map_session_data *sd,int n,int *amount)
 
 	if( my->secure_items ) {
 		clif->message(sd->fd, "You can't drop. Blocked with @security");
+		hookStop();
 	}
-	hookStop();
 	return 1;
 }
 
@@ -182,8 +183,8 @@ int my_guild_storage_additem(struct map_session_data* sd, struct guild_storage* 
 	if( my->secure_items )
 	{
 		clif->message(sd->fd, "You can't store items on Guild Storage. Blocked with @security");
+		hookStop();
 	}
-	hookStop();
 	return 1;
 }
 
