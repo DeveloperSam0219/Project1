@@ -9,6 +9,7 @@
 //===== Additional Comments: =================================
 //= Removed the warp from gef_dun02 to gef_dun03, [MasterOfMuppets]
 //= gef_dun03 is just an event map...
+//= Enabled gef_dun03 per request
 //============================================================
 
 //= Geffen Tower =============================================
@@ -40,5 +41,5 @@ gef_dun00,107,169,0	warp	gefd01	2,1,gef_dun01,115,236
 gef_dun01,115,240,0	warp	gefd01-1	2,2,gef_dun00,107,165
 gef_dun01,197,38,0	warp	gefd02	2,1,gef_dun02,106,132
 gef_dun02,106,134,0	warp	gefd02-1	2,1,gef_dun01,197,40
-//gef_dun02,215,67,0	warp	gefd03	2,1,gef_dun03,203,200
+gef_dun02,215,67,0	warp	gefd03	2,1,gef_dun03,203,200
 gef_dun03,203,204,0	warp	gefd03-1	2,1,gef_dun02,215,63
