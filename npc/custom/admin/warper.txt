@@ -89,6 +89,7 @@ prontera,146,95,6	script	Brian	4_M_DEWBOY,{
 	
 L_warpmenu:
 	function LastWarp;
+	if ( #warperquest >= 7) {
 	mes "[^FF7700Warper^000000]";
 	mes "Welcome!";
 
@@ -163,6 +164,7 @@ L_warpmenu:
 			close;
 		}
 	end;
+	}
 
 	// Default message when quest is not done
 	mes .npc$;
