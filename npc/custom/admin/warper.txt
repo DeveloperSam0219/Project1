@@ -193,10 +193,10 @@ OnInit:
 	AddTown("Alberta", "oldalberta", 28, 234);
 	AddTown("Aldebaran", "aldebaran", 140, 131);
 	AddTown("Amatsu", "amatsu", 198, 84);
-	//AddTown("Ayothaya", "ayothaya", 150, 163);
+	AddTown("Ayothaya", "ayothaya", 150, 163);
 	AddTown("Comodo", "comodo", 209, 143);
-	//AddTown("Einbech (Mining Village);", "einbech", 70, 95);
-	//AddTown("Einbroch", "einbroch", 64, 200);
+	AddTown("Einbech (Mining Village);", "einbech", 70, 95);
+	AddTown("Einbroch", "einbroch", 64, 200);
 	AddTown("Geffen", "geffen", 119, 59);
 	AddTown("Gonryun", "gonryun", 160, 121);
 	//AddTown("Hugel", "hugel", 96, 145);
@@ -214,7 +214,7 @@ OnInit:
 	//AddTown("Thor Camp", "thor_camp", 254, 90);
 	//AddTown("Veins", "veins", 216, 123);
 	AddTown("Yuno", "yuno", 157, 51);
-	//AddTown("Umbala", "umbala", 145, 155);
+	AddTown("Umbala", "umbala", 145, 155);
 	
 	//Add Dungeons here
 	AddDungeon("Abbey, Cursed Monastery", "abbey01", 51, 14, 1, 20000);
