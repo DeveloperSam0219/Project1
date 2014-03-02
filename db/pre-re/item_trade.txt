@@ -335,8 +335,8 @@
 
 // PC-Cafe Authoritative Badge
 12262,507,100	// Authoritative Badge
-12263,475,100	// Field Manual
-12264,475,100	// Bubble Gum
+//12263,475,100	// Field Manual
+//12264,475,100	// Bubble Gum
 12265,475,100	// Life Insurrance
 
 // Morocc Continental Guard Certificate
@@ -745,7 +745,7 @@
 12211,475,100	// Kafra Card
 12212,475,100	// Giant Fly Wing
 12213,475,100	// Neuralizer
-12214,475,100	// Convex Mirror
+//12214,475,100	// Convex Mirror
 12215,475,100	// LV10 Blessing Scroll
 12216,475,100	// LV10 Agil Scroll
 12217,475,100	// LV5 Aspersio Scroll

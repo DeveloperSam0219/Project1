@@ -580,3 +580,8 @@ thor_v01,17,235,4	duplicate(Sister)	Dungeon Keeper#31	8W_SOLDIER
 xmas_dun01,200,21,4	duplicate(Sister)	Dungeon Keeper#32	8W_SOLDIER
 tur_dun01,148,58,4	duplicate(Sister)	Dungeon Keeper#33	8W_SOLDIER
 um_dun01,37,36,4	duplicate(Sister)	Dungeon Keeper#34	8W_SOLDIER
+
+market,103,116,4	script	Exit#market	8W_SOLDIER,{
+	warp "prontera",116,79;
+	end;
+}
