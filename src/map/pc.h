@@ -533,8 +533,7 @@ struct map_session_data {
 	/**
 	 * Account/Char variables & array control of those variables
 	 **/
-	DBMap *var_db;
-	DBMap *array_db;
+	struct reg_db regs;
 	unsigned char vars_received;/* char loading is only complete when you get it all. */
 	bool vars_ok;
 	bool vars_dirty;
@@ -655,7 +654,7 @@ enum equip_pos {
 	#define pc_leftside_mdef(sd) ((sd)->battle_status.mdef2)
 	#define pc_rightside_mdef(sd) ((sd)->battle_status.mdef)
 #define pc_leftside_matk(sd) (status->base_matk(status->get_status_data(&(sd)->bl), (sd)->status.base_level))
-#define pc_rightside_matk(sd) ((sd)->battle_status.rhw.matk+(sd)->battle_status.lhw.matk+(sd)->bonus.ematk)
+#define pc_rightside_matk(sd) ((sd)->battle_status.rhw.matk+(sd)->battle_status.lhw.matk+(sd)->bonus.ematk+((sd)->battle_status.matk_min-(sd)->base_status.matk_min))
 #else
 	#define pc_leftside_atk(sd) ((sd)->battle_status.batk + (sd)->battle_status.rhw.atk + (sd)->battle_status.lhw.atk)
 	#define pc_rightside_atk(sd) ((sd)->battle_status.rhw.atk2 + (sd)->battle_status.lhw.atk2)

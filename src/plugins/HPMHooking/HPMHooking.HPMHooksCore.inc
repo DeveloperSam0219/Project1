@@ -2929,6 +2929,8 @@ struct {
 	struct HPMHookPoint *HP_mapreg_save_post;
 	struct HPMHookPoint *HP_mapreg_save_timer_pre;
 	struct HPMHookPoint *HP_mapreg_save_timer_post;
+	struct HPMHookPoint *HP_mapreg_destroyreg_pre;
+	struct HPMHookPoint *HP_mapreg_destroyreg_post;
 	struct HPMHookPoint *HP_mapreg_reload_pre;
 	struct HPMHookPoint *HP_mapreg_reload_post;
 	struct HPMHookPoint *HP_mapreg_config_read_pre;
@@ -4271,6 +4273,10 @@ struct {
 	struct HPMHookPoint *HP_script_generic_ui_array_expand_post;
 	struct HPMHookPoint *HP_script_array_cpy_list_pre;
 	struct HPMHookPoint *HP_script_array_cpy_list_post;
+	struct HPMHookPoint *HP_script_hardcoded_constants_pre;
+	struct HPMHookPoint *HP_script_hardcoded_constants_post;
+	struct HPMHookPoint *HP_script_mapindexname2id_pre;
+	struct HPMHookPoint *HP_script_mapindexname2id_post;
 	struct HPMHookPoint *HP_searchstore_open_pre;
 	struct HPMHookPoint *HP_searchstore_open_post;
 	struct HPMHookPoint *HP_searchstore_query_pre;
@@ -7954,6 +7960,8 @@ struct {
 	int HP_mapreg_save_post;
 	int HP_mapreg_save_timer_pre;
 	int HP_mapreg_save_timer_post;
+	int HP_mapreg_destroyreg_pre;
+	int HP_mapreg_destroyreg_post;
 	int HP_mapreg_reload_pre;
 	int HP_mapreg_reload_post;
 	int HP_mapreg_config_read_pre;
@@ -9296,6 +9304,10 @@ struct {
 	int HP_script_generic_ui_array_expand_post;
 	int HP_script_array_cpy_list_pre;
 	int HP_script_array_cpy_list_post;
+	int HP_script_hardcoded_constants_pre;
+	int HP_script_hardcoded_constants_post;
+	int HP_script_mapindexname2id_pre;
+	int HP_script_mapindexname2id_post;
 	int HP_searchstore_open_pre;
 	int HP_searchstore_open_post;
 	int HP_searchstore_query_pre;
