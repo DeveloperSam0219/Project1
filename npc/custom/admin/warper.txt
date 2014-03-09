@@ -207,7 +207,7 @@ OnInit:
 	AddTown("Lutie", "xmas", 147, 134);
 	//AddTown("Moscovia", "moscovia", 214, 183);
 	AddTown("Morroc", "morocc_mem", 156, 93);
-	AddTown("Nameless Island", "nameless_n", 256, 215);
+	//AddTown("Nameless Island", "nameless_n", 256, 215);
 	AddTown("Niflheim", "niflheim", 85, 154);
 	AddTown("Payon", "payon_mem", 90, 116);
 	//AddTown("Rachel", "rachel", 130, 137);

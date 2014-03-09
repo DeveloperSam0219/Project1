@@ -102,9 +102,9 @@ bool my_buyingstore_setup(struct map_session_data* sd, unsigned char slots) {
 	if( my->secure_items )
 	{
 		clif->message(sd->fd, "You can't open Buying. Blocked with @security");
+		hookStop();
 	}
-	hookStop();
-	return false;
+	return true;
 }
 
 void pre_clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
