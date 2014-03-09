@@ -845,6 +845,7 @@ morocc,43,108,5	script	Sharp-Looking Kid#dan_07	4_KID01,{
 		}
 	}
 }
+morocc_mem,43,108,5	duplicate(Sharp-Looking Kid#dan_07)	Sharp-Looking Kid#old	4_KID01
 
 morocc,45,110,0	script	que_job01#01	WARPNPC,2,2,{
 OnTouch:
@@ -866,8 +867,9 @@ OnTouch:
 		end;
 	}
 }
+morocc_mem,45,110,0	duplicate(que_job01#01)	que_job01#old01	WARPNPC
 
-que_job01,6,94,0	warp	morocc#01	2,2,morocc,45,103
+que_job01,6,94,0	warp	morocc#01	2,2,morocc_mem,45,103	// Changed to old morocc
 que_job01,17,48,0	warp	que_job01#02	2,2,que_job01,68,92
 que_job01,68,96,0	warp	que_job01#03	2,2,que_job01,17,53
 
@@ -1195,7 +1197,7 @@ que_job01,82,95,3	script	Bar Master#moc_main01	1_ETC_01,{
 					next;
 					mes "- You've got kicked out of the place. -";
 					close2;
-					warp "morocc",45,106;
+					warp "morocc_mem",45,106;	// Changed to Old morocc
 					end;
 				}
 			}
