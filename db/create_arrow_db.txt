@@ -80,12 +80,12 @@
 985,1753,1000,1758,50
 // Red Blood --> 600 Fire Arrows
 990,1752,600
-// Crystal Blue --> 150 Crystal Arrows
-991,1754,150
-// Wind of Verdure --> 150 Arrows of Wind
-992,1755,150
-// Green Live --> 150 Stone Arrows
-993,1756,150
+// Crystal Blue --> 150 Crystal Arrows	// Changed to 500
+991,1754,500
+// Wind of Verdure --> 150 Arrows of Wind	// Changed to 500
+992,1755,500
+// Green Live --> 150 Stone Arrows	// Changed to 500
+993,1756,500
 // Flame Heart --> 1800 Fire Arrows, 5 Mute Arrows
 994,1752,1800,1769,5
 // Mystic Frozen --> 450 Crystal Arrows, 5 Frozen Arrows
