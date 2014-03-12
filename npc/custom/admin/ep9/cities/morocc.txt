@@ -847,7 +847,7 @@ morocc,43,108,5	script	Sharp-Looking Kid#dan_07	4_KID01,{
 }
 morocc_mem,43,108,5	duplicate(Sharp-Looking Kid#dan_07)	Sharp-Looking Kid#old	4_KID01
 
-morocc,45,110,0	script	que_job01#01	WARPNPC,2,2,{
+morocc_mem,45,110,0	script	que_job01#01	WARPNPC,2,2,{
 OnTouch:
 	if (BaseClass == Job_Assassin) {
 		warp "que_job01",9,94;
