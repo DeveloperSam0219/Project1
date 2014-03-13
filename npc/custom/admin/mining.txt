@@ -130,7 +130,8 @@ L_BreakRock:
 		set @HPower2, rand(1,3);
 	}
 	
-	Flooritem $@Stones[rand(2)],rand(1,2);
+	//Flooritem $@Stones[rand(2)],rand(1,2);
+	makeitem $@Stones[rand(2)],rand(1,2),"this",0,0;
 	
 	// Update Mine and Pick HP
 	set getvariableofnpc(.Mine_HP, getarg(0)), getvariableofnpc(.Mine_HP, getarg(0)) - @HPower1;
@@ -179,7 +180,7 @@ L_BreakRock:
 	// Accidents
 	if( !rand(10) ) {
 		// Scream!!
-		if( sex ) soundeffect "die_male.wav",0;
+		if( Sex ) soundeffect "die_male.wav",0;
 		else soundeffect "die_merchant_female.wav",0;
 		
 		percentheal -rand(5,20),0; // Damage
@@ -188,7 +189,7 @@ L_BreakRock:
 		mes "^FF0000" + $@MNAccidents$[rand(getarraysize($@MNAccidents$))] + "^000000";
 		emotion e_omg,1;
 
-		if( HP < 1 ) close; // Killed by Mine
+		if( Hp < 1 ) close; // Killed by Mine
 		next;
 	} else if( !rand(500) ) {
 		specialeffect 666;
