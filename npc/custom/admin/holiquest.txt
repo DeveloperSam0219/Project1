@@ -1,22 +1,23 @@
-prontera,150,150,4,	script	Cosmicro Quest Npc	55,{
+prontera,164,174,4,	script	Cosmicro Quest Npc	55,{
 	if (holi) {
 	mes "You have already finished this quest...";
 	close;
 	}
-	if (!info) {
+	if (!holiinfo) {
 	mes "Hello!! Player... what would your name be??";
-	input @charname;
-	if (@charname != strcharinfo(0)) {
+	next;
+	input @charname$;
+	if (@charname$ != strcharinfo(0)) {
 	mes "That's not your name...";
 	close;
 	}
-	mes "Ok "+@charname+" ! CosmicRO is celebrating the colorful festival of Holi.";
+	mes "Ok "+@charname$+" ! CosmicRO is celebrating the colorful festival of Holi.";
 	mes "So if u want to participate, then u have to get me some items.";
 	next;
 	.@s = select("What items?");
 	if ( !.@s ) close;
 	mes "The items i am looking for are Dark green dyestuff,black dyestuff and cobaltblue dye stuff.";
-	set info,1;
+	set holiinfo,1;
 	close;
 	}
 	if ((countitem(979)== 1) && (countitem(983)== 1) && (countitem(978)== 1)) {
@@ -25,7 +26,7 @@ prontera,150,150,4,	script	Cosmicro Quest Npc	55,{
 	getitem 25000,1;
 	set holi,1;
 	}
-	mes "Get me all the items!"
+	mes "Get me all the items!";
 	mes "Dark green dyestuff,black dyestuff and cobaltblue dye stuff.";
 	close;
 }
