@@ -252,7 +252,7 @@ static inline unsigned char clif_bl_type(struct block_list *bl) {
 		case BL_SKILL: return 0x3; //SKILL_TYPE
 		case BL_CHAT:  return 0x4; //UNKNOWN_TYPE
 		case BL_MOB:   return pcdb_checkid(status->get_viewdata(bl)->class_)?0x0:0x5; //NPC_MOB_TYPE
-		case BL_NPC:   return 0x6; //NPC_EVT_TYPE
+		case BL_NPC:   return pcdb_checkid(status->get_viewdata(bl)->class_)?0x0:0x6; //NPC_EVT_TYPE
 		case BL_PET:   return pcdb_checkid(status->get_viewdata(bl)->class_)?0x0:0x7; //NPC_PET_TYPE
 		case BL_HOM:   return 0x8; //NPC_HOM_TYPE
 		case BL_MER:   return 0x9; //NPC_MERSOL_TYPE
@@ -10057,6 +10057,8 @@ void clif_parse_HowManyConnections(int fd, struct map_session_data *sd) {
 
 
 void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, int target_id, int64 tick) {
+	struct block_list *target = NULL;
+	
 	if (pc_isdead(sd)) {
 		clif->clearunit_area(&sd->bl, CLR_DEAD);
 		return;
@@ -10082,6 +10084,11 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 		case 0x00: // once attack
 		case 0x07: // continuous attack
 
+			if( (target = map->id2bl(target_id)) && target->type == BL_NPC ) {
+				npc->click(sd,(TBL_NPC*)target);
+				return;
+			}
+			
 			if( pc_cant_act(sd) || sd->sc.option&OPTION_HIDE )
 				return;
 
@@ -11109,16 +11116,16 @@ void clif_parse_GetItemFromCart(int fd,struct map_session_data *sd)
 /// 012a
 void clif_parse_RemoveOption(int fd,struct map_session_data *sd)
 {
-	/**
-	 * Attempts to remove these options when this function is called (will remove all available)
-	 **/
-#ifdef NEW_CARTS
-	pc->setoption(sd,sd->sc.option&~(OPTION_RIDING|OPTION_FALCON|OPTION_DRAGON|OPTION_MADOGEAR));
-	if( sd->sc.data[SC_PUSH_CART] )
+	if( !(sd->sc.option&(OPTION_RIDING|OPTION_FALCON|OPTION_DRAGON|OPTION_MADOGEAR)) 
+#ifdef NEW_CARTS		
+		&& sd->sc.data[SC_PUSH_CART] ){
 		pc->setcart(sd,0);
 #else
-	pc->setoption(sd,sd->sc.option&~(OPTION_CART|OPTION_RIDING|OPTION_FALCON|OPTION_DRAGON|OPTION_MADOGEAR));
+		){
+		pc->setoption(sd,sd->sc.option&~OPTION_CART);
 #endif
+	}else // priority to remove this option before we can clear cart
+		pc->setoption(sd,sd->sc.option&~(OPTION_RIDING|OPTION_FALCON|OPTION_DRAGON|OPTION_MADOGEAR));
 }
 
 

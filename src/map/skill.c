@@ -3264,16 +3264,9 @@ int skill_timerskill(int tid, int64 tick, int id, intptr_t data) {
 					skill->unitsetting(src,skl->skill_id,skl->skill_lv,skl->x,skl->y,(skl->type<<16)|skl->flag);
 					break;
 				case LG_OVERBRAND_BRANDISH:
-					{
-						short x2 = src->x, y2 = src->y, x = x2, y = y2;
-						switch( skl->type ){								
-							case 0: case 1: case 7: x2 += 4; x -= 4; y2 += 4; break;
-							case 3: case 4: case 5: x2 += 4; x -= 4; y -= 4; break;
-							case 2: y2 += 4; y -= 4; x -= 4; break;
-							case 6: y2 += 4; y -= 4; x2 += 4; break;
-						}
-						map->foreachinarea(skill->area_sub, src->m, x, y, x2, y2, BL_CHAR, src, skl->skill_id, skl->skill_lv, tick, skl->flag|BCT_ENEMY|SD_ANIMATION|1,skill->castend_damage_id);
-					}
+					skill->area_temp[1] = 0;
+					map->foreachinpath(skill->attack_area,src->m,src->x,src->y,skl->x,skl->y,4,2,BL_CHAR,
+						skill->get_type(skl->skill_id),src,src,skl->skill_id,skl->skill_lv,tick,skl->flag,BCT_ENEMY);
 					break;
 				case GN_CRAZYWEED:
 					if( skl->type >= 0 ) {
@@ -10408,11 +10401,12 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 			break;
 
 		case SC_FEINTBOMB:
-			skill->unitsetting(src,skill_id,skill_lv,x,y,0); // Set bomb on current Position
-			clif->skill_nodamage(src,src,skill_id,skill_lv,1);
-			skill->blown(src,src,3*skill_lv,unit->getdir(src),0);
-			//After back sliding, the player goes into hiding. Hiding level used is throught to be the learned level.
-			sc_start(src,src,SC_HIDING,100,(sd?pc->checkskill(sd,TF_HIDING):10),skill->get_time(TF_HIDING,(sd?pc->checkskill(sd,TF_HIDING):10)));
+			skill->unitsetting(src, skill_id, skill_lv, x, y, 0); // Set bomb on current Position
+			clif->skill_nodamage(src, src, skill_id, skill_lv, 1);
+			if( skill->blown(src, src, 3 * skill_lv, unit->getdir(src), 0) && sc){
+				sc->option |= OPTION_INVISIBLE;
+				clif->changeoption(src);
+			}
 			break;
 
 		case SC_ESCAPE:
@@ -10422,18 +10416,10 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 			break;
 
 		case LG_OVERBRAND:
-			{
-				uint8 dir = map->calc_dir(src, x, y);
-				uint8 x2 = x = src->x, y2 = y = src->y;
-				switch( dir ){
-					case 0: case 1: case 7: x2++; x--; y2 += 7; break;
-					case 3: case 4: case 5: x2++; x--; y -= 7; break;
-					case 2: y2++; y--; x -= 7;break;
-					case 6: y2++; y--; x2 += 7;break;
-				}
-				map->foreachinarea(skill->area_sub, src->m, x, y, x2, y2, BL_CHAR, src, skill_id, skill_lv, tick, flag|BCT_ENEMY|SD_ANIMATION|1,skill->castend_damage_id);
-				skill->addtimerskill(src,timer->gettick() + status_get_amotion(src), 0, 0, 0, LG_OVERBRAND_BRANDISH, skill_lv, dir, flag);
-			}
+			skill->area_temp[1] = 0;
+			map->foreachinpath(skill->attack_area,src->m,src->x,src->y,x,y,1,5,BL_CHAR,
+				skill->get_type(skill_id),src,src,skill_id,skill_lv,tick,flag,BCT_ENEMY);
+			skill->addtimerskill(src,timer->gettick() + status_get_amotion(src), 0, x, y, LG_OVERBRAND_BRANDISH, skill_lv, 0, flag);
 			break;
 
 		case LG_BANDING:
@@ -15326,7 +15312,9 @@ bool skill_check_shadowform(struct block_list *bl, int64 damage, int hit){
 		}
 
 		status->damage(bl, src, damage, 0, clif->damage(src, src, 500, 500, damage, hit, (hit > 1 ? 8 : 0), 0), 0);
-		if( (--sc->data[SC__SHADOWFORM]->val3) <= 0 ) {
+
+		/* because damage can cancel it */
+		if( sc->data[SC__SHADOWFORM] && (--sc->data[SC__SHADOWFORM]->val3) <= 0 ) {
 			status_change_end(bl, SC__SHADOWFORM, INVALID_TIMER);
 			if( src->type == BL_PC )
 				((TBL_PC*)src)->shadowform_id = 0;
@@ -15869,8 +15857,14 @@ int skill_unit_timer_sub(DBKey key, DBData *data, va_list ap) {
 
 			case UNT_FEINTBOMB: {
 				struct block_list *src = map->id2bl(group->src_id);
-				if( src )
-					map->foreachinrange(skill->area_sub, &group->unit->bl, su->range, splash_target(src), src, SC_FEINTBOMB, group->skill_lv, tick, BCT_ENEMY|1, skill->castend_damage_id);
+				if( src ){
+					struct status_change *sc = status->get_sc(src);
+					map->foreachinrange(skill->area_sub, &group->unit->bl, su->range, splash_target(src), src, SC_FEINTBOMB, group->skill_lv, tick, BCT_ENEMY|SD_ANIMATION|1, skill->castend_damage_id);
+					if(sc){
+						sc->option &= ~OPTION_INVISIBLE;
+						clif->changeoption(src);
+					}
+				}
 				skill->delunit(su);
 				break;
 			}

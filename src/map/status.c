@@ -1867,6 +1867,9 @@ int status_check_visibility(struct block_list *src, struct block_list *target) {
 	if (src->m != target->m || !check_distance_bl(src, target, view_range))
 		return 0;
 
+	if( src->type == BL_NPC ) /* NPCs don't care for the rest */
+		return 1;
+	
 	if( ( tsc = status->get_sc(target) ) ) {
 		struct status_data *st = status->get_status_data(src);
 
@@ -7878,8 +7881,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_TURNKICK_READY:
 			case SC_DODGE_READY:
 			case SC_PUSH_CART:
-			case SC_ALL_RIDING:
-				tick = -1;
 				break;
 
 			case SC_AUTOGUARD:
@@ -8733,6 +8734,9 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				tick_time = 5000; // [GodLesZ] tick time
 				status->change_clear_buffs(bl,3); //Remove buffs/debuffs
 				break;
+			case SC_CRESCENTELBOW:
+				val2 = (sd ? sd->status.job_level : 2) / 2 + 50 + 5 * val1;
+				break;
 			case SC_LIGHTNINGWALK: //  [(Job Level / 2) + (40 + 5 * Skill Level)] %
 				val1 = (sd?sd->status.job_level:2)/2 + 40 + 5 * val1;
 				break;
@@ -8967,6 +8971,10 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_MONSTER_TRANSFORM:
 				if( !mob->db_checkid(val1) )
 					val1 = 1002; // default poring
+				break;
+			case SC_ALL_RIDING:
+				unit->stop_attack(bl);
+				tick = -1;
 				break;
 			default:
 				if( calc_flag == SCB_NONE && status->SkillChangeTable[type] == 0 && status->IconChangeTable[type] == 0 )
