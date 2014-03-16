@@ -38,3 +38,8 @@ mora	mapflag	nowarpto
 malangdo	mapflag	nowarpto
 malaya	mapflag	nowarpto
 eclage	mapflag	nowarpto
+
+morocc_mem	mapflag	town
+payon_mem	mapflag	town
+oldizlude	mapflag	town
+oldalberta	mapflag	town
