@@ -202,7 +202,7 @@ OnInit:
 	//AddTown("Hugel", "hugel", 96, 145);
 	AddTown("Izlude", "oldizlude", 128, 111);	// Changed to old Izlude
 	AddTown("Jawaii", "jawaii", 213, 230);
-	//AddTown("Lighthalzen", "lighthalzen", 158, 92);
+	AddTown("Lighthalzen", "lighthalzen", 158, 92);
 	AddTown("Louyang", "louyang", 210, 108);
 	AddTown("Lutie", "xmas", 147, 134);
 	//AddTown("Moscovia", "moscovia", 214, 183);
