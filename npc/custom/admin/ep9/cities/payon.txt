@@ -1994,7 +1994,7 @@ pa2_in01,174,113,2	script	Marx Hansen#juiceold	86,{
 	}
 }
 
-payon_mem,74,21,6	duplicate(Suhnbi#cash)	Suhnbi#old	4_M_03
+payon_mem,74,121,6	duplicate(Suhnbi#cash)	Suhnbi#old	4_M_03
 
 payon_mem,30,132,5	duplicate(SocketEnchant)	Seiyablem#oldpay	4_M_02
 payon_mem,30,127,3	duplicate(SocketEnchant2)	Leablem#oldpay	4_M_04
