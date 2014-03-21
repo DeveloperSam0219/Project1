@@ -1490,3 +1490,5 @@ OnDisable:
 	disablenpc "Valdes#moc_master_1";
 	end;
 }
+
+morocc_mem,51,41,4	duplicate(SocketEnchant)	Seiyablem#oldmoc	4_M_02
