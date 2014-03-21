@@ -74,3 +74,5 @@ oldalberta,248,93,4	duplicate(Voyage log#tur)	Voyage log#old	HIDDEN_NPC
 // Sunken Ship Teleporter
 oldalberta,189,151,5	duplicate(Fisk)	Fisk#old	4W_SAILOR
 oldalberta,195,151,2	duplicate(Paul)	Paul#old	4_M_04
+
+oldalberta,30,65,3	duplicate(Akagi)	Akagi#old	4_M_JOB_ASSASSIN
