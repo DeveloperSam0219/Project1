@@ -1,6 +1,6 @@
 /* Old Hunter Quest*/
 
-pay_fild10.gat,148,251,4	script	Hunter Guildsman#old2	98,{
+/*pay_fild10.gat,148,251,4	script	Hunter Guildsman#old2	98,{
 	warp "in_hunter.gat",100,18;
 	end;
 }
@@ -11,6 +11,7 @@ in_hunter.gat,55,99,7	duplicate(Guild Receptionist#hnt)	Demon Hunter#old	4_M_JOB
 
 in_hunter.gat,146,100,2	duplicate(Falcon Breeder#hnt)	Falcon Breeder#old	8W_SOLDIER
 
+*/
 /* Arrow Repel Quest */
 
 payon_mem,103,63,3	duplicate(Jason)	Jason#old	4_M_ORIENT01

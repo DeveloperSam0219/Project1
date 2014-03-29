@@ -55,7 +55,7 @@
 
 // Notices in the old Hunter Guild.
 //============================================================
-/*in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	4_F_JOB_HUNTER,{
+in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	4_F_JOB_HUNTER,{
 	mes "============Notice ============";
 	mes "We would like to inform that the Hunter Job Change Location";
 	mes "has been moved to ^ff0000Hugel^000000 in the Schwaltzvalt Republic.";
@@ -70,7 +70,7 @@
 	mes " ";
 	mes "I, the Falcon breeder have moved out as well.";
 	close;
-}*/
+}
 
 //pay_fild10,148,252,3	duplicate(HntNotice)	Job Change Location#hu	4_BOARD3
 
@@ -496,8 +496,8 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 				mes "[Demon Hunter]";
 				mes "Leave if you plan to trifle me your petty tricks. Do you not realize that you are toying with ^660000The Demon Hunter^000000?!'";
 				close2;
-				//warp "hugel",208,223;
-				warp "pay_fild10.gat", 133, 235;	// Reverted to Pre-Renewal
+				warp "hugel",208,223;	// Enabled Rachel Patch
+				//warp "pay_fild10.gat", 133, 235;	// Reverted to Pre-Renewal
 				end;
 			}
 		}
