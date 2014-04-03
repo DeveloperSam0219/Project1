@@ -1,0 +1,151 @@
+//===== Hercules Script ======================================
+//= CosmicRO Repeatable EXP Quests.
+//===== By: ==================================================
+//= Samuel
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Repeatable EXP Quest : Kill 50 Assaulter.
+//= Repeatable EXP Quest (Turtle Shell).
+//===== Additional Comments: =================================
+//= 1.0 First version.
+//============================================================
+
+tur_dun01,162,63,4	script	Kame#Turtle	59,{
+	if (checkquest(20000) != -1) {
+		if (checkquest(20000,HUNTING) != 2 ) {
+			mes "[Kame]";
+			mes "Have you finished hunting the 50 Assaulter?";
+			next;
+			switch(select("Yes:No:I want to quit")) {
+			case 1:
+				mes "[Kame]";
+				mes "Hmm, I don't think you've hunted 50 yet...";
+				close;
+			case 2:
+				mes "[Kame]";
+				mes "Remember, I need help hunting Assaulter so go and hunt 50 of them.";
+				close;
+			case 3:
+				mes "[Kame]";
+				mes "Are you sure that you want to stop hunting?";
+				mes "Any progress that you've made will be erased";
+				next;
+				switch(select("Yes:No")) {
+				case 1:
+					mes "[Kame]";
+					mes "Ok then, well come back here if you change your mind.";
+					erasequest 20000;
+					close;
+				case 2:
+					mes "[Kame]";
+					mes "Please kill 50 Assaulter.";
+					close;
+				}
+			}
+		}
+		else {
+			mes "[Kame]";
+			mes "Amazing, you did that with speed.";
+			getexp 500000,500000;
+			erasequest 20000;
+			close;
+		}
+	}
+	//for minimum level
+	if (BaseLevel > 85) {
+		//for maximum level
+		if (BaseLevel < 100) {
+			mes "[Kame]";
+			mes "I..I just can't seem to find any.";
+			mes "Pesky Assaulter's have hidden all the Turtle Shell.";
+			mes "Do you think you could help me?";
+			next;
+			switch(select("Sure:No")) {
+			case 1:
+				mes "[Kame]";
+				mes "Oh, that's great! I knew I could count on you, just from looking at you!";
+				next;
+				switch(select("Gather Items:Hunt Assaulter:Cancel")) {
+				case 1:
+					// Item turn in
+					mes "[Kame]";
+					mes "Can you help me find ^00CE0050 Turtle Shell^000000.";
+					mes "I will reward you with much if you can.";
+					next;
+					switch(select("I have 50 Turtle Shell:Please come again?")) {
+					case 1:
+						/*
+						if (checkweight(502,5) == 0) {
+							mes "[Kame]";
+							mes "Hey, it looks like that the weight on";
+							mes "your back will crush you. Come back";
+							mes "after you have lost some weight.";
+							close;
+						}
+						*/
+						if (countitem(967) > 49) {
+							mes "[Kame]";
+							mes "Oh great you found out where they were hiding them.";
+							mes "Gimme Gimme!!!";
+							next;
+							mes "[Kame]";
+							mes "Oh that's right, sorry I just love roasting Turtle Shell. Mmm.";
+							mes "Here is what I promised you.";
+							delitem 967,50; //Turtle Shell
+							getexp 400000,400000;
+							//getitem 502,5; //Orange_Potion
+							close;
+						}
+						else {
+							mes "[Kame]";
+							mes "Where are my ^00CE00Turtle Shell^000000?";
+							mes "Hey, I'm not playing, you better not hold out on me.";
+							close;
+						}
+					case 2:
+						mes "[Kame]";
+						mes "I need ^00CE0050 Turtle Shell^000000.";
+						close;
+					}
+				case 2:
+					// Kill Count Quest
+					mes "[Kame]";
+					mes "Ah, ok I think you can help me out by hunting some Assaulter.";
+					mes "How many would you like to hunt?";
+					next;
+					switch(select("50 Assaulter:Cancel")) {
+					case 1:
+						mes "[Kame]";
+						mes "Come back when you've finished your task and I will give you a small reward.";
+						setquest 20000;
+						close;
+					default:
+						mes "[Kame]";
+						mes "If you change your mind, please come back.";
+						close;
+					}
+				case 3:
+					mes "[Kame]";
+					mes "If you change your mind, please come back.";
+					close;
+				}
+			case 2:
+				mes "[Kame]";
+				mes "If you change your mind, please come back.";
+				close;
+			}
+		}
+		else {
+			mes "[Kame]";
+			mes "You are much to strong to be fighting these things!";
+			close;
+		}
+	}
+	else {
+		mes "[Kame]";
+		mes "You are just too small to fight these things for me.";
+		mes "Can you get a little taller then return?";
+		close;
+	}
+}

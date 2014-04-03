@@ -2819,3 +2819,7 @@
 60353,0,0,0,0,0,0,0,"Bathroom Ghost"
 60354,0,0,0,0,0,0,0,"Bathroom Ghost"
 60355,0,0,0,0,0,0,0,"Bathroom Ghost"
+
+// CosmicRO Custom Quest
+
+20000,0,1315,50,0,0,0,0,"Hunting Assaulter"
