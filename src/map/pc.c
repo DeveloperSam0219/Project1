@@ -1758,6 +1758,13 @@ int pc_disguise(struct map_session_data *sd, int class_) {
 
 	status->set_viewdata(&sd->bl, class_);
 	clif->changeoption(&sd->bl);
+	// We need to update the client so it knows that a costume is being used
+	if( sd->sc.option&OPTION_COSTUME ) {
+		clif->changelook(&sd->bl,LOOK_BASE,sd->vd.class_);
+		clif->changelook(&sd->bl,LOOK_WEAPON,0);
+		clif->changelook(&sd->bl,LOOK_SHIELD,0);
+		clif->changelook(&sd->bl,LOOK_CLOTHES_COLOR,sd->vd.cloth_color);
+	}
 
 	if (sd->bl.prev != NULL) {
 		clif->spawn(&sd->bl);
@@ -7466,7 +7473,13 @@ int pc_setparam(struct map_session_data *sd,int type,int val)
 		break;
 	case SP_MANNER:
 		sd->status.manner = val;
-		break;
+		if( val < 0 )
+			sc_start(NULL, &sd->bl, SC_NOCHAT, 100, 0, 0);
+		else {
+			status_change_end(&sd->bl, SC_NOCHAT, INVALID_TIMER);
+			clif->manner_message(sd, 5);
+		}
+		return 1; // status_change_start/status_change_end already sends packets warning the client
 	case SP_FAME:
 		sd->status.fame = val;
 		break;
