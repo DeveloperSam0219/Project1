@@ -1061,7 +1061,7 @@ prontera,248,42,0	script	Kafra Employee#mer	4_F_KAFRA2,{
 			Zeny -= 600;
 			set RESRVPTS, RESRVPTS + 37;
 			cutin "",255;
-			warp "oldizlude",94,103;	// Changed to old izlude
+			warp "izlude",94,103;
 			end;
 		}
 		close2;

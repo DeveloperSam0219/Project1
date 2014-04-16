@@ -24,7 +24,7 @@ pay_fild02,83,386,0	warp	payf01-1	13,2,pay_fild01,278,18
 pay_fild03,15,110,0	warp	payf07-1	2,10,pay_fild02,280,108
 pay_fild03,172,281,0	warp	payf08	5,2,pay_fild07,167,20
 pay_fild03,313,16,0	warp	payf09	4,2,pay_fild06,305,372
-pay_fild03,392,63,0	warp	payf005	2,7,oldalberta,19,233	// OLD ALBERTA USED
+pay_fild03,392,63,0	warp	payf005	2,7,alberta,19,233
 pay_fild04,17,165,0	warp	payf002	2,8,moc_fild01,376,162
 pay_fild04,194,17,0	warp	payf003	7,2,moc_fild02,350,336
 pay_fild05,127,378,0	warp	payf04-1	4,2,pay_fild02,134,19
@@ -36,7 +36,7 @@ pay_fild07,163,17,0	warp	payf08-1	5,2,pay_fild03,177,275
 pay_fild07,280,382,0	warp	payf11	4,2,pay_fild08,160,19
 pay_fild07,382,290,0	warp	payf12	2,5,pay_fild10,19,290
 pay_fild08,160,16,0	warp	payf11-1	4,2,pay_fild07,280,379
-//pay_fild08,17,75,0	warp	payf006	1,1,payon,265,92
+pay_fild08,17,75,0	warp	payf006	1,1,payon,265,92
 pay_fild08,262,91,0	warp	payf13	2,4,pay_fild09,19,91
 pay_fild09,112,16,0	warp	pay14	4,2,pay_fild10,112,379
 pay_fild09,16,91,0	warp	payf13-1	2,4,pay_fild08,259,91

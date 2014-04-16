@@ -36,6 +36,8 @@ morocc_mem,100,100,0	script	Old Lady#sam	575,{
 	close;
 }
 
+morocc,100,100,0	duplicate(Old Lady#sam)	Old Lady#sam2	575
+
 prontera,146,95,6	script	Brian	4_M_DEWBOY,{
 	getmapxy(@mapname$,@mapx,@mapy,1);
 	.@name$ = strtolower(strcharinfo(0));
@@ -190,29 +192,39 @@ OnInit:
 	
 	//Add Towns here
 	AddTown("Prontera", "prontera", 116, 79);
-	AddTown("Alberta", "oldalberta", 28, 234);
+	AddTown("Alberta", "alberta", 28, 234);
 	AddTown("Aldebaran", "aldebaran", 140, 131);
 	AddTown("Amatsu", "amatsu", 198, 84);
 	AddTown("Ayothaya", "ayothaya", 150, 163);
+	AddTown("Brasilis", "brasilis", 196, 217);
 	AddTown("Comodo", "comodo", 209, 143);
+	AddTown("Dewata", "dewata", 200, 180);
+	//AddTown("Eclage", "ecl_in01", 48, 53);
 	AddTown("Einbech (Mining Village);", "einbech", 70, 95);
 	AddTown("Einbroch", "einbroch", 64, 200);
+	AddTown("El Dicastes", "dicastes01", 198, 187);
 	AddTown("Geffen", "geffen", 119, 59);
 	AddTown("Gonryun", "gonryun", 160, 121);
-	//AddTown("Hugel", "hugel", 96, 145);
-	AddTown("Izlude", "oldizlude", 128, 111);	// Changed to old Izlude
+	AddTown("Hugel", "hugel", 96, 145);
+	AddTown("Izlude", "izlude", 128, 114);
 	AddTown("Jawaii", "jawaii", 213, 230);
 	AddTown("Lighthalzen", "lighthalzen", 158, 92);
 	AddTown("Louyang", "louyang", 210, 108);
 	AddTown("Lutie", "xmas", 147, 134);
-	//AddTown("Moscovia", "moscovia", 214, 183);
-	AddTown("Morroc", "morocc_mem", 156, 93);
-	//AddTown("Nameless Island", "nameless_n", 256, 215);
+	AddTown("Malangdo", "malangdo", 140, 114);
+	AddTown("Malaya", "malaya", 212, 206);
+	AddTown("Manuk", "manuk", 282, 138);
+	AddTown("Midgarts Expedition Camp", "mid_camp", 210, 288);
+	AddTown("Mora", "mora", 55, 146);
+	AddTown("Morroc", "morocc", 156, 93);
+	AddTown("Moscovia", "moscovia", 214, 183);
+	AddTown("Nameless Island", "nameless_n", 256, 215);
 	AddTown("Niflheim", "niflheim", 85, 154);
-	AddTown("Payon", "payon_mem", 90, 116);
-	//AddTown("Rachel", "rachel", 130, 137);
-	//AddTown("Thor Camp", "thor_camp", 254, 90);
-	//AddTown("Veins", "veins", 216, 123);
+	AddTown("Payon", "payon", 179, 100);
+	AddTown("Rachel", "rachel", 130, 137);
+	AddTown("Splendide", "splendide", 201, 147);
+	AddTown("Thor Camp", "thor_camp", 254, 90);
+	AddTown("Veins", "veins", 216, 123);
 	AddTown("Yuno", "yuno", 157, 51);
 	AddTown("Umbala", "umbala", 145, 155);
 	
@@ -251,6 +263,14 @@ OnInit:
 	AddDungeon("Toy Factory", "xmas_dun01", 205, 15, 32, 20000);
 	AddDungeon("Turtle Dungeon", "tur_dun01", 154, 49, 33, 20000);
 	AddDungeon("Umbala Dungeon", "um_dun01", 42, 31, 34, 20000);
+	// Renewal Dungeons
+	AddDungeon("Brasilis Dungeon", "bra_dun01", 87, 47, 35, 20000);
+	AddDungeon("Bitfrost Tower", "ecl_tdun01", 57, 13, 36, 20000);
+	AddDungeon("Dewata Dungeon", "dew_dun01", 285, 160, 37, 20000);
+	AddDungeon("Malangdo Dungeon", "mal_dun01", 33, 230, 38, 20000);
+	AddDungeon("Nidhogg's Dungeon", "nyd_dun01", 61, 239, 39, 20000);
+	AddDungeon("Odin Temple", "odin_tem01", 298, 167, 40, 20000);
+	AddDungeon("Scaraba Hole", "dic_dun01", 364, 44, 41, 20000);
 	
 	//Add Fields here
 	//AddField("<Map Menu Name>", <"map name">, <x>, <y>);
@@ -318,7 +338,8 @@ function LastWarp {
 //	Duplicates:
 // --------------------------------------------------
 alb2trea,57,70,6	duplicate(Brian)	Warper#tre	4_M_DEWBOY
-oldalberta,28,240,4	duplicate(Brian)	Warper#alb	4_M_DEWBOY
+oldalberta,28,240,4	duplicate(Brian)	Warper#alb2	4_M_DEWBOY
+alberta,28,240,4	duplicate(Brian)	Warper#alb	4_M_DEWBOY
 aldebaran,145,118,4	duplicate(Brian)	Warper#alde	4_M_DEWBOY
 amatsu,203,87,4	duplicate(Brian)	Warper#ama	4_M_DEWBOY
 ayothaya,209,169,6	duplicate(Brian)	Warper#ayo	4_M_DEWBOY
@@ -331,7 +352,8 @@ geffen,124,72,4	duplicate(Brian)	Warper#gef	4_M_DEWBOY
 gonryun,162,122,4	duplicate(Brian)	Warper#gon	4_M_DEWBOY
 hugel,101,151,4	duplicate(Brian)	Warper#hug	4_M_DEWBOY
 izlu2dun,110,92,4	duplicate(Brian)	Warper#izd	4_M_DEWBOY
-oldizlude,132,120,4	duplicate(Brian)	Warper#izl	4_M_DEWBOY
+oldizlude,132,120,4	duplicate(Brian)	Warper#izl2	4_M_DEWBOY
+izlude,132,120,4	duplicate(Brian)	Warper#izl	4_M_DEWBOY
 jawaii,253,138,4	duplicate(Brian)	Warper#jaw	4_M_DEWBOY
 lighthalzen,162,102,4	duplicate(Brian)	Warper#lhz	4_M_DEWBOY
 louyang,208,103,6	duplicate(Brian)	Warper#lou	4_M_DEWBOY
@@ -339,12 +361,14 @@ manuk,274,146,6	duplicate(Brian)	Warper#man	4_M_DEWBOY
 mid_camp,216,288,4	duplicate(Brian)	Warper#mid	4_M_DEWBOY
 mjolnir_02,85,364,4	duplicate(Brian)	Warper#mjo	4_M_DEWBOY
 moc_ruins,64,164,4	duplicate(Brian)	Warper#moc	4_M_DEWBOY
-morocc_mem,159,97,4	duplicate(Brian)	Warper#mor	4_M_DEWBOY
+morocc_mem,159,97,4	duplicate(Brian)	Warper#mor2	4_M_DEWBOY
+morocc,159,97,4	duplicate(Brian)	Warper#mor	4_M_DEWBOY
 moscovia,229,191,4	duplicate(Brian)	Warper#mos	4_M_DEWBOY
 nameless_n,259,213,4	duplicate(Brian)	Warper#nam	4_M_DEWBOY
 niflheim,205,179,4	duplicate(Brian)	Warper#nif	4_M_DEWBOY
 pay_arche,42,134,4	duplicate(Brian)	Warper#arc	4_M_DEWBOY
-payon_mem,94,118,4	duplicate(Brian)	Warper#pay	4_M_DEWBOY
+payon_mem,94,118,4	duplicate(Brian)	Warper#pay2	4_M_DEWBOY
+payon,182,108,4	duplicate(Brian)	Warper#pay	4_M_DEWBOY
 //prontera,159,192,4	duplicate(Brian)	Warper#prt	4_M_DEWBOY
 prt_fild05,279,223,6	duplicate(Brian)	Warper#cul	4_M_DEWBOY
 rachel,135,116,4	duplicate(Brian)	Warper#rac	4_M_DEWBOY

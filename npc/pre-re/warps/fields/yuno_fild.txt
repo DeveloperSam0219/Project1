@@ -67,14 +67,14 @@ yuno_fild01,208,17,0	warp	yunfild-alde	1,1,aldebaran,140,242
 //= Version 1
 yuno_fild05,372,325,0	warp	hu001	1,1,yuno_fild06,42,319
 yuno_fild06,40,319,0	warp	hu001a	1,1,yuno_fild05,370,325
-//yuno_fild06,217,27,0	warp	hu002	1,1,yuno_fild03,214,381	// Disabled per request
-//yuno_fild03,214,383,0	warp	hu002a	1,1,yuno_fild06,217,29	// Disabled per request
+yuno_fild06,217,27,0	warp	hu002	1,1,yuno_fild03,214,381
+yuno_fild03,214,383,0	warp	hu002a	1,1,yuno_fild06,217,29
 yuno_fild06,369,136,0	warp	hu003	1,1,hu_fild04,28,126
 hu_fild04,26,126,0	warp	hu003a	1,1,yuno_fild06,367,136
 hu_fild04,121,26,0	warp	hu004	1,1,yuno_fild02,118,374
 yuno_fild02,118,376,0	warp	hu004a	1,1,hu_fild04,121,28
-//yuno_fild06,149,369,0	warp	hu005	1,1,hu_fild01,139,37	// Disabled per request
-//hu_fild01,139,35,0	warp	hu005a	1,1,yuno_fild06,151,369	// Disabled per request
+yuno_fild06,149,369,0	warp	hu005	1,1,hu_fild01,139,37
+hu_fild01,139,35,0	warp	hu005a	1,1,yuno_fild06,151,369
 hu_fild04,381,187,0	warp	hu006	1,1,hu_fild05,34,202
 hu_fild05,32,202,0	warp	hu006a	1,1,hu_fild04,379,187
 hu_fild05,91,42,0	warp	hu007	1,1,hu_fild07,80,369

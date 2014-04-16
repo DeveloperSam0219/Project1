@@ -27,15 +27,15 @@ if(compare (.@atcmd_parameters$[0],"list")) { dispbottom "Usage: @go #";
 // map name,x,y,level requirement, group id minimum requirement
 //if(compare (.@atcmd_parameters$[0],"prontera") || .@atcmd_parameters$[0] == "0") { callsub	Process,"prontera",156,191,0,0; }
 if(compare (.@atcmd_parameters$[0],"prontera") || .@atcmd_parameters$[0] == "0") { callsub	Process,"prontera",116,79,0,0; }
-//if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc",156,93,0,0; }
-if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc_mem",156,93,0,0; }
+if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc",156,93,0,0; }
+//if(compare (.@atcmd_parameters$[0],"morocc") || .@atcmd_parameters$[0] == "1") { callsub	Process,"morocc_mem",156,93,0,0; }
 if(compare (.@atcmd_parameters$[0],"geffen") || .@atcmd_parameters$[0] == "2") { callsub	Process,"geffen",119,59,0,0; }
-//if(compare (.@atcmd_parameters$[0],"payon") || .@atcmd_parameters$[0] == "3") { callsub	Process,"payon",177,101,0,0; }
-if(compare (.@atcmd_parameters$[0],"payon") || .@atcmd_parameters$[0] == "3") { callsub	Process,"payon_mem",90,116,0,0; }
-//if(compare (.@atcmd_parameters$[0],"alberta") || .@atcmd_parameters$[0] == "4") { callsub	Process,"alberta",192,147,0,0; }
-if(compare (.@atcmd_parameters$[0],"alberta") || .@atcmd_parameters$[0] == "4") { callsub	Process,"oldalberta",116,58,0,0; }
-//if(compare (.@atcmd_parameters$[0],"izlude") || .@atcmd_parameters$[0] == "5") { callsub	Process,"izlude",128,114,0,0; }
-if(compare (.@atcmd_parameters$[0],"izlude") || .@atcmd_parameters$[0] == "5") { callsub	Process,"oldizlude",127,108,0,0; }
+if(compare (.@atcmd_parameters$[0],"payon") || .@atcmd_parameters$[0] == "3") { callsub	Process,"payon",177,101,0,0; }
+//if(compare (.@atcmd_parameters$[0],"payon") || .@atcmd_parameters$[0] == "3") { callsub	Process,"payon_mem",90,116,0,0; }
+if(compare (.@atcmd_parameters$[0],"alberta") || .@atcmd_parameters$[0] == "4") { callsub	Process,"alberta",192,147,0,0; }
+//if(compare (.@atcmd_parameters$[0],"alberta") || .@atcmd_parameters$[0] == "4") { callsub	Process,"oldalberta",116,58,0,0; }
+if(compare (.@atcmd_parameters$[0],"izlude") || .@atcmd_parameters$[0] == "5") { callsub	Process,"izlude",128,114,0,0; }
+//if(compare (.@atcmd_parameters$[0],"izlude") || .@atcmd_parameters$[0] == "5") { callsub	Process,"oldizlude",127,108,0,0; }
 if(compare (.@atcmd_parameters$[0],"aldebaran") || .@atcmd_parameters$[0] == "6") { callsub	Process,"aldebaran",140,131,0,0; }
 if(compare (.@atcmd_parameters$[0],"lutie") || .@atcmd_parameters$[0] == "7" ) { callsub	Process,"xmas",147,134,0,0; }
 if(compare (.@atcmd_parameters$[0],"comodo") || .@atcmd_parameters$[0] == "8" ) { callsub	Process,"comodo",209,143,0,0; }
@@ -49,7 +49,7 @@ if(.@atcmd_parameters$[0] == "15") { callsub	Process,"new_1-1",53,111,0,10; }	//
 if(.@atcmd_parameters$[0] == "16") { callsub	Process,"sec_pri",23,61,0,10;}		// Prison: GM Group 10 or higher only.
 if(compare (.@atcmd_parameters$[0],"jawaii") || .@atcmd_parameters$[0] == "17") { callsub	Process,"jawaii",249,127,0,0; }
 if(compare (.@atcmd_parameters$[0],"ayothaya") || .@atcmd_parameters$[0] == "18") { callsub	Process,"ayothaya",151,117,0,0; }
-/*if(compare (.@atcmd_parameters$[0],"einbroch") || .@atcmd_parameters$[0] == "19") { callsub	Process,"einbroch",64,200,0,0; }
+if(compare (.@atcmd_parameters$[0],"einbroch") || .@atcmd_parameters$[0] == "19") { callsub	Process,"einbroch",64,200,0,0; }
 if(compare (.@atcmd_parameters$[0],"lighthalzen") || .@atcmd_parameters$[0] == "20") { callsub	Process,"lighthalzen",158,92,0,0; }
 if(compare (.@atcmd_parameters$[0],"einbech") || .@atcmd_parameters$[0] == "21") { callsub	Process,"einbech",70,95,0,0; }
 if(compare (.@atcmd_parameters$[0],"hugel") || .@atcmd_parameters$[0] == "22") { callsub	Process,"hugel",96,145,0,0; }
@@ -66,7 +66,6 @@ if(compare (.@atcmd_parameters$[0],"dewata") || .@atcmd_parameters$[0] == "32") 
 if(compare (.@atcmd_parameters$[0],"malangdo") || .@atcmd_parameters$[0] == "33") { callsub	Process,"malangdo",140,114,0,0; }
 if(compare (.@atcmd_parameters$[0],"malaya") || .@atcmd_parameters$[0] == "34") { callsub	Process,"malaya",242,211,0,0; }
 if(compare (.@atcmd_parameters$[0],"eclage") || .@atcmd_parameters$[0] == "35") { callsub	Process,"eclage",110,39,0,0; }
-*/
 // Custom @go locations below. Also edit them in or out of the master list found towards the top of this script file.
 else {
 	dispbottom "[Server] : To use @go, enter a number 0 or greater. For a full list of available warps, type '@go list'.";

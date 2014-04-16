@@ -1,0 +1,37 @@
+-	script	atcmd_changegm	-1,{
+OnInit:
+	bindatcmd "changegm",strnpcinfo(3)+"::OnAtcommand";
+	end;
+OnAtcommand:
+	if ( (!getcharid(2)) || (strcharinfo(0) != getguildmaster(getcharid(2))) ) {
+		message strcharinfo(0),"You need to be a Guild Master to use this command.";
+		message strcharinfo(0),"@changegm failed";
+		end;
+	}
+	if (Zeny <= 5999999) {
+		message strcharinfo(0),"You don't have enough zeny to use this.";
+		message strcharinfo(0),"@changegm failed";
+		end;
+	}
+	if ((agitcheck()) || (agitcheck2())) {
+		message strcharinfo(0),"Sorry, you can't use this while WOE is on going.";
+		message strcharinfo(0),"@changegm failed";
+		end;
+	}
+	if ((.@atcmd_parameters$[0] == "") || (.@atcmd_parameters$[0] == strcharinfo(0))) {
+		message strcharinfo(0),"Usage: @changegm <guild_member_name>";
+		message strcharinfo(0),"@changegm failed";
+		end;
+	}
+	if ( (!isloggedin(getcharid(3,.@atcmd_parameters$[0]))) || (getcharid(2) != (getcharid(2,.@atcmd_parameters$[0]))) )  {
+		message strcharinfo(0),"Target character must be online and be a guild member.";
+		message strcharinfo(0),"@changegm failed";
+		end;
+	}
+	else {
+		Zeny -= 6000000;
+		guildchangegm(getcharid(2),.@atcmd_parameters$[0]);
+		end;
+	}
+}
+
