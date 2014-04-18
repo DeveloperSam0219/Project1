@@ -86,7 +86,7 @@ L_Limpiar:
 L_Liberar:
 	mes "^FF0000[Rental Information]^000000";
 	mes "You want to release a house?(1 - " + @t + ")";
-	mes "Enter the number of the house you want to release. (0 o mayor que " + @t + " para cancelar).";
+	mes "Enter the number of the house you want to release. (0 or greater than " + @t + " to cancel).";
 	next;
 	input @house;
 	if (@house < 1) goto L_Salir;
