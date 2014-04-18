@@ -353,7 +353,7 @@ gonryun,162,122,4	duplicate(Brian)	Warper#gon	4_M_DEWBOY
 hugel,101,151,4	duplicate(Brian)	Warper#hug	4_M_DEWBOY
 izlu2dun,110,92,4	duplicate(Brian)	Warper#izd	4_M_DEWBOY
 oldizlude,132,120,4	duplicate(Brian)	Warper#izl2	4_M_DEWBOY
-izlude,132,120,4	duplicate(Brian)	Warper#izl	4_M_DEWBOY
+izlude,134,150,4	duplicate(Brian)	Warper#izl	4_M_DEWBOY
 jawaii,253,138,4	duplicate(Brian)	Warper#jaw	4_M_DEWBOY
 lighthalzen,162,102,4	duplicate(Brian)	Warper#lhz	4_M_DEWBOY
 louyang,208,103,6	duplicate(Brian)	Warper#lou	4_M_DEWBOY

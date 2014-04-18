@@ -172,26 +172,26 @@ end;
 
 OnThisMobDeath:
     stopnpctimer "EmpBrk#1";
-    set .time, getnpctimer(0,"EmpBrk#1");
-    set .time, .time - 12000;
-    if (.time < empbrk_record || empbrk_record == 0)
+    set .Time, getnpctimer(0,"EmpBrk#1");
+    set .Time, .Time - 12000;
+    if (.Time < empbrk_record || empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Own Record!!!",0;
-        set empbrk_record, .time;
+        set empbrk_record, .Time;
         
     }
-    if (.time < $empbrk_record || $empbrk_record == 0)
+    if (.Time < $empbrk_record || $empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Official Record!!!",0;
 announce strcharinfo(0)+" is now the NO. 1 Emperium Breaker!!",0; 
-        set $empbrk_record, .time;
+        set $empbrk_record, .Time;
         set $empbrk_record$,strcharinfo(0); 
     }
-    set .m, .time / 60000;
-    set .time, .time - (.m * 60000);
-    set .s, .time /1000;
-    set .time, .time - (.s * 1000);
-areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.time+"ms",0;
+    set .m, .Time / 60000;
+    set .Time, .Time - (.m * 60000);
+    set .s, .Time /1000;
+    set .Time, .Time - (.s * 1000);
+areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.Time+"ms",0;
     set .end,1;
     set .charid,getcharid(0);
     initnpctimer;
@@ -266,26 +266,26 @@ end;
 
 OnThisMobDeath:
     stopnpctimer "EmpBrk#2";
-    set .time, getnpctimer(0,"EmpBrk#2");
-    set .time, .time - 12000;
-    if (.time < empbrk_record || empbrk_record == 0)
+    set .Time, getnpctimer(0,"EmpBrk#2");
+    set .Time, .Time - 12000;
+    if (.Time < empbrk_record || empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Own Record!!!",0;
-        set empbrk_record, .time;
+        set empbrk_record, .Time;
         
     }
-    if (.time < $empbrk_record || $empbrk_record == 0)
+    if (.Time < $empbrk_record || $empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Official Record!!!",0;
 announce strcharinfo(0)+" is now the NO. 1 Emperium Breaker!!",0; 
-        set $empbrk_record, .time;
+        set $empbrk_record, .Time;
         set $empbrk_record$,strcharinfo(0); 
     }
-    set .m, .time / 60000;
-    set .time, .time - (.m * 60000);
-    set .s, .time /1000;
-    set .time, .time - (.s * 1000);
-areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.time+"ms",0;
+    set .m, .Time / 60000;
+    set .Time, .Time - (.m * 60000);
+    set .s, .Time /1000;
+    set .Time, .Time - (.s * 1000);
+areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.Time+"ms",0;
     set .end,1;
     set .charid,getcharid(0);
     initnpctimer;
@@ -358,26 +358,26 @@ end;
 
 OnThisMobDeath:
     stopnpctimer "EmpBrk#3";
-    set .time, getnpctimer(0,"EmpBrk#3");
-    set .time, .time - 12000;
-    if (.time < empbrk_record || empbrk_record == 0)
+    set .Time, getnpctimer(0,"EmpBrk#3");
+    set .Time, .Time - 12000;
+    if (.Time < empbrk_record || empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Own Record!!!",0;
-        set empbrk_record, .time;
+        set empbrk_record, .Time;
         
     }
-    if (.time < $empbrk_record || $empbrk_record == 0)
+    if (.Time < $empbrk_record || $empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Official Record!!!",0;
 announce strcharinfo(0)+" is now the NO. 1 Emperium Breaker!!",0; 
-        set $empbrk_record, .time;
+        set $empbrk_record, .Time;
         set $empbrk_record$,strcharinfo(0); 
     }
-    set .m, .time / 60000;
-    set .time, .time - (.m * 60000);
-    set .s, .time /1000;
-    set .time, .time - (.s * 1000);
-areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.time+"ms",0;
+    set .m, .Time / 60000;
+    set .Time, .Time - (.m * 60000);
+    set .s, .Time /1000;
+    set .Time, .Time - (.s * 1000);
+areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.Time+"ms",0;
     set .end,1;
     set .charid,getcharid(0);
     initnpctimer;
@@ -451,26 +451,26 @@ end;
 
 OnThisMobDeath:
     stopnpctimer "EmpBrk#4";
-    set .time, getnpctimer(0,"EmpBrk#4");
-    set .time, .time - 12000;
-    if (.time < empbrk_record || empbrk_record == 0)
+    set .Time, getnpctimer(0,"EmpBrk#4");
+    set .Time, .Time - 12000;
+    if (.Time < empbrk_record || empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Own Record!!!",0;
-        set empbrk_record, .time;
+        set empbrk_record, .Time;
         
     }
-    if (.time < $empbrk_record || $empbrk_record == 0)
+    if (.Time < $empbrk_record || $empbrk_record == 0)
     {
         areaannounce "emp_test",.x1,.y1,.x2,.y2,"New Official Record!!!",0;
 announce strcharinfo(0)+" is now the NO. 1 Emperium Breaker!!",0; 
-        set $empbrk_record, .time;
+        set $empbrk_record, .Time;
         set $empbrk_record$,strcharinfo(0); 
     }
-    set .m, .time / 60000;
-    set .time, .time - (.m * 60000);
-    set .s, .time /1000;
-    set .time, .time - (.s * 1000);
-areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.time+"ms",0;
+    set .m, .Time / 60000;
+    set .Time, .Time - (.m * 60000);
+    set .s, .Time /1000;
+    set .Time, .Time - (.s * 1000);
+areaannounce "emp_test",.x1,.y1,.x2,.y2,"Your time is "+.m+"m "+.s+"s "+.Time+"ms",0;
     set .end,1;
     set .charid,getcharid(0);
     initnpctimer;
