@@ -66,7 +66,7 @@ OnSun2359:
 	
 OnInit:
 	if ((gettime(4) == 0) || (gettime(4) == 6)) {
-		donpcevent strnpcinfo(0))+"::OnStart";
+		donpcevent strnpcinfo(0)+"::OnStart";
 		end;
 	}
 }
