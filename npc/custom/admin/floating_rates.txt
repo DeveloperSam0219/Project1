@@ -63,4 +63,10 @@ OnMon0000:
 	sleep 4000;
 	announce "Current CosmicRO rates are: "+(.@brate/100)+"x / "+(.@jrate/100)+"x / "+(.@drate)+"x",bc_all,0xFF6060;
 	end;
+	
+OnInit:
+	if ((gettime(4) == 0) || (gettime(4) == 6)) {
+		donpcevent strnpcinfo(0))+"::OnStart";
+		end;
+	}
 }
