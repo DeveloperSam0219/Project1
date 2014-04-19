@@ -20,24 +20,24 @@
 OnStart:
 OnSat0000:
 //-------------------
-	set .@brate,1200;
-	set .@jrate,1200;
+	set .@brate,1500;
+	set .@jrate,1500;
 	//Base exp
 	setbattleflag("base_exp_rate",.@brate);
 	//Job exp
 	setbattleflag("job_exp_rate",.@jrate);
 	//Drops
-	setbattleflag("item_rate_common",1600);
-	setbattleflag("item_rate_common_boss",1600);
-	setbattleflag("item_rate_heal",1600);
-	setbattleflag("item_rate_heal_boss",1600);
-	setbattleflag("item_rate_use",1600);
-	setbattleflag("item_rate_use_boss",1600);
-	setbattleflag("item_rate_equip",1600);
-	setbattleflag("item_rate_equip_boss",1600);
-	setbattleflag("item_rate_card",1600);
-	setbattleflag("item_rate_card_boss",1600);
-	setbattleflag("item_rate_treasure",1600);
+	setbattleflag("item_rate_common",2000);
+	setbattleflag("item_rate_common_boss",1000);
+	setbattleflag("item_rate_heal",2000);
+	setbattleflag("item_rate_heal_boss",1000);
+	setbattleflag("item_rate_use",2000);
+	setbattleflag("item_rate_use_boss",1000);
+	setbattleflag("item_rate_equip",2000);
+	setbattleflag("item_rate_equip_boss",100);
+	setbattleflag("item_rate_card",2000);
+	setbattleflag("item_rate_card_boss",100);
+	setbattleflag("item_rate_treasure",800);
 	//we don't change card drops rate, because these values won't change them anyway
 	atcommand "@reloadmobdb";
 	
@@ -47,7 +47,7 @@ OnSat0000:
 	end;
 
 OnEnd:
-OnMon0000:
+OnSun2359:
 //-------------------
 	/*Original Rates*/
 	set .@brate,1000;
