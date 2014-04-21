@@ -3992,10 +3992,10 @@ int pc_additem(struct map_session_data *sd,struct item *item_data,int amount,e_l
 		sd->inventory_data[i] = data;
 		clif->additem(sd,i,amount,0);
 	}
-#ifdef NSI_UNIQUE_ID
+
 	if( !itemdb->isstackable2(data) && !item_data->unique_id )
-		sd->status.inventory[i].unique_id = itemdb->unique_id(0,0);
-#endif
+		sd->status.inventory[i].unique_id = itemdb->unique_id(sd);
+
 	logs->pick_pc(sd, log_type, amount, &sd->status.inventory[i],sd->inventory_data[i]);
 
 	sd->weight += w;
@@ -6833,13 +6833,14 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 	int i=0,j=0;
 	int64 tick = timer->gettick();
 
-	for(j = 0; j < 5; j++)
+	for(j = 0; j < 5; j++) {
 		if (sd->devotion[j]){
 			struct map_session_data *devsd = map->id2sd(sd->devotion[j]);
 			if (devsd)
 				status_change_end(&devsd->bl, SC_DEVOTION, INVALID_TIMER);
 			sd->devotion[j] = 0;
 		}
+	}
 
 	if(sd->status.pet_id > 0 && sd->pd) {
 		struct pet_data *pd = sd->pd;
@@ -7137,6 +7138,17 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 			}
 		}
 	}
+
+	// Remove autotrade to prevent autotrading from save point
+	if( (sd->state.standalone || sd->state.autotrade)
+	 && (map->list[sd->bl.m].flag.pvp || map->list[sd->bl.m].flag.gvg)
+	  ) {
+		sd->state.autotrade = 0;
+		sd->state.standalone = 0;
+		pc->autotrade_update(sd,PAUC_REMOVE);
+		map->quit(sd);
+	}
+
 	// pvp
 	// disable certain pvp functions on pk_mode [Valaris]
 	if( map->list[sd->bl.m].flag.pvp && !battle_config.pk_mode && !map->list[sd->bl.m].flag.pvp_nocalcrank ) {
@@ -7166,10 +7178,10 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 		}
 	}
 
-
 	//Reset "can log out" tick.
 	if( battle_config.prevent_logout )
 		sd->canlog_tick = timer->gettick() - battle_config.prevent_logout;
+
 	return 1;
 }
 
