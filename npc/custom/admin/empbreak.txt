@@ -35,8 +35,8 @@ prontera,164,100,4	script	Emperium Breaker Test	106,{
     
     mes "Would you like to try a new record?";
     next;
-    if (getgmlevel()==99) { menu "Standard Menu",-,"Reset",L_reset,"Reset Rooms",L_emptyrooms,"Exit",L_exit;}
-    menu "Yes",-,"No",L_exit,"Reset",L_resc;
+    if (getgmlevel()==99) { menu "Standard Menu",-,"Reset",L_reset,"Reset Rooms",L_emptyrooms,"Exit",L_Exit;}
+    menu "Yes",-,"No",L_Exit,"Reset",L_resc;
     cleararray .arena$[0],"",4;
     mes "[Emperium Breaker Test]";
     if (getareausers("emp_test",94,128,105,139)) mes "Emp n° ^0000DF1 ^FF0000 Busy^000000";
@@ -97,14 +97,14 @@ close;
 L_reset:
     mes "[Emperium Breaker Test]";
     mes "Are you sure to reset official record ?";
-    menu "Yes",-,"No",L_exit;
+    menu "Yes",-,"No",L_Exit;
     set $empbrk_record, 0;
     set $empbrk_record$, "";
 close;
 L_resc:
     mes "[Emperium Breaker Test]";
     mes "Are you suere to rest your record?";
-    menu "Yes",-,"No",L_exit;
+    menu "Yes",-,"No",L_Exit;
     set empbrk_record, 0;
 
 L_emptyrooms:
@@ -113,7 +113,7 @@ set $@someonegotin2, 0;
 set $@someonegotin3, 0;
 set $@someonegotin4, 0;
 close;
-L_exit:
+L_Exit:
 close;    
     
 }
