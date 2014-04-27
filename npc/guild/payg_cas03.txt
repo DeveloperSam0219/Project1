@@ -79,6 +79,35 @@ pay_gld,333,254,4	duplicate(OutsideFlagsPA3)	Holy Shadow#4	GUILD_FLAG
 OnRecvCastlePy03:
 	flagemblem getcastledata("payg_cas03",1);
 	end;
+
+L_Warp:
+	getmapxy(.@map$,.@mapx,.@mapy,0);
+	if (!agitcheck() || !agitcheck2()) {
+	message strcharinfo(0),"WoE is not Active";
+	end;
+	}
+	set .@menu$,"";
+		for(set .@i,0; .@i<6; set .@i,.@i+1) {
+			if (getvariableofnpc(.Active[1],"WOE_CONTROL")&(1<<(.@i+1))) && (.@map$ == strtolower(getvariableofnpc(.Regions$[.@i],"WOE_CONTROL")))
+				set .@menu$, .@menu$+" ~ "+getvariableofnpc(.Regions$[.@i],"WOE_CONTROL")+" Castles^000000";
+			set .@menu$, .@menu$+":";
+		}
+		set .@i, select(.@menu$)-1;
+		set .@menu$,"";
+		for(set .@j,.@i*5; .@j<(.@i*5)+5; set .@j,.@j+1) {
+			if (getvariableofnpc(.Active[0],"WOE_CONTROL")&(1<<.@j))
+				set .@menu$, .@menu$+" ~ "+((getvariableofnpc(.Active[0],"WOE_CONTROL")&(1<<.@j))?.@clr$:"^777777")+getcastlename(getvariableofnpc(.Castles$[.@j],"WOE_CONTROL"))+"^000000";
+			set .@menu$, .@menu$+":";
+		}
+		set .@j, select(.@menu$)-1;
+		warp getvariableofnpc(.Map$[.@i],"WOE_CONTROL"),getvariableofnpc(.MapX[(.@i*5)+.@j],"WOE_CONTROL"),getvariableofnpc(.MapY[(.@i*5)+.@j],"WOE_CONTROL");
+		close;
+		end;
+
+OnInit:
+	defpattern 2,"take me to war","L_Warp";
+	activatepset 2;
+	end;
 }
 
 payg_cas03,236,54,2	duplicate(InsideFlagsPA3)	Holy Shadow#5-2	GUILD_FLAG

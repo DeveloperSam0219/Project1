@@ -15,3 +15,5 @@ prontera,156,360,0	script	prt005	45,2,2,{
 	}
 	end;
 }
+
+prontera,142,104,6	duplicate(Tool Dealer#prt1)	Tool Dealer#cst	1_M_INNKEEPER

@@ -133,7 +133,7 @@ gef_fild10	mapflag	nomemo
 gef_fild11	mapflag	nomemo
 gef_fild12	mapflag	nomemo
 gef_fild14	mapflag	nomemo
-glast_01	mapflag	nomemo
+//glast_01	mapflag	nomemo
 hu_fild01	mapflag	nomemo
 hu_fild05	mapflag	nomemo
 izlu2dun	mapflag	nomemo
