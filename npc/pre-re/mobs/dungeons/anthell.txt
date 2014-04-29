@@ -11,7 +11,6 @@
 
 //==================================================
 // anthell01 - Ant Hell F1
-// -Added Phreeoni
 //==================================================
 anthell01,0,0,0,0	monster	Familiar	1005,20,0,0,0
 anthell01,0,0,0,0	monster	Andre	1095,15,0,0,0
@@ -107,7 +106,6 @@ anthell01,103,120,0,0	monster	Ant Egg	1097,1,60000,30000,0
 anthell01,103,121,0,0	monster	Ant Egg	1097,1,60000,30000,0
 anthell01,102,121,0,0	monster	Ant Egg	1097,1,60000,30000,0
 anthell01,105,124,0,0	monster	Ant Egg	1097,1,60000,30000,0
-anthell01,0,0,0,0	boss_monster	Phreeoni	1159,1,7200000,600000,1
 
 //==================================================
 // anthell02 - Ant Hell F2
