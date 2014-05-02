@@ -596,7 +596,7 @@ function	script	F_KafSet	{
 		setarray @wrpP[0], 600, 1200, 1200, 1200, 1200, 1200, 1800;
 		setarray @viewpX[0], 151, 29, 282, 152;
 		setarray @viewpY[0], 29, 207, 200, 326;
-	} else if (strnpcinfo(4) == "oldalberta") {	// Changed to old Alberta
+	} else if (strnpcinfo(4) == "alberta") {
 		setarray @wrpP[0], 1200, 1800, 1800;
 		setarray @wrpD$[0], "Payon", "Morroc", "Prontera";
 		setarray @viewpX[0], 28, 113, 0, 0;
@@ -615,10 +615,10 @@ function	script	F_KafSet	{
 		setarray @wrpP[0], 1200, 1200, 1200, 1700;
 		setarray @viewpX[0], 120, 203;
 		setarray @viewpY[0], 62, 123;
-	} else if (strnpcinfo(4) == "oldizlude") {	// Changed to Old Izlude
+	} else if (strnpcinfo(4) == "izlude") {
 		setarray @wrpD$[0], "Geffen", "Payon", "Morroc", "Al De Baran";
 		setarray @wrpP[0], 1200, 1200, 1200, 1800;
-	} else if (strnpcinfo(4) == "morocc_mem") {	// Changed to Old Morocc
+	} else if (strnpcinfo(4) == "morocc") {
 		setarray @wrpD$[0], "Prontera", "Payon", "Alberta", "Comodo", "Comodo Pharos Beacon";
 		setarray @wrpP[0], 1200, 1200, 1800, 1800, 1200;
 		setarray @viewpX[0], 156, 163, 28, 292;
@@ -626,7 +626,7 @@ function	script	F_KafSet	{
 	} else if (strnpcinfo(4) == "umbala") {
 		setarray @wrpD$[0], "Comodo";
 		setarray @wrpP[0], 1800;
-	} else if (strnpcinfo(4) == "payon_mem") {	// Changed to Old Payon
+	} else if (strnpcinfo(4) == "payon") {
 		setarray @wrpD$[0], "Prontera", "Alberta", "Morroc";
 		setarray @wrpP[0], 1200, 1200, 1200;
 	} else if (strnpcinfo(4) == "yuno") {

@@ -127,6 +127,7 @@ OnMinute00:
 				else announce "The War Of Emperium has begun!",bc_all|bc_woe;
 				sleep 1000;
 				agitstart; agitstart2;
+				donpcevent "Agit#"+.Castles$[.@j]+"::OnAgitInit";
 				for(set .@j,0; .@j<30; set .@j,.@j+1) {
 					if (.Active[0]&(1<<.@j)) {
 						if (!.Init) Disp_Owner(.Castles$[.@j],0);

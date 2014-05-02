@@ -29,5 +29,6 @@
 //   base drop rates in mob_db.
 // - This file is reloaded by @reloadmobdb.
 
-972,800,1085
-972,800,1077
+972,1600,1085,1077
+2553,750,1717,1714
+2399,750,1713,1716
