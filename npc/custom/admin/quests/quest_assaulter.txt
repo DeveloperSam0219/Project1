@@ -149,3 +149,5 @@ tur_dun01,162,63,4	script	Kame#Turtle	59,{
 		close;
 	}
 }
+
+tur_dun04,94,189,4	duplicate(Kame#Turtle)	Kame#Turtle2	59

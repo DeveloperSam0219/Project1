@@ -37,11 +37,11 @@ OnSat0000:
 	setbattleflag("item_rate_equip_boss",100);
 	setbattleflag("item_rate_card",2000);
 	setbattleflag("item_rate_card_boss",100);
-	setbattleflag("item_rate_treasure",800);
+	setbattleflag("item_rate_treasure",2000);
 	//we don't change card drops rate, because these values won't change them anyway
 	atcommand "@reloadmobdb";
 	
-	announce "Floating rates Activated: "+(.@brate/100)+"x / "+(.@jrate/100)+"x / "+(.@drate)+"x",bc_all,0xFF6060;
+	announce "Floating rates Activated: "+(.@brate/100)+"x / "+(.@jrate/100)+"x",bc_all,0xFF6060;
 	sleep 10000;
 	announce "Floating rates will last until Sunday 11:59 PM",bc_all,0xFF6060;
 	end;
@@ -56,12 +56,24 @@ OnSun2359:
 	setbattleflag("base_exp_rate",.@brate);
 	//Job exp
 	setbattleflag("job_exp_rate",.@jrate);
+	//Drops
+	setbattleflag("item_rate_common",1000);
+	setbattleflag("item_rate_common_boss",1000);
+	setbattleflag("item_rate_heal",1000);
+	setbattleflag("item_rate_heal_boss",1000);
+	setbattleflag("item_rate_use",1000);
+	setbattleflag("item_rate_use_boss",1000);
+	setbattleflag("item_rate_equip",1000);
+	setbattleflag("item_rate_equip_boss",100);
+	setbattleflag("item_rate_card",1000);
+	setbattleflag("item_rate_card_boss",100);
+	setbattleflag("item_rate_treasure",1000);
 	//we don't change card drops rate, because these values won't change them anyway
 	atcommand "@reloadmobdb";
 	
 	announce "Floating Rates Ended.",bc_all,0xFF6060;
 	sleep 4000;
-	announce "Current CosmicRO rates are: "+(.@brate/100)+"x / "+(.@jrate/100)+"x / "+(.@drate)+"x",bc_all,0xFF6060;
+	announce "Current CosmicRO rates are: "+(.@brate/100)+"x / "+(.@jrate/100)+"x",bc_all,0xFF6060;
 	end;
 	
 OnInit:

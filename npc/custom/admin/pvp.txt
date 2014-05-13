@@ -1,4 +1,28 @@
-prontera,164,92,4	duplicate(gkut)	PVP Warper#1	413
+prontera,164,92,4	script	PVP Warper#1	413,{
+	mes "[Gate Keeper]";
+	mes "The admission fee is 500 Zeny.";
+	mes "Do you want to enter the pvp room?";
+	switch(select("Yes:No")) {
+		case 1:
+			if (Zeny < 500) {
+				mes "Sorry, but you don't have enough zeny..";
+				close;
+			}
+			else {
+				Zeny -= 500;
+				announce strcharinfo(0)+" entered the pvp room.",bc_all;
+				warp "pvp_room01",0,0;
+				close;
+			}
+			end;
+		case 2:
+			mes "Alright, come back anytime..";
+			close;
+	}
+}
+
+pvp_room01	mapflag	pvp
+pvp_room01	mapflag	pvp_noguild
 
 -	script	PVP Announcer	-1,{
 
@@ -12,42 +36,72 @@ OnInit:
 	setarray .KSDotA$[0],"is on a Killing Spree", "is Dominating", "has a Mega-Kill", "is Unstoppable", "is Wicked Sick", "has a M-m-m-m....Monster Kill", "is Godlike", "is Beyond Godlike";
 	setarray .MKDotA$[0],"just got a Double Kill", "just got a Triple Kill", "just got an Ultra Kill", "is on a Rampage", "is Owning his enemies";
 	setarray .ESDotA$[0], "Killing Spree", "Dominating", "Mega-Kill", "Unstoppable", "Wicked Sick", "Monster Kill", "Godlike", "Beyond Godlike";
+	setarray .EMDotA$[0], "Double Kill", "Triple Kill", "Ultra Kill", "Rampage", "Ownage";
+
+	//Announcer Setting
+	set .Streak, 1; //Show number of killing streak in broadcast? e.g. Ghost is Beyond Godlike(8)
+	set .Multiple, 1; //Show number of multiple kill in broadcast? e.g. Makizushi just got an Ownage(5)
+	set .Nemesis, 1; //Show number of nemesis in broadcast? e.g. Epoque is owning Jguy(9)
+	set .Feeder, 1; //Show number of feed in broadcast? e.g. Cookies is feeding `KeiKun(10)
+	set .RandomKillWord, 1; //Randomize the kill words? e.g. Arcenciel "Kill Word" jTynne (0:Disable|Default:"pwned")
+	setarray .KillWord$[0], "pawned", "killed", "disintegrated", "neutralized"; //Enable above setting for this to work
+
+	//Penalty Setting
+	set .Feed, 10; //How many kills before feeding is called? (10:Recommended)
+	set .Penalty, 2; //What is the penalty for the feedee? (0:Disable|1:Kill Rollback|2:Server Kick|3:Server Block)
+	set .Kick, 2; //Who to kick? (0:Feedee|1:Feeder|2:Both)
+	set .Rollback, 10; //How many times should the kill count rollback when feeding is called? (10:Recommended)
 	end;
 
 OnPCKillEvent:
 	if(getgmlevel() >= .GMLevel){ end; }
+	if((@nm == .Feed) && (.Penalty)){
+		callsub OnClearData;
+		switch(.Penalty){
+			case 0: break;
+			case 1: callsub OnRollback; break;
+			case 2: callsub OnRollback;
+				if(.Kick == 0){ atcommand "@kick "+strcharinfo(0); }
+				if(.Kick == 1){ atcommand "@kick "+rid2name(killedrid); }
+				if(.Kick == 2){ atcommand "@kick "+strcharinfo(0); atcommand "@kick "+rid2name(killedrid); }
+				break;
+			case 3: callsub OnRollback;
+				if(.Kick == 0){ atcommand "@block "+strcharinfo(0); }
+				if(.Kick == 1){ atcommand "@block "+rid2name(killedrid); }
+				if(.Kick == 2){ atcommand "@block "+strcharinfo(0);	atcommand "@block "+rid2name(killedrid); }
+				break;
+			default: break;
+		}
+	}
 	announce strcharinfo(0)+" pawned "+rid2name(killedrid)+"'s head in "+strcharinfo(3)+"!", ((.Broadcast)?bc_map:bc_all), .KColor$;
-	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) {
+	if(@ks < 10){ set @ks, @ks + 1; }
+	if(@mk < 6){ set @mk, @mk + 1; }
+	if(!NemesisKilled){ set NemesisKilled, killedrid; }
+	if(NemesisKilled == killedrid){ set @nm, @nm + 1; }
+	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_battleground) == 1) {
 		set Kill, Kill + 1;
 		dispbottom "Total PvP Kills: " + Kill;
 	}
-	if(@ks < 10){ set @ks, @ks + 1; }
-	if(@mk < 6){ set @mk, @mk + 1; }
-	callsub OnRecordStreak;
-	callsub OnAnnounce;
+	deltimer "Versus::OnMKReset"; 
+	addtimer 18000, "Versus::OnMKReset"; 
+	callsub OnRecordStreak; 
+	callsub OnAnnounce; 
 	callsub OnDeath;
 	end;
 
 OnPCDieEvent:
 	if(getgmlevel() >= .GMLevel){ end; }
-	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) {
+	if (getmapflag(""+strcharinfo(3)+"",mf_pvp) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_gvg) == 1) || (getmapflag(""+strcharinfo(3)+"",mf_battleground) == 1) {
 		set Death, Death + 1;
 	}
 	end;
 
-OnDeath:
-	attachrid(killedrid);
-	if(@ks > 2){
-		announce rid2name(killerrid)+" just ended "+strcharinfo(0)+"'s "+.ESDotA$[@ks - 3]+" "+((.Streak)?"("+@ks+")":"")+"", ((.Broadcast)?bc_map:bc_all), .ESColor$;
-	}
-	callsub OnClearData;
-	return;
-
-OnClearData: 
-	sleep2 3000;
-	set @ks, 0;
-	set @mk, 0;
-	return;
+OnPCLogoutEvent:
+if(getgmlevel() >= .GMLevel){ end; }
+if(Kill){ query_sql("REPLACE INTO `pvp_rank` (`char_id`, `account_id`, `char`, `kill`, `death`, `kdr`, `killingstreak`, `multikill`,  `nemesiskill`, `feedcount`,`killingspree`, `dominating`, `megakill`, `unstoppable`, `wickedsick`, `monsterkill`, `godlike`, `beyondgodlike`, `doublekill`, `triplekill`, `ultrakill`, `rampage`, `ownage`) VALUES ("+getcharid(0)+","+getcharid(3)+", '"+rid2name(getcharid(3))+"', "+Kill+", "+Death+", '"+callfunc("KDR_Calc", Kill, Death)+"', "+KillingStreak+", "+MultiKill+",  "+NemesisKill+", "+FeedCount+", "+KillingSpree+", "+Dominating+", "+MegaKill+", "+Unstoppable+", "+WickedSick+", "+MonsterKill+", "+Godlike+", "+BeyondGodlike+", "+DoubleKill+", "+TripleKill+", "+UltraKill+", "+Rampage+", "+Ownage+")"); }
+callsub OnClearData;
+deltimer "Versus::OnMKReset";
+end;
 
 OnRecordStreak:
 if(@ks > 2){
@@ -77,6 +131,10 @@ if(@mk > 1){
 	default: break;
 	}
 }
+if((@nm > 3) && (@nm < .Feed)){ set NemesisKill, NemesisKill + 1; }
+if(@nm >= .Feed){
+	set FeedCount, FeedCount + 1;
+}
 return;
 
 OnAnnounce:
@@ -90,5 +148,102 @@ OnAnnounce:
 	if(@mk > 1){
 		announce strcharinfo(0)+" "+.MKDotA$[@mk - 2]+" "+((.Multiple)?"("+@mk+")":"")+"", ((.Broadcast)?bc_map:bc_all), .MKColor$;
 	}
+	if((@nm > 3) && (@nm < .Feed)){
+		announce strcharinfo(0)+" is owning "+rid2name(NemesisKilled)+" "+((.Nemesis)?"("+@nm+")":"")+"", ((.Broadcast)?bc_map:bc_all), .NMColor$;
+		sleep2 2000;
+	}
+	if(@nm >= .Feed){
+		announce rid2name(NemesisKilled)+" is feeding "+strcharinfo(0)+" "+((.Feeder)?"("+@nm+")":"")+"", ((.Broadcast)?bc_map:bc_all), .FDColor$;
+		sleep2 1500;
+	}
 	return;
+
+OnDeath:
+	attachrid(killedrid);
+	if(@ks > 2){
+		announce rid2name(killerrid)+" just ended "+strcharinfo(0)+"'s "+.ESDotA$[@ks - 3]+" "+((.Streak)?"("+@ks+")":"")+"", ((.Broadcast)?bc_map:bc_all), .ESColor$;
+	}
+	if(@nm > 3){
+		if (rid2name(killerrid) == rid2name(killedrid)) {
+			announce rid2name(killerrid)+" just have a payback againts "+strcharinfo(0)+" "+((.Nemesis)?"("+@nm+")":"")+"", ((.Broadcast)?bc_map:bc_all), .PBColor$;
+		}
+	}
+	callsub OnClearData;
+	return;
+
+OnMKReset: set @mk, 0; end;
+OnClearData: sleep2 3000; set NemesisKilled, 0; set @ks, 0; set @mk, 0; set @nm, 0; return;
+
+OnRollback:
+if(.Zeny){ set Zeny, Zeny - (.Zeny * .Rollback); }
+if(.Cash){ dispbottom "[Point System] -"+(.Cash * .Rollback)+" Kill Point"; set #CASHPOINT, #CASHPOINT - (.Cash * .Rollback); }
+if(.Skull){ delitem 7420, .Rollback; }
+if(.PvPcoin){ delitem 31007, .Rollback; }
+for(set .@i, 0; .@i < getarraysize(.ItemID); set .@i, .@i + 1){ if(.ItemID){ delitem .ItemID[.@i], .Amount[.@i] * .Rollback; }}
+if((Kill - .Rollback) > 0){ set Kill, Kill - .Rollback; } else { set Kill, 0; }
+if((KillingSpree - 1) > 0){ set KillingSpree, KillingSpree - 1; } else { set KillingSpree, 0; }
+if((Dominating - 1) > 0){ set Dominating, Dominating - 1; } else { set Dominating, 0; }
+if((MegaKill - 1) > 0){ set MegaKill, MegaKill - 1; } else { set MegaKill, 0; }
+if((Unstoppable - 1) > 0){ set Unstoppable, Unstoppable - 1; } else { set Unstoppable, 0; }
+if((WickedSick - 1) > 0){ set WickedSick, WickedSick - 1; } else { set WickedSick, 0; }
+if((MonsterKill - 1) > 0){ set MonsterKill, MonsterKill - 1; } else { set MonsterKill, 0; }
+if((Godlike - 1) > 0){ set Godlike, Godlike - 1; } else { set Godlike, 0; }
+if((BeyondGodlike - 1) > 0){ set BeyondGodlike, BeyondGodlike - 1; } else { set BeyondGodlike, 0; }
+if((DoubleKill - 1) > 0){ set DoubleKill, DoubleKill - 1; } else { set DoubleKill, 0; }
+if((TripleKill - 1) > 0){ set TripleKill, TripleKill - 1; } else { set TripleKill, 0; }
+if((UltraKill - 1) > 0){ set UltraKill, UltraKill - 1; } else { set UltraKill, 0; }
+if((Rampage - 1) > 0){ set Rampage, Rampage - 1; } else { set Rampage, 0; }
+if((Ownage - 1) > 0){ set Ownage, Ownage - 1; } else { set Ownage, 0; }
+if((NemesisKill - (.Rollback - 3)) > 0){ set NemesisKill, NemesisKill - (.Rollback - 3); } else { set NemesisKill, 0; }
+announce "[Anti-Feed] Your kill count has been rollbacked "+.Rollback+" times.",bc_self,0xFF0000;
+return;
+}
+
+prontera,146,108,4,	script	Ladder	413,{
+	switch(select("Player Ranking:PvP Statistic")) {
+	case 1:
+		mes "[Top 10 PvP Players]";
+		mes "^0000FFKill^000000 | ^FF0000Death^000000 | ^FF22FFKDR^000000 | ^00FF00SK^000000 | ^666666MK^000000";
+		query_sql "SELECT `char`, `kill`, `death`, `kdr`, `killingstreak`, `multikill` FROM `pvp_rank` ORDER BY `pvp_rank`.`kdr` DESC LIMIT 10", .@char$, .@kill, .@death, .@kdr$, .@sk, .@mk;
+		for(set .@i, 0; .@i < getarraysize(.@char$); set .@i, .@i + 1){
+			mes .@i+1+". "+.@char$[.@i]+" ^0000FF"+.@kill[.@i]+"^000000 ^FF0000"+.@death[.@i]+"^000000 ^FF22FF"+.@kdr$[.@i]+"^000000 ^00FF00"+.@sk[.@i]+"^000000 ^666666"+.@mk[.@i]+"^000000 ";
+		}
+		close;
+	case 2: //PvP Statistic
+	mes strcharinfo(0)+"'s PvP Statistic"; mes "^666666Kill:^000000 "+Kill+" ^666666Death:^000000 "+Death+" ^666666KDR:^000000 "+callfunc("KDR_Calc", Kill, Death)+"^000000";
+	mes "^666666Killing Streak:^000000 "+KillingStreak+" ^666666Multi-Kills:^000000 "+MultiKill+"";
+	switch(select("Killing Streak:Multi-Kill Streak:Nemesis Streak")) {
+	case 1: //Killing Streak
+		next;
+		setarray .LSDotA$[0], ""+KillingSpree+"", ""+Dominating+"", ""+MegaKill+"", ""+Unstoppable+"", ""+WickedSick+"", ""+MonsterKill+"", ""+Godlike+"", ""+BeyondGodlike+"";
+		mes "Killing Streak Stats";
+			for(set .@i, 0; .@i < getarraysize(.LSDotA$); set .@i, .@i + 1){
+				mes "^666666"+getvariableofnpc(.ESDotA$[.@i], "PVP Announcer")+"^000000: "+ .LSDotA$[.@i];
+			}
+			close;
+	case 2: //Multi-Kill
+		next;
+		setarray .LMDotA$[0], ""+DoubleKill+"", ""+TripleKill+"", ""+UltraKill+"", ""+Rampage+"", ""+Ownage+"";
+		mes "Multi-Kill Stats";
+			for(set .@i, 0; .@i < getarraysize(.LMDotA$); set .@i, .@i + 1){
+				mes "^666666"+getvariableofnpc(.EMDotA$[.@i], "PVP Announcer")+"^000000: "+ .LMDotA$[.@i];
+			 }
+			close;
+	}
+	close;
+	case 3:	//Nemesis
+		next;
+		mes "Nemesis Stat";
+		mes "^666666Nemesis Kill^000000: "+NemesisKill;
+		mes "^666666Feed Count^000000: "+FeedCount;
+		close;
+	default:
+		close;
+	}
+}
+
+function	script	KDR_Calc	{
+	set .@i, getarg(0) - (getarg(1) * 2);
+	return .@i;
+	end;
 }

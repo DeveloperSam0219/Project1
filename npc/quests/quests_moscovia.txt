@@ -5481,7 +5481,7 @@ mosk_in,221,43,0	script	#bowl	HIDDEN_NPC,{
 //----------------------------------------------------------------------------
 // Center of Town
 //----------------------------------------------------------------------------
-moscovia,224,190,0	script	#nowinterplz	CLEAR_NPC,{
+/*moscovia,224,190,0	script	#nowinterplz	CLEAR_NPC,{
 	if (mos_nowinter != 19) end;
 	if (countitem(7765)) {
 		mes "["+strcharinfo(0)+"]";
@@ -5516,7 +5516,7 @@ moscovia,224,190,0	script	#nowinterplz	CLEAR_NPC,{
 	mes "Ah, where did I place";
 	mes "the magic bottle that Baba Yaga gave to me...";
 	close;
-}
+}*/
 
 //----------------------------------------------------------------------------
 // Villagers

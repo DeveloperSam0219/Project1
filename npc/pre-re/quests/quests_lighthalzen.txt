@@ -10,4 +10,5 @@
 //= 1.0 First version.
 //============================================================
 
-izlude,186,57,5	duplicate(Scamp)	Scamp#iz	4_M_YURI
+//izlude,186,57,5	duplicate(Scamp)	Scamp#iz	4_M_YURI
+izlude,172,73,5	duplicate(Scamp)	Scamp#iz	4_M_YURI

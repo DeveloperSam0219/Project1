@@ -35,3 +35,30 @@ OnAtcommand:
 	}
 }
 
+-	script	acmd_storage	-1,{
+
+OnInit:
+bindatcmd "storage",strnpcinfo(3)+"::OnAtcommand";
+end;
+ 
+OnAtcommand:
+if(getmapflag(strcharinfo(3),mf_town) == 1) {
+	if (Zeny >= 500) {
+		Zeny -= 500;
+		openstorage;
+		end;
+	}
+	else {
+		message strcharinfo(0),"You don't have enough zeny.";
+		message strcharinfo(0),"@storage failed";
+		end;
+	}
+}
+else {
+	message strcharinfo(0),"You can only use @storage in town.";
+	message strcharinfo(0),"@storage failed";
+	end;
+}
+end;
+ 
+}
