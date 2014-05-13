@@ -23,6 +23,12 @@ prontera,164,92,4	script	PVP Warper#1	413,{
 
 pvp_room01	mapflag	pvp
 pvp_room01	mapflag	pvp_noguild
+pvp_room01	mapflag	nowarp
+pvp_room01	mapflag	nowarpto
+pvp_room01	mapflag	noteleport
+pvp_room01	mapflag	nosave
+pvp_room01	mapflag	nomemo
+pvp_room01	mapflag	nobranch
 
 -	script	PVP Announcer	-1,{
 
