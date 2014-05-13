@@ -2,56 +2,60 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/socket.h"
-#include "../common/timer.h"
-#include "../common/grfio.h"
-#include "../common/malloc.h"
-#include "../common/nullpo.h"
-#include "../common/random.h"
-#include "../common/showmsg.h"
-#include "../common/strlib.h"
-#include "../common/utils.h"
-#include "../common/ers.h"
-#include "../common/conf.h"
-#include "../common/HPM.h"
+#define HERCULES_CORE
 
-#include "map.h"
-#include "chrif.h"
-#include "pc.h"
-#include "status.h"
-#include "npc.h"
-#include "itemdb.h"
-#include "chat.h"
-#include "trade.h"
-#include "storage.h"
-#include "script.h"
-#include "skill.h"
-#include "atcommand.h"
-#include "intif.h"
-#include "battle.h"
-#include "battleground.h"
-#include "mob.h"
-#include "party.h"
-#include "unit.h"
-#include "guild.h"
-#include "vending.h"
-#include "pet.h"
-#include "homunculus.h"
-#include "instance.h"
-#include "mercenary.h"
-#include "elemental.h"
-#include "log.h"
+#include "../config/core.h" // ANTI_MAYAP_CHEAT, RENEWAL, SECURE_NPCTIMEOUT
 #include "clif.h"
-#include "mail.h"
-#include "quest.h"
-#include "irc-bot.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 #include <time.h>
+
+#include "atcommand.h"
+#include "battle.h"
+#include "battleground.h"
+#include "chat.h"
+#include "chrif.h"
+#include "elemental.h"
+#include "guild.h"
+#include "homunculus.h"
+#include "instance.h"
+#include "intif.h"
+#include "irc-bot.h"
+#include "itemdb.h"
+#include "log.h"
+#include "mail.h"
+#include "map.h"
+#include "mercenary.h"
+#include "mob.h"
+#include "npc.h"
+#include "party.h"
+#include "pc.h"
+#include "pet.h"
+#include "quest.h"
+#include "script.h"
+#include "skill.h"
+#include "status.h"
+#include "storage.h"
+#include "trade.h"
+#include "unit.h"
+#include "vending.h"
+#include "../common/HPM.h"
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/ers.h"
+#include "../common/grfio.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h" // NEW_CARTS
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
 
 struct clif_interface clif_s;
 
@@ -61,8 +65,10 @@ static struct packet_itemlist_equip itemlist_equip;
 static struct packet_storelist_normal storelist_normal;
 static struct packet_storelist_equip storelist_equip;
 static struct packet_viewequip_ack viewequip_list;
+#if PACKETVER >= 20131223
 static struct packet_npc_market_result_ack npcmarket_result;
 static struct packet_npc_market_open npcmarket_open;
+#endif
 //#define DUMP_UNKNOWN_PACKET
 //#define DUMP_INVALID_PACKET
 
@@ -8131,7 +8137,7 @@ void clif_disp_message(struct block_list* src, const char* mes, size_t len, enum
 /// result:
 ///     0 = failure
 ///     1 = success
-void clif_GM_kickack(struct map_session_data *sd, int id)
+void clif_GM_kickack(struct map_session_data *sd, int result)
 {
 	int fd;
 
@@ -8140,7 +8146,7 @@ void clif_GM_kickack(struct map_session_data *sd, int id)
 	fd = sd->fd;
 	WFIFOHEAD(fd,packet_len(0xcd));
 	WFIFOW(fd,0) = 0xcd;
-	WFIFOB(fd,2) = id;  // FIXME: this is not account id
+	WFIFOB(fd,2) = result;
 	WFIFOSET(fd, packet_len(0xcd));
 }
 
@@ -8154,7 +8160,7 @@ void clif_GM_kick(struct map_session_data *sd,struct map_session_data *tsd) {
 		map->quit(tsd);
 
 	if( sd )
-		clif->GM_kickack(sd,tsd->status.account_id);
+		clif->GM_kickack(sd, 1);
 }
 
 
@@ -10107,7 +10113,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 
 	if (sd->sc.count &&
 		(sd->sc.data[SC_TRICKDEAD] ||
-		sd->sc.data[SC_AUTOCOUNTER] ||
+		(sd->sc.data[SC_AUTOCOUNTER] && action_type != 0x07) ||
 		 sd->sc.data[SC_BLADESTOP] ||
 		 sd->sc.data[SC_DEEP_SLEEP] ||
 		 sd->sc.data[SC__MANHOLE] ||
@@ -14607,18 +14613,27 @@ void clif_parse_HomMenu(int fd, struct map_session_data *sd) { //[orn]
 /// 0292
 void clif_parse_AutoRevive(int fd, struct map_session_data *sd) {
 	int item_position = pc->search_inventory(sd, ITEMID_TOKEN_OF_SIEGFRIED);
+	int hpsp = 100;
 
-	if (item_position < 0)
-		return;
+	if (item_position < 0){
+		if (sd->sc.data[SC_LIGHT_OF_REGENE])
+			hpsp = 20 * sd->sc.data[SC_LIGHT_OF_REGENE]->val1;
+		else
+			return;
+	}
 
 	if (sd->sc.data[SC_HELLPOWER]) //Cannot res while under the effect of SC_HELLPOWER.
 		return;
 
-	if (!status->revive(&sd->bl, 100, 100))
+	if (!status->revive(&sd->bl, hpsp, hpsp))
 		return;
 
+	if ( item_position > 0)
+		pc->delitem(sd, item_position, 1, 0, 1, LOG_TYPE_CONSUME);
+	else
+		status_change_end(&sd->bl,SC_LIGHT_OF_REGENE,INVALID_TIMER);
+
 	clif->skill_nodamage(&sd->bl,&sd->bl,ALL_RESURRECTION,4,1);
-	pc->delitem(sd, item_position, 1, 0, 1, LOG_TYPE_CONSUME);
 }
 
 
@@ -15547,20 +15562,10 @@ void clif_cashshop_show(struct map_session_data *sd, struct npc_data *nd) {
 	WFIFOSET(fd,WFIFOW(fd,2));
 }
 
-
 /// Cashshop Buy Ack (ZC_PC_CASH_POINT_UPDATE).
 /// 0289 <cash point>.L <error>.W
 /// 0289 <cash point>.L <kafra point>.L <error>.W (PACKETVER >= 20070711)
-/// error:
-///     0 = The deal has successfully completed. (ERROR_TYPE_NONE)
-///     1 = The Purchase has failed because the NPC does not exist. (ERROR_TYPE_NPC)
-///     2 = The Purchase has failed because the Kafra Shop System is not working correctly. (ERROR_TYPE_SYSTEM)
-///     3 = You are over your Weight Limit. (ERROR_TYPE_INVENTORY_WEIGHT)
-///     4 = You cannot purchase items while you are in a trade. (ERROR_TYPE_EXCHANGE)
-///     5 = The Purchase has failed because the Item Information was incorrect. (ERROR_TYPE_ITEM_ID)
-///     6 = You do not have enough Kafra Credit Points. (ERROR_TYPE_MONEY)
-///     7 = You can purchase up to 10 items.
-///     8 = Some items could not be purchased.
+/// For error return codes see enum cashshop_error@clif.h
 void clif_cashshop_ack(struct map_session_data* sd, int error) {
 	struct npc_data *nd;
     int fd = sd->fd;

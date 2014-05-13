@@ -2,21 +2,25 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/mmo.h"
-#include "../common/malloc.h"
-#include "../common/socket.h"
-#include "../common/db.h"
-#include "../common/showmsg.h"
-#include "../common/strlib.h"
-#include "../common/timer.h"
-#include "char.h"
-#include "inter.h"
+#define HERCULES_CORE
+
+#include "../config/core.h" // DBPATH
 #include "int_guild.h"
 
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "char.h"
+#include "inter.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
 
 #define GS_MEMBER_UNMODIFIED 0x00
 #define GS_MEMBER_MODIFIED 0x01
@@ -1437,7 +1441,7 @@ int mapif_parse_GuildBasicInfoChange(int fd, int guild_id, int type, const void 
 	switch(type) {
 		case GBI_EXP:
 			value = *((const int16 *)data);
-			if( g->exp+value < 0 )
+			if( value < 0 && abs(value) > g->exp )
 				return 0;
 			g->exp += value;
 			guild_calcinfo(g);
