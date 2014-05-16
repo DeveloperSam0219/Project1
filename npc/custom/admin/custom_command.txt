@@ -62,3 +62,16 @@ else {
 end;
  
 }
+
+-	script	Invisibility	-1,{
+
+OnInvisibility:
+	initnpctimer "trial",1;
+	skill "AS_CLOAKING",3,1;
+	sc_start SC_CLOAKING,5000,3;
+	end;
+	
+OnTimer5000:
+	sc_end SC_CLOAKING;
+	end;
+}
