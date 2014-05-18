@@ -581,7 +581,7 @@ c_tower1,203,163,4	duplicate(Sister)	Dungeon Keeper#8	8W_SOLDIER
 mjo_dun01,49,24,4	duplicate(Sister)	Dungeon Keeper#9	8W_SOLDIER
 prt_sewb1,129,254,4	duplicate(Sister)	Dungeon Keeper#10	8W_SOLDIER
 ein_dun01,24,19,4	duplicate(Sister)	Dungeon Keeper#11	8W_SOLDIER
-gefenia01,46,106,4	duplicate(Sister)	Dungeon Keeper#12	8W_SOLDIER
+//gefenia01,46,106,4	duplicate(Sister)	Dungeon Keeper#12	8W_SOLDIER
 gef_dun00,99,101,4	duplicate(Sister)	Dungeon Keeper#13	8W_SOLDIER
 glast_01,367,308,4	duplicate(Sister)	Dungeon Keeper#14	8W_SOLDIER
 gon_dun01,158,51,4	duplicate(Sister)	Dungeon Keeper#15	8W_SOLDIER

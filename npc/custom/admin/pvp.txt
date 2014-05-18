@@ -29,6 +29,7 @@ pvp_room01	mapflag	noteleport
 pvp_room01	mapflag	nosave
 pvp_room01	mapflag	nomemo
 pvp_room01	mapflag	nobranch
+pvp_room01	mapflag	nopenalty
 
 -	script	PVP Announcer	-1,{
 
