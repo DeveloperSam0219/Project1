@@ -462,13 +462,13 @@ aldebaran,203,201,0	script	Mother	581,{
 			next;
 			switch (select("Yes:No")) {
 			case 1:
-				if (Zeny >= 20000) {
+				if (Zeny >= 5000) {
 				for (set .@k,0; .@k < getarraysize(.dungeons$); set .@k,.@k+1) {
 					if (@mapname$ == .dungeons$[.@k]) {
 						setarray dungeonlock$[.@k],"yes";
 					}
 				}
-				Zeny -= 20000;
+				Zeny -= 5000;
 				mes .npc$;
 				mes "You have unlocked this dungeon.";
 				close;
