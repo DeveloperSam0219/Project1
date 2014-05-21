@@ -218,7 +218,7 @@ OnInit:
 	AddTown("Mora", "mora", 55, 146);
 	AddTown("Morroc", "morocc", 156, 93);
 	AddTown("Moscovia", "moscovia", 214, 183);
-	AddTown("Nameless Island", "nameless_n", 256, 215);
+	//AddTown("Nameless Island", "nameless_n", 256, 215);
 	AddTown("Niflheim", "niflheim", 85, 154);
 	AddTown("Payon", "payon", 179, 100);
 	AddTown("Rachel", "rachel", 130, 137);
