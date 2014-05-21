@@ -52,6 +52,86 @@ tur_dun01,162,63,4	script	Kame#Turtle	59,{
 			close;
 		}
 	}
+	if (checkquest(20001) != -1) {
+		if (checkquest(20001,HUNTING) != 2 ) {
+			mes "[Kame]";
+			mes "Have you finished hunting the 100 Assaulter?";
+			next;
+			switch(select("Yes:No:I want to quit")) {
+			case 1:
+				mes "[Kame]";
+				mes "Hmm, I don't think you've hunted 100 yet...";
+				close;
+			case 2:
+				mes "[Kame]";
+				mes "Remember, I need help hunting Assaulter so go and hunt 100 of them.";
+				close;
+			case 3:
+				mes "[Kame]";
+				mes "Are you sure that you want to stop hunting?";
+				mes "Any progress that you've made will be erased";
+				next;
+				switch(select("Yes:No")) {
+				case 1:
+					mes "[Kame]";
+					mes "Ok then, well come back here if you change your mind.";
+					erasequest 20001;
+					close;
+				case 2:
+					mes "[Kame]";
+					mes "Please kill 100 Assaulter.";
+					close;
+				}
+			}
+		}
+		else {
+			mes "[Kame]";
+			mes "Amazing, you did that with speed.";
+			getexp 550000,550000;
+			erasequest 20001;
+			close;
+		}
+	}
+	if (checkquest(20002) != -1) {
+		if (checkquest(20002,HUNTING) != 2 ) {
+			mes "[Kame]";
+			mes "Have you finished hunting the 150 Assaulter?";
+			next;
+			switch(select("Yes:No:I want to quit")) {
+			case 1:
+				mes "[Kame]";
+				mes "Hmm, I don't think you've hunted 150 yet...";
+				close;
+			case 2:
+				mes "[Kame]";
+				mes "Remember, I need help hunting Assaulter so go and hunt 150 of them.";
+				close;
+			case 3:
+				mes "[Kame]";
+				mes "Are you sure that you want to stop hunting?";
+				mes "Any progress that you've made will be erased";
+				next;
+				switch(select("Yes:No")) {
+				case 1:
+					mes "[Kame]";
+					mes "Ok then, well come back here if you change your mind.";
+					erasequest 200002;
+					close;
+				case 2:
+					mes "[Kame]";
+					mes "Please kill 150 Assaulter.";
+					close;
+				}
+			}
+		}
+		else {
+			mes "[Kame]";
+			mes "Amazing, you did that with speed.";
+			getexp 600000,600000;
+			erasequest 20002;
+			close;
+		}
+	}
 	//for minimum level
 	if (BaseLevel > 85) {
 		//for maximum level

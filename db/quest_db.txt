@@ -2823,3 +2823,5 @@
 // CosmicRO Custom Quest
 
 20000,0,1315,50,0,0,0,0,"Hunting Assaulter"
+20001,0,1315,100,0,0,0,0,"Hunting Assaulter"
+20002,0,1315,150,0,0,0,0,"Hunting Assaulter"
