@@ -1,6 +1,10 @@
 novice,51,49,4	script	CosmicRO Welcomer	75,{
 	mes "[ExhilarateRO Welcomer]";
 	mes "Hi! Welcome to Cosmic Ragnarok Online!";
+	if (!#Toast) { 
+		getitembound 26012,1,1;
+		set #Toast,1;
+	}
 	set Zeny, Zeny + 5000;
 	dispbottom "You have received 5,000z";
 	close2;
