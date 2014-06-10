@@ -287,7 +287,7 @@ int lan_subnetcheck(uint32 ip)
 }
 
 //----------------------------------
-// Reading Lan Support configuration
+// Reading LAN Support configuration
 //----------------------------------
 int login_lan_config_read(const char *lancfgName)
 {
@@ -724,13 +724,13 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,6);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Char-server '%s': Error of UnBan request (account: %d not found, ip: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("Char-server '%s': Error of Unban request (account: %d not found, ip: %s).\n", server[id].name, account_id, ip);
 			else
 			if( acc.unban_time == 0 )
-				ShowNotice("Char-server '%s': Error of UnBan request (account: %d, no change for unban date, ip: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("Char-server '%s': Error of Unban request (account: %d, no change for unban date, ip: %s).\n", server[id].name, account_id, ip);
 			else
 			{
-				ShowNotice("Char-server '%s': UnBan request (account: %d, ip: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("Char-server '%s': Unban request (account: %d, ip: %s).\n", server[id].name, account_id, ip);
 				acc.unban_time = 0;
 				accounts->save(accounts, &acc);
 			}
@@ -845,18 +845,20 @@ int parse_fromchar(int fd)
 					WFIFOHEAD(fd,183);
 					WFIFOW(fd,0) = 0x2737;
 					safestrncpy((char*)WFIFOP(fd,2), acc.userid, NAME_LENGTH);
-					if (u_group >= acc.group_id) {
+					if (u_group >= acc.group_id)
 						safestrncpy((char*)WFIFOP(fd,26), acc.pass, 33);
-					}
+					else
+						memset(WFIFOP(fd,26), '\0', 33);
 					safestrncpy((char*)WFIFOP(fd,59), acc.email, 40);
 					safestrncpy((char*)WFIFOP(fd,99), acc.last_ip, 16);
 					WFIFOL(fd,115) = acc.group_id;
 					safestrncpy((char*)WFIFOP(fd,119), acc.lastlogin, 24);
 					WFIFOL(fd,143) = acc.logincount;
 					WFIFOL(fd,147) = acc.state;
-					if (u_group >= acc.group_id) {
+					if (u_group >= acc.group_id) 
 						safestrncpy((char*)WFIFOP(fd,151), acc.pincode, 5);
-					}
+					else
+						memset(WFIFOP(fd,151), '\0', 5);
 					safestrncpy((char*)WFIFOP(fd,156), acc.birthdate, 11);
 					WFIFOL(fd,167) = map_fd;
 					WFIFOL(fd,171) = u_fd;
@@ -912,7 +914,7 @@ int mmo_auth_new(const char* userid, const char* pass, const char sex, const cha
 
 	// check if the account doesn't exist already
 	if( accounts->load_str(accounts, &acc, userid) ) {
-		ShowNotice("Attempt of creation of an already existant account (account: %s_%c, pass: %s, received pass: %s)\n", userid, sex, acc.pass, pass);
+		ShowNotice("Attempt of creation of an already existing account (account: %s_%c, pass: %s, received pass: %s)\n", userid, sex, acc.pass, pass);
 		return 1; // 1 = Incorrect Password
 	}
 
@@ -1104,7 +1106,7 @@ void login_auth_ok(struct login_session_data* sd)
 		WFIFOSET(fd,3);
 		return;
 	} else if( login_config.min_group_id_to_connect >= 0 && login_config.group_id_to_connect == -1 && sd->group_id < login_config.min_group_id_to_connect ) {
-		ShowStatus("Connection refused: the minium group id required for connection is %d (account: %s, group: %d).\n", login_config.min_group_id_to_connect, sd->userid, sd->group_id);
+		ShowStatus("Connection refused: the minimum group id required for connection is %d (account: %s, group: %d).\n", login_config.min_group_id_to_connect, sd->userid, sd->group_id);
 		WFIFOHEAD(fd,3);
 		WFIFOW(fd,0) = 0x81;
 		WFIFOB(fd,2) = 1; // 01 = Server closed
@@ -1309,7 +1311,7 @@ int parse_login(int fd)
 		// Perform ip-ban check
 		if( login_config.ipban && ipban_check(ipl) )
 		{
-			ShowStatus("Connection refused: IP isn't authorised (deny/allow, ip: %s).\n", ip);
+			ShowStatus("Connection refused: IP isn't authorized (deny/allow, ip: %s).\n", ip);
 			login_log(ipl, "unknown", -3, "ip banned");
 			WFIFOHEAD(fd,23);
 			WFIFOW(fd,0) = 0x6a;
@@ -1772,7 +1774,7 @@ int do_init(int argc, char** argv)
 {
 	int i;
 
-	// intialize engine (to accept config settings)
+	// initialize engine (to accept config settings)
 	account_engine[0].db = account_engine[0].constructor();
 
 	// read login-server configuration

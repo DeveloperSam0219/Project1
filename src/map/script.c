@@ -2765,7 +2765,7 @@ void script_array_add_member(struct script_array *sa, unsigned int idx) {
 }
 /**
  * Obtains the source of the array database for this type and scenario
- * Initializes such database when not yet initialised.
+ * Initializes such database when not yet initialized.
  **/
 struct reg_db *script_array_src(struct script_state *st, struct map_session_data *sd, const char *name, struct reg_db *ref) {
 	struct reg_db *src = NULL;
@@ -8307,7 +8307,7 @@ BUILDIN(guildskill) {
 	if( (gd->skill[id].lv + level) > max_points )
 		level = max_points - gd->skill[id].lv;
 
-	if( level == 0 )
+	if( level <= 0 )
 		return true;
 
 	memcpy(&gd_skill, &(gd->skill[id]), sizeof(gd->skill[id]));

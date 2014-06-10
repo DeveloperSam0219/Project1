@@ -1,0 +1,31 @@
+prontera,146,95,4	script	Point Exchanger	55,{
+	mes "Hello! What can I do for you?";
+	switch(select("Exchange Tickets:Cancel")) {
+		case 1:
+			next;
+			mes "I can exchange your 10 event tickets into 1 cashpoint";
+			mes "Do you want to proceed?";
+			switch(select("Yes:No")) {
+				case 1:
+					if (countitem(7711) >= 10) {
+						delitem 7711,10;
+						set #CASHPOINTS, #CASHPOINTS + 1;
+						dispbottom "You have gained 1 Cashpoint";
+						dispbottom "Total Cashpoints:"+ #CASHPOINTS +"";
+						next;
+						mes "Done!;
+						close;
+					}
+					else {
+						next;
+						mes "Sorry, but you don't have enough event tickets...";
+						close;
+					}
+					end;
+				case 2:
+					close;
+				}
+		default:
+			close;
+	}
+}

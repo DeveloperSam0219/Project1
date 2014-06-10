@@ -21,7 +21,7 @@ struct pet_data;
 //Change the equation when the values are high enough to discard the
 //imprecision in exchange of overflow protection [Skotlex]
 //Also add 100% checks since those are the most used cases where we don't
-//want aproximation errors.
+//want approximation errors.
 #define APPLY_RATE(value, rate) ( \
 	(rate) == 100 ? \
 		(value) \
@@ -1525,6 +1525,7 @@ enum e_mode
 	MD_CHANGETARGET_MELEE = 0x1000,
 	MD_CHANGETARGET_CHASE = 0x2000,
 	MD_TARGETWEAK         = 0x4000,
+	MD_RANDOMTARGET       = 0x8000,
 	MD_MASK               = 0xFFFF,
 };
 
