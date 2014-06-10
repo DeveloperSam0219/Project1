@@ -13,7 +13,7 @@ prontera,146,95,4	script	Point Exchanger	55,{
 						dispbottom "You have gained 1 Cashpoint";
 						dispbottom "Total Cashpoints:"+ #CASHPOINTS +"";
 						next;
-						mes "Done!;
+						mes "Done!";
 						close;
 					}
 					else {
