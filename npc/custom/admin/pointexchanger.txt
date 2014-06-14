@@ -4,13 +4,18 @@ prontera,146,95,4	script	Point Exchanger	55,{
 		case 1:
 			next;
 			mes "I can exchange your 10 event tickets into 1 cashpoint";
+			mes "So how many cashpoints do you want?";
+			input @cashpoints;
+			next;
+			mes "So you want to exchange "+@cashpoints+" ..";
+			mes "You'll be needing "+(@cashpoints * 10)+" event tickets.";
 			mes "Do you want to proceed?";
 			switch(select("Yes:No")) {
 				case 1:
-					if (countitem(7711) >= 10) {
-						delitem 7711,10;
-						set #CASHPOINTS, #CASHPOINTS + 1;
-						dispbottom "You have gained 1 Cashpoint";
+					if (countitem(7711) >= (@cashpoints *10)) {
+						delitem 7711,(@cashpoints * 10);
+						set #CASHPOINTS, #CASHPOINTS + @cashpoints;
+						dispbottom "You have gained "+@cashpoints+" Cashpoint";
 						dispbottom "Total Cashpoints:"+ #CASHPOINTS +"";
 						next;
 						mes "Done!";

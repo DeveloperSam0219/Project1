@@ -197,49 +197,24 @@ OnStart:
 
 OnTimer1000:
 	mapannounce "bat_c02", "In 1 minute, KVM will start.",bc_map,"0x00ff00";
-	end;
-
-OnTimer3000:
+	mapannounce "bat_c02", "5 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	sleep 100;
 	mapannounce "bat_c02", "The maximum time for a KVM battle is 5 minutes.",bc_map,"0x00ff00";
-	end;
-
-OnTimer6000:
+	sleep 100;
 	mapannounce "bat_c02", "Please prepare for the KVM battle.",bc_map,"0x00ff00";
 	mapannounce "bat_c02", "You can buff your people.",bc_map,"0x00ff00";
-	donpcevent "#A_camp_start02::OnEnable";
-	donpcevent "#B_camp_start02::OnEnable";
-	end;
-
-OnTimer13000:
 	donpcevent "#A_camp_start02::OnDisable";
 	donpcevent "#B_camp_start02::OnDisable";
-	end;
-
-OnTimer30000:
-	mapannounce "bat_c02", "30 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
-	end;
-
-OnTimer45000:
-	mapannounce "bat_c02", "15 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	sleep 100;
 	donpcevent "::OnKvM01One";
 	end;
 
-OnTimer50000:
-	mapannounce "bat_c02", "10 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
-	donpcevent "::OnKvM01Two";
-	end;
-
-OnTimer55000:
-	mapannounce "bat_c02", "5 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
-	donpcevent "::OnKvM01One";
-	end;
-
-OnTimer59000:
+OnTimer5000:
 	mapannounce "bat_c02", "KVM is now commencing.",bc_map,"0x00ff00";
 	donpcevent "::OnKvM01Two";
 	end;
 
-OnTimer61000:
+OnTimer5100:
 	// Team Members
 	set .Guillaume_Count, bg_get_data($@KvM02BG_id1, 0);
 	set .Croix_Count, bg_get_data($@KvM02BG_id2, 0);
