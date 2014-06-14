@@ -194,11 +194,21 @@ tur_dun01,162,63,4	script	Kame#Turtle	59,{
 					mes "Ah, ok I think you can help me out by hunting some Assaulter.";
 					mes "How many would you like to hunt?";
 					next;
-					switch(select("50 Assaulter:Cancel")) {
+					switch(select("50 Assaulter:100 Assaulter:150 Assaulter:Cancel")) {
 					case 1:
 						mes "[Kame]";
 						mes "Come back when you've finished your task and I will give you a small reward.";
 						setquest 20000;
+						close;
+					case 2:
+						mes "[Kame]";
+						mes "Come back when you've finished your task and I will give you a small reward.";
+						setquest 20001;
+						close;
+					case 3:
+						mes "[Kame]";
+						mes "Come back when you've finished your task and I will give you a small reward.";
+						setquest 20002;
 						close;
 					default:
 						mes "[Kame]";
