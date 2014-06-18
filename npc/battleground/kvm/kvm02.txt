@@ -352,12 +352,14 @@ bat_c02,51,130,5	script	KVM Officer#KVM02A	4_M_KY_HEAD,{
 		if( $@KvM02BG_Victory == Bat_Team )
 		{ // Victory
 			set kvm_point,kvm_point + 1;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
 			mes "You aquire the winning points: 1";
 			close2;
 		} else {
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";
@@ -378,12 +380,14 @@ bat_c02,148,53,1	script	KVM Officer#KVM02B	4_M_CRU_HEAD,{
 		if( $@KvM02BG_Victory == Bat_Team )
 		{ // Victory
 			set kvm_point,kvm_point + 1;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
 			mes "You aquire the winning points: 1";
 			close2;
 		} else {
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";

@@ -350,6 +350,7 @@ bat_c01,51,130,5	script	KVM Officer#KVM01A	4_M_KY_HEAD,{
 		if( $@KvM01BG_Victory == Bat_Team )
 		{ // Victory
 			set kvm_point,kvm_point + 5;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
@@ -357,6 +358,7 @@ bat_c01,51,130,5	script	KVM Officer#KVM01A	4_M_KY_HEAD,{
 			close2;
 		} else {
 			set kvm_point,kvm_point + 1;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";
@@ -377,6 +379,7 @@ bat_c01,148,53,1	script	KVM Officer#KVM01B	4_M_CRU_HEAD,{
 		if( $@KvM01BG_Victory == Bat_Team )
 		{ // Victory
 			set kvm_point,kvm_point + 5;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
@@ -384,6 +387,7 @@ bat_c01,148,53,1	script	KVM Officer#KVM01B	4_M_CRU_HEAD,{
 			close2;
 		} else {
 			set kvm_point,kvm_point + 1;
+			getitem 26014,1; //CosmicRO Badge
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";

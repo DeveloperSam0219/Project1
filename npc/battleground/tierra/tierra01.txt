@@ -489,16 +489,16 @@ OnStop:
 	stopnpctimer;
 	end;
 
-OnTimer25000:
+OnTimer5000:
 	specialeffect EF_SANCTUARY;
 	enablenpc "bat_a01_rp1_a_warp";
 	end;
 
-OnTimer26000:
+OnTimer6000:
 	disablenpc "bat_a01_rp1_a_warp";
 	end;
 
-OnTimer26500:
+OnTimer6500:
 	donpcevent "Battle Therapist#a01_a::OnEnable";
 	end;
 }
@@ -539,16 +539,16 @@ OnStop:
 	stopnpctimer;
 	end;
 
-OnTimer25000:
+OnTimer5000:
 	specialeffect EF_SANCTUARY;
 	enablenpc "bat_a01_rp1_b_warp";
 	end;
 
-OnTimer26000:
+OnTimer6000:
 	disablenpc "bat_a01_rp1_b_warp";
 	end;
 
-OnTimer26500:
+OnTimer6500:
 	donpcevent "Battle Therapist#a01_b::OnEnable";
 	end;
 }
@@ -579,16 +579,16 @@ OnEnable:
 	initnpctimer;
 	end;
 
-OnTimer25000:
+OnTimer5000:
 	specialeffect EF_SANCTUARY;
 	enablenpc "bat_a01_rp1_n_warp";
 	end;
 
-OnTimer26000:
+OnTimer6000:
 	disablenpc "bat_a01_rp1_n_warp";
 	end;
 
-OnTimer26500:
+OnTimer6500:
 	donpcevent "Valley Ghost#bat_a01_n::OnEnable";
 	end;
 }
@@ -692,6 +692,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,3; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Axl Rose]";
@@ -700,6 +701,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 		else {
@@ -712,6 +714,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes "Just take this defeat as a lesson, and next time you will definitely win.";
 				close2;
 				getitem 7828,1; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Axl Rose]";
@@ -720,6 +723,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes "Just take this defeat as a lesson, and next time you will definitely win.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 	}
@@ -734,6 +738,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes "Just take this defeat as a lesson, and next time you will definitely win.";
 				close2;
 				getitem 7828,1; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Axl Rose]";
@@ -742,6 +747,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes "Just take this defeat as a lesson, and next time you will definitely win.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 		else {
@@ -754,6 +760,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,3; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Axl Rose]";
@@ -762,6 +769,7 @@ bat_a01,53,377,3	script	Guillaume Vintenar#a01_a	4_M_KY_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign of victory.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 	}
@@ -786,6 +794,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,3; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Swandery]";
@@ -794,6 +803,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 		else {
@@ -806,6 +816,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
 				getitem 7828,1; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Swandery]";
@@ -814,6 +825,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 	}
@@ -828,6 +840,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
 				getitem 7828,1; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Swandery]";
@@ -836,6 +849,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 		else {
@@ -848,6 +862,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,3; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 			else {
 				mes "[Swandery]";
@@ -856,6 +871,7 @@ bat_a01,45,19,3	script	Croix Vintenar#a01_b	4_M_CRU_HEAD,{
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
 				getitem 7828,.@medal_gap; //BF_Badge1
+				getitem 26014,1; //CosmicRO Badge
 			}
 		}
 	}
