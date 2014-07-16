@@ -2,8 +2,8 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#ifndef _COMMON_MMO_H_
-#define _COMMON_MMO_H_
+#ifndef COMMON_MMO_H
+#define COMMON_MMO_H
 
 #include <time.h>
 
@@ -111,9 +111,8 @@
 #define MAX_CART 100
 #define MAX_SKILL 1478
 #define MAX_SKILL_ID 10015   // [Ind/Hercules] max used skill ID
-//Update this max as necessary. 55 is the value needed for Super Baby currently
-//Raised to 84 since Expanded Super Novice needs it.
-#define MAX_SKILL_TREE 84
+// Update this max as necessary. 86 is the value needed for Expanded Super Novice.
+#define MAX_SKILL_TREE 86
 #define DEFAULT_WALK_SPEED 150
 #define MIN_WALK_SPEED 20 /* below 20 clips animation */
 #define MAX_WALK_SPEED 1000
@@ -934,4 +933,4 @@ enum e_pc_reg_loading {
 #error MAX_ZENY is too big
 #endif
 
-#endif /* _COMMON_MMO_H_ */
+#endif /* COMMON_MMO_H */
