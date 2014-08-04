@@ -1,5 +1,5 @@
 novice,51,49,4	script	CosmicRO Welcomer	75,{
-	mes "[ExhilarateRO Welcomer]";
+	mes "[CosmicRO Welcomer]";
 	mes "Hi! Welcome to Cosmic Ragnarok Online! Hope you enjoy your stay! In case you find some bugs or errors pleasereport them to the Game Master and be Rewarded!";
 	if (!#Toast) { 
 		getitembound 26012,1,1;
